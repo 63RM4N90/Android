@@ -26,15 +26,15 @@
         android:textColor="#DDDDDD" />
 
     <Button
-        android:id="@+id/configuration"
+        android:id="@+id/mydeals"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/myflights"
         android:background="#0C81C7"
         android:layout_marginTop="20dp"
-        android:onClick="onClickConfiguration"
-        android:text="@string/main_button_configuration"
+        android:onClick="onClickMyDeals"
+        android:text="@string/main_button_mydeals"
         android:textColor="#DDDDDD" />
 
     <Button
@@ -43,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
         android:background="#0C81C7"
-        android:layout_below="@+id/configuration"
+        android:layout_below="@+id/mydeals"
         android:layout_marginTop="20dp"
         android:onClick="onClickAboutUs"
         android:text="@string/main_button_aboutus"

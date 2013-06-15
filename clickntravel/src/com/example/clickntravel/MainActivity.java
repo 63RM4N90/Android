@@ -54,13 +54,6 @@ public class MainActivity extends FragmentActivity {
 				startActivity(intent);
 				return true;
 			case CONFIG_ID:
-//				intent = new Intent(this,  ConfigurationFragment.class);
-//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//				FragmentManager fragmentManager;
-//				FragmentTransaction transaction = fragmentManager.beginTransaction();
-//				
-//				transaction.replace(R.id.container, intent.).addToBackStack(null).commit();
-//				this.fragmentHandler.setFragment(FragmentKey.CONFIGURATION);
 				FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 				transaction.replace(R.id.container, new ConfigurationFragment()).commit();
 			
@@ -79,8 +72,8 @@ public class MainActivity extends FragmentActivity {
 		this.fragmentHandler.setFragment(FragmentKey.ABOUT_US);
 	}
 	
-	public void onClickConfiguration(View view) {
-		this.fragmentHandler.setFragment(FragmentKey.CONFIGURATION);
+	public void onClickMyDeals(View view) {
+		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
 
 }

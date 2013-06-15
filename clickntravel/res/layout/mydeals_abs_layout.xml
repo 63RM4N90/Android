@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginRight="10dp"
-        android:text="@string/main_button_aboutus"
+        android:text="@string/main_button_mydeals"
         android:textColor="#ffffff"
         android:id="@+id/mytext"
         android:textSize="20sp" />

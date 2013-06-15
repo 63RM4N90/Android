@@ -21,5 +21,4 @@ public class AboutUsFragment extends Fragment {
         actionBar.setHomeButtonEnabled(true);
 		return inflater.inflate(R.layout.about_us_fragment, container, false);
     }
-
 }
