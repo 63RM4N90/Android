@@ -5,10 +5,20 @@
     <string name="action_settings">Settings</string>
     <string name="main_button_configuration">Configuración</string>
     <string name="main_button_myflights">Mis Vuelos</string>
+    <string name="main_button_aboutus">Nosotros</string>
     <string name="title_activity_my_flights">Mis Vuelos</string>
     <string name="title_activity_configuration">Configuración</string>
     <string name="search_hint">Buscar vuelos</string>
     <string name="title_activity_searchable">SearchableActivity</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="string_careta">Gabo puto</string>
+    <string name="aboutus_text">Trabajo práctico especial realizado para la materia “Human Computer Interaction”.El diseño y la programación del sitio fueron realizados por los alumnos:</string>
+	<string name="names">Lori, Tomás (52558)
+Romarion, Germán Rodrigo (51296)
+Zanzotti, Gabriel Andrés (52067)
+Betina, Cynthia Mamani (52310)</string>
+	<string name="notifications">Elegir notificaciones</string>
+	<string name="frequency">Frecuencia de notificaciones</string>
+	<string name="save_config">Guardar cambios</string>
+	<string name="menu_settings">Configuracion</string>
 </resources>
