@@ -1,12 +1,15 @@
 package com.example.clickntravel;
 
 
+
 import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,7 +19,10 @@ import com.example.utils.FragmentKey;
 
 public class MainActivity extends FragmentActivity {
 
-	FragmentHandler fragmentHandler;
+	private static final int GROUP_ID = 1;
+	private static final int CONFIG_ID = 1;
+	
+	private FragmentHandler fragmentHandler;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -33,23 +39,36 @@ public class MainActivity extends FragmentActivity {
 	}
 	
 	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-	    switch (item.getItemId()) {
-	        case android.R.id.home:
-	            Intent intent = new Intent(this, MainActivity.class);
-	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	            startActivity(intent);
-	            return true;
-			case R.id.menu_settings:
-				getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, new ConfigurationFragment())
-				.addToBackStack(null)
-				.commit();
-			break;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
-	    return true;
+    public boolean onCreateOptionsMenu(Menu menu) { 
+		menu.add(GROUP_ID, CONFIG_ID, CONFIG_ID, R.string.main_button_configuration);
+		return super.onCreateOptionsMenu(menu); 
+    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+		Intent intent = new Intent(this, MainActivity.class);
+		
+		switch (item.getItemId()) {
+			case android.R.id.home:
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				return true;
+			case CONFIG_ID:
+//				intent = new Intent(this,  ConfigurationFragment.class);
+//				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				FragmentManager fragmentManager;
+//				FragmentTransaction transaction = fragmentManager.beginTransaction();
+//				
+//				transaction.replace(R.id.container, intent.).addToBackStack(null).commit();
+//				this.fragmentHandler.setFragment(FragmentKey.CONFIGURATION);
+				FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+				transaction.replace(R.id.container, new ConfigurationFragment()).commit();
+			
+				return true;
+			default:
+				break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 	
 	public void onClickMyFlights(View view) {
@@ -63,4 +82,5 @@ public class MainActivity extends FragmentActivity {
 	public void onClickConfiguration(View view) {
 		this.fragmentHandler.setFragment(FragmentKey.CONFIGURATION);
 	}
+
 }

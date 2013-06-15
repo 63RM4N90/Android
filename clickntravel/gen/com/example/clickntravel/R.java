@@ -27,19 +27,21 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int aboutus=0x7f090008;
-        public static final int action_settings=0x7f09000c;
-        public static final int checkBox=0x7f090009;
-        public static final int configuration=0x7f090007;
+        public static final int aboutus=0x7f09000a;
+        public static final int action_settings=0x7f09000e;
+        public static final int checkBox=0x7f09000b;
+        public static final int checkBox1=0x7f090003;
+        public static final int checkBox2=0x7f090004;
+        public static final int checkBox3=0x7f090005;
+        public static final int checkBox4=0x7f090006;
+        public static final int checkBox5=0x7f090007;
+        public static final int configuration=0x7f090009;
         public static final int container=0x7f090002;
-        public static final int freq_radiobutton=0x7f090004;
         public static final int imageView1=0x7f090000;
-        public static final int menu_settings=0x7f09000b;
-        public static final int myflights=0x7f090006;
+        public static final int menu_settings=0x7f09000d;
+        public static final int myflights=0x7f090008;
         public static final int mytext=0x7f090001;
-        public static final int notif=0x7f09000a;
-        public static final int notif_checkbox=0x7f090003;
-        public static final int save_changes=0x7f090005;
+        public static final int notif=0x7f09000c;
     }
     public static final class layout {
         public static final int about_us_fragment=0x7f030000;
