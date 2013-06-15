@@ -1,42 +1,66 @@
 package com.example.clickntravel;
 
-import android.app.Activity;
+
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.view.Menu;
+import android.support.v4.app.FragmentActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
-public class MainActivity extends Activity {
+import com.example.fragments.ConfigurationFragment;
+import com.example.handlers.FragmentHandler;
+import com.example.utils.FragmentKey;
 
+public class MainActivity extends FragmentActivity {
+
+	FragmentHandler fragmentHandler;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		
+		ColorDrawable actionBarBackground = new ColorDrawable(Color.rgb(12, 129, 199));		
+		ActionBar actionBar = getActionBar();
+		
+        setContentView(R.layout.activity_main);
+        this.fragmentHandler = new FragmentHandler(getSupportFragmentManager());
+        this.fragmentHandler.setFragment(FragmentKey.MAIN);  
+        actionBar.setBackgroundDrawable(actionBarBackground);
+        actionBar.setIcon(R.drawable.back);
 	}
-
+	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            Intent intent = new Intent(this, MainActivity.class);
+	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+	            startActivity(intent);
+	            return true;
+			case R.id.menu_settings:
+				getSupportFragmentManager().beginTransaction()
+				.replace(R.id.container, new ConfigurationFragment())
+				.addToBackStack(null)
+				.commit();
+			break;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	    return true;
 	}
-
-	public void swapToMyFlights(View cur_view) {
-		Intent intent = new Intent(this, MyFlightsActivity.class);
-		startActivity(intent);
+	
+	public void onClickMyFlights(View view) {
+		this.fragmentHandler.setFragment(FragmentKey.MY_FLIGHTS);
 	}
-
-	public void swapToConfiguration(View cur_view) {
-		Intent intent = new Intent(this, ConfigurationActivity.class);
-		startActivity(intent);
+	
+	public void onClickAboutUs(View view) {
+		this.fragmentHandler.setFragment(FragmentKey.ABOUT_US);
 	}
-
-	public void swapToFlights(View cur_view) {
-		Intent intent = new Intent(this, SearchableActivity.class);
-		EditText editText = (EditText) findViewById(R.id.searchtmp);
-		String message = editText.getText().toString();
-		intent.putExtra("query", message);
-		startActivity(intent);
+	
+	public void onClickConfiguration(View view) {
+		this.fragmentHandler.setFragment(FragmentKey.CONFIGURATION);
 	}
 }
