@@ -10,7 +10,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.fragments.ConfigurationFragment;
+import com.example.fragments.MyDealsFragment;
 import com.example.handlers.FragmentHandler;
 import com.example.utils.FragmentKey;
 
@@ -39,13 +39,15 @@ public class MainActivity extends FragmentActivity {
 	            Intent intent = new Intent(this, MainActivity.class);
 	            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 	            startActivity(intent);
+	            
 	            return true;
-			case R.id.menu_settings:
+			case R.id.mydeals:
 				getSupportFragmentManager().beginTransaction()
-				.replace(R.id.container, new ConfigurationFragment())
+				.replace(R.id.container, new MyDealsFragment())
 				.addToBackStack(null)
 				.commit();
-			break;
+				
+				break;
 	        default:
 	            return super.onOptionsItemSelected(item);
 	    }
@@ -60,7 +62,7 @@ public class MainActivity extends FragmentActivity {
 		this.fragmentHandler.setFragment(FragmentKey.ABOUT_US);
 	}
 	
-	public void onClickConfiguration(View view) {
-		this.fragmentHandler.setFragment(FragmentKey.CONFIGURATION);
+	public void onClickMyDeals(View view) {
+		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
 }
