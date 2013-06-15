@@ -14,8 +14,9 @@ public class ApiResultReceiver extends ResultReceiver {
 
 	public CallBack callback;
 
-	public ApiResultReceiver(Handler handler) {
+	public ApiResultReceiver(Handler handler, CallBack callback) {
 		super(handler);
+		this.callback = callback;
 	}
 
 	@Override
@@ -39,9 +40,5 @@ public class ApiResultReceiver extends ResultReceiver {
 			Log.d("Api Service", "Unknown error.");
 		}
 	}
-
-	public void setCallBack (CallBack callback) {
-		this.callback = callback;
-	};
 
 }
