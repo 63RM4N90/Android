@@ -3,12 +3,15 @@ package com.example.clickntravel;
 
 
 import android.app.ActionBar;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +24,7 @@ public class MainActivity extends FragmentActivity {
 
 	private static final int GROUP_ID = 1;
 	private static final int CONFIG_ID = 1;
-	
+    private ConfigurationFragment mPrefsFragment = null;
 	private FragmentHandler fragmentHandler;
 	
 	@Override
@@ -46,17 +49,20 @@ public class MainActivity extends FragmentActivity {
 	
 	@Override
     public boolean onOptionsItemSelected(MenuItem item) {
-		Intent intent = new Intent(this, MainActivity.class);
-		
 		switch (item.getItemId()) {
 			case android.R.id.home:
+				Intent intent = new Intent(this, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				return true;
 			case CONFIG_ID:
-				FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-				transaction.replace(R.id.container, new ConfigurationFragment()).commit();
-			
+				mPrefsFragment  = new ConfigurationFragment();
+                FragmentManager mFragmentManager = getFragmentManager();
+                FragmentTransaction mFragmentTransaction = mFragmentManager
+                                        .beginTransaction();
+                mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
+                mFragmentTransaction.commit();
+				this.fragmentHandler.setFragment(FragmentKey.BASE);
 				return true;
 			default:
 				break;
@@ -74,6 +80,16 @@ public class MainActivity extends FragmentActivity {
 	
 	public void onClickMyDeals(View view) {
 		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
+	}
+	
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK && mPrefsFragment != null) {
+	    	mPrefsFragment.getPreferenceScreen().removeAll();
+	    	mPrefsFragment = null;
+	    	Log.d("debug", "lalalalalalalala");
+	    }
+	    return super.onKeyDown(keyCode, event);
 	}
 
 }

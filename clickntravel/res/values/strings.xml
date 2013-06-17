@@ -17,8 +17,30 @@
     <string name="string_careta">Gabo puto</string>
     <string name="aboutus_text">Trabajo práctico especial realizado para la materia “Human Computer Interaction”.El diseño y la programación del sitio fueron realizados por los alumnos:</string>
 	<string name="names"> Lori, Tomás (52558)\nRomarion, Germán Rodrigo (51296)\nZanzotti, Gabriel Andrés (52067)\nMamani, Betina Cynthia (52310)</string>
-	<string name="notifications">Elegir notificaciones</string>
+	<string name="notifications">Notificar cambios de...</string>
 	<string name="frequency">Frecuencia de notificaciones</string>
 	<string name="save_config">Guardar cambios</string>
 	<string name="menu_settings">Configuracion</string>
+	<string name="config_freq_summary">Elegir frecuencia de notificaciones</string>	
+ 	<string name="config_freq">Frecuencia de notificaciones</string>
+ 	<string name="status_change_summary">(activo, cancelado, aterrizado, programado, desviado)</string>
+ 	<string name="status_change">Estado</string>
+ 	<string name="terminal_change">Terminal de partida/arribo</string>
+ 	<string name="door_change">Puerta de partida/arribo</string>
+ 	<string name="luggage_door_change">Puerta de equipaje</string>
+ 	<string name="hour_change">Horario de partida/arribo</string>
+ 	
+ 	
+     
+    <string name="pref_send_report">Send crash reports</string>
+    <string name="pref_send_report_summary">Helps to fix bugs</string>
+    <string name="pref_sync_frequency">Sync frequency</string>
+    <string name="pref_sync_frequency_summary">Set the sync frequency</string>
+    <string name="pref_user_name">Set username</string>
+    <string name="pref_user_name_summary">Set your username</string>
+     
+    <string name="pref_user_profile">User Profile</string>
+    <string name="pref_update_setting">Update Settings</string>
+     
+     
 </resources>

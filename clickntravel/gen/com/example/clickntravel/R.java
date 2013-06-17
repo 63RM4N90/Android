@@ -8,6 +8,10 @@
 package com.example.clickntravel;
 
 public final class R {
+    public static final class array {
+        public static final int frequency=0x7f050000;
+        public static final int frequencyValues=0x7f050001;
+    }
     public static final class attr {
     }
     public static final class dimen {
@@ -17,8 +21,8 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f050000;
-        public static final int activity_vertical_margin=0x7f050001;
+        public static final int activity_horizontal_margin=0x7f060000;
+        public static final int activity_vertical_margin=0x7f060001;
     }
     public static final class drawable {
         public static final int back=0x7f020000;
@@ -27,21 +31,16 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int aboutus=0x7f09000a;
-        public static final int action_settings=0x7f09000e;
-        public static final int checkBox=0x7f09000b;
-        public static final int checkBox1=0x7f090003;
-        public static final int checkBox2=0x7f090004;
-        public static final int checkBox3=0x7f090005;
-        public static final int checkBox4=0x7f090006;
-        public static final int checkBox5=0x7f090007;
-        public static final int configuration=0x7f090009;
-        public static final int container=0x7f090002;
-        public static final int imageView1=0x7f090000;
-        public static final int menu_settings=0x7f09000d;
-        public static final int myflights=0x7f090008;
-        public static final int mytext=0x7f090001;
-        public static final int notif=0x7f09000c;
+        public static final int aboutus=0x7f0a0005;
+        public static final int action_settings=0x7f0a0009;
+        public static final int checkBox=0x7f0a0006;
+        public static final int container=0x7f0a0002;
+        public static final int imageView1=0x7f0a0000;
+        public static final int menu_settings=0x7f0a0008;
+        public static final int mydeals=0x7f0a0004;
+        public static final int myflights=0x7f0a0003;
+        public static final int mytext=0x7f0a0001;
+        public static final int notif=0x7f0a0007;
     }
     public static final class layout {
         public static final int about_us_fragment=0x7f030000;
@@ -57,32 +56,48 @@ public final class R {
         public static final int notification_info=0x7f03000a;
     }
     public static final class menu {
-        public static final int activity_main=0x7f080000;
-        public static final int configuration=0x7f080001;
-        public static final int main=0x7f080002;
-        public static final int my_flights=0x7f080003;
+        public static final int activity_main=0x7f090000;
+        public static final int configuration=0x7f090001;
+        public static final int main=0x7f090002;
+        public static final int my_flights=0x7f090003;
     }
     public static final class string {
-        public static final int aboutus_text=0x7f06000e;
-        public static final int action_settings=0x7f060001;
-        public static final int app_name=0x7f060000;
-        public static final int frequency=0x7f060011;
-        public static final int hello_world=0x7f06000b;
-        public static final int main_button_aboutus=0x7f060005;
-        public static final int main_button_configuration=0x7f060002;
-        public static final int main_button_mydeals=0x7f060004;
-        public static final int main_button_myflights=0x7f060003;
-        public static final int menu_settings=0x7f060013;
-        public static final int my_deals=0x7f06000c;
-        public static final int names=0x7f06000f;
-        public static final int notifications=0x7f060010;
-        public static final int save_config=0x7f060012;
-        public static final int search_hint=0x7f060009;
-        public static final int string_careta=0x7f06000d;
-        public static final int title_activity_configuration=0x7f060007;
-        public static final int title_activity_my_deals=0x7f060008;
-        public static final int title_activity_my_flights=0x7f060006;
-        public static final int title_activity_searchable=0x7f06000a;
+        public static final int aboutus_text=0x7f07000e;
+        public static final int action_settings=0x7f070001;
+        public static final int app_name=0x7f070000;
+        public static final int config_freq=0x7f070015;
+        public static final int config_freq_summary=0x7f070014;
+        public static final int door_change=0x7f070019;
+        public static final int frequency=0x7f070011;
+        public static final int hello_world=0x7f07000b;
+        public static final int hour_change=0x7f07001b;
+        public static final int luggage_door_change=0x7f07001a;
+        public static final int main_button_aboutus=0x7f070005;
+        public static final int main_button_configuration=0x7f070002;
+        public static final int main_button_mydeals=0x7f070004;
+        public static final int main_button_myflights=0x7f070003;
+        public static final int menu_settings=0x7f070013;
+        public static final int my_deals=0x7f07000c;
+        public static final int names=0x7f07000f;
+        public static final int notifications=0x7f070010;
+        public static final int pref_send_report=0x7f07001c;
+        public static final int pref_send_report_summary=0x7f07001d;
+        public static final int pref_sync_frequency=0x7f07001e;
+        public static final int pref_sync_frequency_summary=0x7f07001f;
+        public static final int pref_update_setting=0x7f070023;
+        public static final int pref_user_name=0x7f070020;
+        public static final int pref_user_name_summary=0x7f070021;
+        public static final int pref_user_profile=0x7f070022;
+        public static final int save_config=0x7f070012;
+        public static final int search_hint=0x7f070009;
+        public static final int status_change=0x7f070017;
+        public static final int status_change_summary=0x7f070016;
+        public static final int string_careta=0x7f07000d;
+        public static final int terminal_change=0x7f070018;
+        public static final int title_activity_configuration=0x7f070007;
+        public static final int title_activity_my_deals=0x7f070008;
+        public static final int title_activity_my_flights=0x7f070006;
+        public static final int title_activity_searchable=0x7f07000a;
     }
     public static final class style {
         /** 
@@ -106,13 +121,14 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f070000;
+        public static final int AppBaseTheme=0x7f080000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f070001;
+        public static final int AppTheme=0x7f080001;
     }
     public static final class xml {
         public static final int searchable=0x7f040000;
+        public static final int settings=0x7f040001;
     }
 }
