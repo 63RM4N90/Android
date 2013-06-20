@@ -1,7 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/status_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal" />
 
     <ImageView
         android:id="@+id/imageView1"
@@ -19,8 +26,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/imageView1"
-        android:background="#0C81C7"
         android:layout_marginTop="50dp"
+        android:background="#0C81C7"
         android:onClick="onClickMyFlights"
         android:text="@string/main_button_myflights"
         android:textColor="#DDDDDD" />
@@ -31,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
         android:layout_below="@+id/myflights"
-        android:background="#0C81C7"
         android:layout_marginTop="20dp"
+        android:background="#0C81C7"
         android:onClick="onClickMyDeals"
         android:text="@string/main_button_mydeals"
         android:textColor="#DDDDDD" />
@@ -42,9 +49,9 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/imageView1"
-        android:background="#0C81C7"
         android:layout_below="@+id/mydeals"
         android:layout_marginTop="20dp"
+        android:background="#0C81C7"
         android:onClick="onClickAboutUs"
         android:text="@string/main_button_aboutus"
         android:textColor="#DDDDDD" />
