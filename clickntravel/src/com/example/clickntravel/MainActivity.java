@@ -61,7 +61,7 @@ public class MainActivity extends FragmentActivity {
                 FragmentTransaction mFragmentTransaction = mFragmentManager
                                         .beginTransaction();
                 mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
-                mFragmentTransaction.commit();
+                mFragmentTransaction.addToBackStack(null).commit();
 				this.fragmentHandler.setFragment(FragmentKey.BASE);
 				return true;
 			default:
@@ -85,8 +85,11 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 	    if (keyCode == KeyEvent.KEYCODE_BACK && mPrefsFragment != null) {
-	    	mPrefsFragment.getPreferenceScreen().removeAll();
-	    	mPrefsFragment = null;
+//	    	mPrefsFragment.getPreferenceScreen().removeAll();
+//	    	mPrefsFragment = null;
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
 	    }
 	    return super.onKeyDown(keyCode, event);
 	}
