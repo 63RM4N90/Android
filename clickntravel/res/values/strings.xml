@@ -29,18 +29,25 @@
  	<string name="door_change">Puerta de partida/arribo</string>
  	<string name="luggage_door_change">Puerta de equipaje</string>
  	<string name="hour_change">Horario de partida/arribo</string>
- 	
- 	
-     
-    <string name="pref_send_report">Send crash reports</string>
-    <string name="pref_send_report_summary">Helps to fix bugs</string>
-    <string name="pref_sync_frequency">Sync frequency</string>
-    <string name="pref_sync_frequency_summary">Set the sync frequency</string>
-    <string name="pref_user_name">Set username</string>
-    <string name="pref_user_name_summary">Set your username</string>
-     
-    <string name="pref_user_profile">User Profile</string>
-    <string name="pref_update_setting">Update Settings</string>
-     
-     
+ 	<string name="flight_number_input">Nro de vueloo</string>
+ 	<string name="airline_input">Aerolinea</string>
+ 	<string name="add_to_my_flights">Añadir</string>
+ 	<string name="flight_number">Nro de vuelo: </string>
+ 	<string name="departure_city">Partida: </string>
+ 	<string name="arrival_city">Arribo: </string>
+ 	<string name="flight_status">Estado: </string>
+ 	<string name="airport_terminal">Terminal: </string>
+ 	<string name="airport_gate">Puerta de embarque: </string>
+ 	<string name="scheduled_time">Horario de partida: </string>
+ 	<string name="scheduled">Programado</string>
+	<string name="active">Activo</string>
+	<string name="deviated">Desviado</string>
+	<string name="landed">Aterrizado</string>
+	<string name="cancelled">Cancelado</string>
+	<string name="unknown">Desconocido</string>
+	<string name="no_internet_connection">fallo la coneccion a internet</string>
+	<string name="invalid_airline">Aerolinea invalida</string>
+	<string name="flight">Vuelo</string>
+	
+	
 </resources>

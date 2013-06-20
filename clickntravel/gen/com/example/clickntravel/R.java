@@ -31,29 +31,54 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int aboutus=0x7f0a0005;
-        public static final int action_settings=0x7f0a0009;
-        public static final int checkBox=0x7f0a0006;
+        public static final int aboutus=0x7f0a0018;
+        public static final int action_settings=0x7f0a001f;
+        public static final int add_flight_button=0x7f0a0005;
+        public static final int airline_input=0x7f0a0004;
+        public static final int airline_name_value=0x7f0a0006;
+        public static final int airport_gate=0x7f0a0011;
+        public static final int airport_gate_value=0x7f0a0012;
+        public static final int airport_terminal=0x7f0a000f;
+        public static final int airport_terminal_value=0x7f0a0010;
+        public static final int arrival_city=0x7f0a000b;
+        public static final int arrival_city_value=0x7f0a000c;
+        public static final int checkBox=0x7f0a001c;
         public static final int container=0x7f0a0002;
+        public static final int departure_city=0x7f0a0009;
+        public static final int departure_city_value=0x7f0a000a;
+        public static final int favorites_add_fragment_container=0x7f0a001a;
+        public static final int favorites_fragment_container=0x7f0a0019;
+        public static final int favorites_list_fragment_container=0x7f0a001b;
+        public static final int fight_number_value=0x7f0a0008;
+        public static final int flight_number=0x7f0a0007;
+        public static final int flight_number_input=0x7f0a0003;
+        public static final int flight_status=0x7f0a000d;
+        public static final int flight_status_value=0x7f0a000e;
+        public static final int flights_list_view=0x7f0a0015;
         public static final int imageView1=0x7f0a0000;
-        public static final int menu_settings=0x7f0a0008;
-        public static final int mydeals=0x7f0a0004;
-        public static final int myflights=0x7f0a0003;
+        public static final int menu_settings=0x7f0a001e;
+        public static final int mydeals=0x7f0a0017;
+        public static final int myflights=0x7f0a0016;
         public static final int mytext=0x7f0a0001;
-        public static final int notif=0x7f0a0007;
+        public static final int notif=0x7f0a001d;
+        public static final int scheduled_time=0x7f0a0013;
+        public static final int scheduled_time_value=0x7f0a0014;
     }
     public static final class layout {
         public static final int about_us_fragment=0x7f030000;
         public static final int aboutus_abs_layout=0x7f030001;
         public static final int activity_main=0x7f030002;
-        public static final int configuration_abs_layout=0x7f030003;
-        public static final int configuration_fragment=0x7f030004;
-        public static final int main_fragment=0x7f030005;
-        public static final int my_deals_fragment=0x7f030006;
-        public static final int my_flights_fragment=0x7f030007;
-        public static final int mydeals_abs_layout=0x7f030008;
-        public static final int myflights_abs_layout=0x7f030009;
-        public static final int notification_info=0x7f03000a;
+        public static final int add_flight_fragment=0x7f030003;
+        public static final int configuration_abs_layout=0x7f030004;
+        public static final int configuration_fragment=0x7f030005;
+        public static final int flight_details_fragment=0x7f030006;
+        public static final int flight_list_fragment=0x7f030007;
+        public static final int main_fragment=0x7f030008;
+        public static final int my_deals_fragment=0x7f030009;
+        public static final int my_flights_fragment=0x7f03000a;
+        public static final int mydeals_abs_layout=0x7f03000b;
+        public static final int myflights_abs_layout=0x7f03000c;
+        public static final int notification_info=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
@@ -64,13 +89,28 @@ public final class R {
     public static final class string {
         public static final int aboutus_text=0x7f07000e;
         public static final int action_settings=0x7f070001;
+        public static final int active=0x7f070027;
+        public static final int add_to_my_flights=0x7f07001e;
+        public static final int airline_input=0x7f07001d;
+        public static final int airport_gate=0x7f070024;
+        public static final int airport_terminal=0x7f070023;
         public static final int app_name=0x7f070000;
+        public static final int arrival_city=0x7f070021;
+        public static final int cancelled=0x7f07002a;
         public static final int config_freq=0x7f070015;
         public static final int config_freq_summary=0x7f070014;
+        public static final int departure_city=0x7f070020;
+        public static final int deviated=0x7f070028;
         public static final int door_change=0x7f070019;
+        public static final int flight=0x7f07002e;
+        public static final int flight_number=0x7f07001f;
+        public static final int flight_number_input=0x7f07001c;
+        public static final int flight_status=0x7f070022;
         public static final int frequency=0x7f070011;
         public static final int hello_world=0x7f07000b;
         public static final int hour_change=0x7f07001b;
+        public static final int invalid_airline=0x7f07002d;
+        public static final int landed=0x7f070029;
         public static final int luggage_door_change=0x7f07001a;
         public static final int main_button_aboutus=0x7f070005;
         public static final int main_button_configuration=0x7f070002;
@@ -79,16 +119,11 @@ public final class R {
         public static final int menu_settings=0x7f070013;
         public static final int my_deals=0x7f07000c;
         public static final int names=0x7f07000f;
+        public static final int no_internet_connection=0x7f07002c;
         public static final int notifications=0x7f070010;
-        public static final int pref_send_report=0x7f07001c;
-        public static final int pref_send_report_summary=0x7f07001d;
-        public static final int pref_sync_frequency=0x7f07001e;
-        public static final int pref_sync_frequency_summary=0x7f07001f;
-        public static final int pref_update_setting=0x7f070023;
-        public static final int pref_user_name=0x7f070020;
-        public static final int pref_user_name_summary=0x7f070021;
-        public static final int pref_user_profile=0x7f070022;
         public static final int save_config=0x7f070012;
+        public static final int scheduled=0x7f070026;
+        public static final int scheduled_time=0x7f070025;
         public static final int search_hint=0x7f070009;
         public static final int status_change=0x7f070017;
         public static final int status_change_summary=0x7f070016;
@@ -98,6 +133,7 @@ public final class R {
         public static final int title_activity_my_deals=0x7f070008;
         public static final int title_activity_my_flights=0x7f070006;
         public static final int title_activity_searchable=0x7f07000a;
+        public static final int unknown=0x7f07002b;
     }
     public static final class style {
         /** 

@@ -1,7 +1,5 @@
 package com.example.clickntravel;
 
-
-
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -17,7 +15,9 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.fragments.ConfigurationFragment;
+import com.example.fragments.FlightInfoFragment;
 import com.example.handlers.FragmentHandler;
+import com.example.utils.AddedFlight;
 import com.example.utils.FragmentKey;
 
 public class MainActivity extends FragmentActivity {
@@ -87,9 +87,20 @@ public class MainActivity extends FragmentActivity {
 	    if (keyCode == KeyEvent.KEYCODE_BACK && mPrefsFragment != null) {
 	    	mPrefsFragment.getPreferenceScreen().removeAll();
 	    	mPrefsFragment = null;
-	    	Log.d("debug", "lalalalalalalala");
 	    }
 	    return super.onKeyDown(keyCode, event);
+	}
+	
+	public void goToNewFavoriteInfoFragment(AddedFlight f){
+		getSupportFragmentManager().beginTransaction()
+					.replace(R.id.container, new FlightInfoFragment(f))
+					.addToBackStack(null)
+					.commit();
+	}
+	
+	public void goToNewFavoriteInfoFragmentLarge(AddedFlight f){
+		//checkear que esto este bien, el container
+		getSupportFragmentManager().beginTransaction().replace(R.id.container, new FlightInfoFragment(f)).addToBackStack(null).commit();
 	}
 
 }
