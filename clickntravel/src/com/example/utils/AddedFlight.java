@@ -31,6 +31,15 @@ public class AddedFlight{
 //		setConfig(new NotificationConfiguration());
 		
 	}
+	
+	public AddedFlight(Destination de, Destination ar, Airline ai) {
+		departure= de;
+		arrival= ar;
+		airline= ai;
+		flightId= 123;
+		flightNumber= flightId;
+		status= "puto";
+	}
 
 	private Destination getDestination(JSONObject destiny) throws JSONException {
 		

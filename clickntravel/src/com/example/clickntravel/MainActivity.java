@@ -8,7 +8,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +15,7 @@ import android.view.View;
 
 import com.example.fragments.ConfigurationFragment;
 import com.example.fragments.FlightInfoFragment;
+import com.example.fragments.MyFlightsFragment;
 import com.example.handlers.FragmentHandler;
 import com.example.utils.AddedFlight;
 import com.example.utils.FragmentKey;
@@ -101,6 +101,10 @@ public class MainActivity extends FragmentActivity {
 	public void goToNewFavoriteInfoFragmentLarge(AddedFlight f){
 		//checkear que esto este bien, el container
 		getSupportFragmentManager().beginTransaction().replace(R.id.container, new FlightInfoFragment(f)).addToBackStack(null).commit();
+	}
+	
+	public void addFlight(View view) {
+		((MyFlightsFragment) fragmentHandler.getFragment(FragmentKey.MY_FLIGHTS)).addFlight(view);
 	}
 
 }

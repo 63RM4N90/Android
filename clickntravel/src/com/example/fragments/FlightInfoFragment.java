@@ -19,9 +19,7 @@ import android.widget.TextView;
 import com.example.clickntravel.R;
 import com.example.utils.AddedFlight;
 
-
 public class FlightInfoFragment extends Fragment {
-
 
 	private AddedFlight currentFlight;
 	private View view;
@@ -30,31 +28,40 @@ public class FlightInfoFragment extends Fragment {
 	public FlightInfoFragment() {
 
 	}
-	
+
 	public FlightInfoFragment(AddedFlight f) {
-		currentFlight= f;
+		currentFlight = f;
 	}
-
-
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		view = inflater
-				.inflate(R.layout.flight_details_fragment, container, false);
+		view = inflater.inflate(R.layout.flight_details_fragment, container,
+				false);
 		setIntoTextView(R.id.flight_number,
 				getActivity().getString(R.string.flight_number) + " "
 						+ currentFlight.getFlightNumber());
-		setIntoTextView(R.id.departure_city_value, getCityFromString(currentFlight.getDeparture().getCityName()));
-		setIntoTextView(R.id.arrival_city_value, getCityFromString(currentFlight.getArrival().getCityName()));
-		setIntoTextView(R.id.airline_name_value, currentFlight.getAirline().getName());
-		setIntoTextView(R.id.flight_status,getStatus(currentFlight.getFlightStatus()));
-		setIntoTextView(R.id.airport_terminal, currentFlight.getDeparture().getAirportTerminal());
-		setIntoTextView(R.id.airport_gate, currentFlight.getDeparture().getAirportGate());
-		setIntoTextView(R.id.scheduled_time, currentFlight.getDeparture().getScheduledTime());
-//		setChecked(R.id.status_check, currentFlight.getConfig().isNotifyOnStatusChanged());
-//		setChecked(R.id.time_check, currentFlight.getConfig().isNotifyOnScheduledTimeChanged());
-//		setChecked(R.id.terminal_check, currentFlight.getConfig().isNotifyOnTerminalChanged());
-//		setChecked(R.id.gate_check, currentFlight.getConfig().isNotifyOnGateChanged());
+		setIntoTextView(R.id.departure_city_value,
+				getCityFromString(currentFlight.getDeparture().getCityName()));
+		setIntoTextView(R.id.arrival_city_value,
+				getCityFromString(currentFlight.getArrival().getCityName()));
+		setIntoTextView(R.id.airline_name_value, currentFlight.getAirline()
+				.getName());
+		setIntoTextView(R.id.flight_status,
+				getStatus(currentFlight.getFlightStatus()));
+		setIntoTextView(R.id.airport_terminal, currentFlight.getDeparture()
+				.getAirportTerminal());
+		setIntoTextView(R.id.airport_gate, currentFlight.getDeparture()
+				.getAirportGate());
+		setIntoTextView(R.id.scheduled_time, currentFlight.getDeparture()
+				.getScheduledTime());
+		// setChecked(R.id.status_check,
+		// currentFlight.getConfig().isNotifyOnStatusChanged());
+		// setChecked(R.id.time_check,
+		// currentFlight.getConfig().isNotifyOnScheduledTimeChanged());
+		// setChecked(R.id.terminal_check,
+		// currentFlight.getConfig().isNotifyOnTerminalChanged());
+		// setChecked(R.id.gate_check,
+		// currentFlight.getConfig().isNotifyOnGateChanged());
 		return view;
 	}
 
@@ -90,22 +97,22 @@ public class FlightInfoFragment extends Fragment {
 				myFlightsFileName, Context.MODE_WORLD_WRITEABLE);
 		Editor editor = prefs.edit();
 		String uniqueKey = currentFlight.getKey();
-		
-//		NotificationConfiguration conf = currentFlight.getConfig();
-//		conf.setNotifyOnStatusChanged(getChecked(R.id.status_check));
-//		conf.setNotifyOnGateChanged(getChecked(R.id.gate_check));
-//		conf.setNotifyOnTerminalChanged(getChecked(R.id.terminal_check));
-////		conf.setNotifyOnScheduledTimeChanged(getChecked(R.id.time_check));
-//	
-//		JSONObject jsonPrefs;
-//		
-//		try {
-//			jsonPrefs = currentFlight.generateJsonPreferences();
-//			editor.putString(uniqueKey, jsonPrefs.toString()).commit();
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-		
+
+		// NotificationConfiguration conf = currentFlight.getConfig();
+		// conf.setNotifyOnStatusChanged(getChecked(R.id.status_check));
+		// conf.setNotifyOnGateChanged(getChecked(R.id.gate_check));
+		// conf.setNotifyOnTerminalChanged(getChecked(R.id.terminal_check));
+		// // conf.setNotifyOnScheduledTimeChanged(getChecked(R.id.time_check));
+		//
+		// JSONObject jsonPrefs;
+		//
+		// try {
+		// jsonPrefs = currentFlight.generateJsonPreferences();
+		// editor.putString(uniqueKey, jsonPrefs.toString()).commit();
+		// } catch (JSONException e) {
+		// e.printStackTrace();
+		// }
+
 		super.onDestroyView();
 	}
 

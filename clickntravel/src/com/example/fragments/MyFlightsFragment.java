@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.clickntravel.R;
 import com.example.utils.ActionHandler;
@@ -40,11 +41,13 @@ public class MyFlightsFragment extends Fragment implements ActionHandler{
 			vg = container;
 			view = inflater.inflate(R.layout.my_flights_fragment, container, false);
 			FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+			
+			// TODO agregar estas instancias al fragment handler
 			addFragment = new AddFlightFragment();
 			listFragment = new FlightListFragment();
 			
-			ft.add(R.id.favorites_add_fragment_container, addFragment);
-			ft.add(R.id.favorites_list_fragment_container, listFragment);
+			ft.add(R.id.add_flight_container, addFragment);
+			ft.add(R.id.flight_list_container, listFragment);
 			ft.commit();
 			
 		}
@@ -73,6 +76,12 @@ public class MyFlightsFragment extends Fragment implements ActionHandler{
 		}
 		return;		
 	} 
+	
+	
+	public void addFlight(View view) {
+		// TODO
+		Toast.makeText(getActivity(), "TU VIEJA", Toast.LENGTH_SHORT).show();
+	}
 	
 	
 	

@@ -36,6 +36,10 @@ public class FragmentHandler {
 		transaction.replace(R.id.container, fragmentMap.get(fragmentKey)).addToBackStack(null).commit();	
 	}
 	
+	public Fragment getFragment(FragmentKey fragmentKey) {
+		return fragmentMap.get(fragmentKey);
+	}
+	
 	public void removePreferenceResource() {
 		fragmentMap.get(FragmentKey.BASE).onDestroy();
 	}
