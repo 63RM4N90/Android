@@ -1,14 +1,12 @@
 package com.example.fragments;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,16 +17,12 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,22 +31,18 @@ import com.example.api.ApiResultReceiver;
 import com.example.api.Callback;
 import com.example.clickntravel.MainActivity;
 import com.example.clickntravel.R;
-import com.example.handlers.ActionHandler;
 import com.example.utils.AddedFlight;
 import com.example.utils.Airline;
-import com.example.utils.MyFlightsCases;
+import com.example.utils.CustomAdapter;
 
 public class FlightListFragment extends Fragment {
 
 	public static List<AddedFlight> flightList = new ArrayList<AddedFlight>();
-	private SimpleAdapter adapter;
+	private CustomAdapter adapter;
 	private List<Map<String, String>> adapterDataSet = new ArrayList<Map<String,String>>();
 	private Map<String, Airline> airlinesMap;
 	private AddedFlight currentFlight;
 	private View view;
-	
-	private final String firstRowName = "flightInfo";
-	private final String secondRowName = "citiesInfo";
 	
 	private final String fileName = "favoritesStorage";
 	private final String preferencesFileName = "favoritesPreferencesStorage";
@@ -77,11 +67,7 @@ public class FlightListFragment extends Fragment {
 			e.printStackTrace();
 		}
 		
-		generateAdapterDataSet();
-		
-		String[] columns = {firstRowName, secondRowName};
-		int[] renderTo = {android.R.id.text1, android.R.id.text2};
-		adapter = new SimpleAdapter(getActivity(), adapterDataSet, android.R.layout.two_line_list_item, columns, renderTo);
+		adapter = new CustomAdapter(getActivity(), flightList);
 
 		/* Assign adapter to ListView */
 		listView.setAdapter(adapter); 
@@ -131,7 +117,6 @@ public class FlightListFragment extends Fragment {
 					if (!flightList.contains(flight)) {
 						storeOnSharedPreferences(joStatus, flight.getKey());
 						flightList.add(flight);
-						addToAdapterDataSet(flight);
 						adapter.notifyDataSetChanged();
 					} else {
 						Toast.makeText(getActivity(), "Ya estaba el vuelvo ehh guachiiin!!!", Toast.LENGTH_SHORT).show();
@@ -158,28 +143,12 @@ public class FlightListFragment extends Fragment {
 		return ((TextView)getActivity().findViewById(elementId)).getText().toString();
 	}
 	
-	private void generateAdapterDataSet() {
-		adapterDataSet.removeAll(adapterDataSet);
-		for(AddedFlight f : flightList)
-			addToAdapterDataSet(f);
-	}
-	
-	private void addToAdapterDataSet(AddedFlight f) {
-		Map<String,String> item = new HashMap<String,String>();
-		String departure = f.getDeparture().getCityName();
-		String arrival = f.getArrival().getCityName();
-		item.put(firstRowName, getActivity().getString(R.string.flight) + " " + f.getFlightNumber() + " - " + f.getAirline().getName());
-		item.put(secondRowName, getCityFromString(departure) + " - " + getCityFromString(arrival));
-		adapterDataSet.add(item);
-	}
-	
 	private String getCityFromString(String s) {
 		return s.substring(0, s.indexOf(','));
 	}
 	
 	private void removeFavorite() {
 		flightList.remove(currentFlight);
-		generateAdapterDataSet();
 		removeFromMyFlights(fileName, currentFlight.getKey());
 		removeFromMyFlights(preferencesFileName, currentFlight.getKey());
 		adapter.notifyDataSetChanged();
