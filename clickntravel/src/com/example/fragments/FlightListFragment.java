@@ -14,7 +14,6 @@ import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,6 @@ import com.example.clickntravel.R;
 import com.example.handlers.ActionHandler;
 import com.example.utils.AddedFlight;
 import com.example.utils.Airline;
-import com.example.utils.Destination;
 import com.example.utils.MyFlightsCases;
 
 public class FlightListFragment extends Fragment implements ActionHandler {
@@ -45,8 +43,8 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 	private final String firstRowName = "flightInfo";
 	private final String secondRowName = "citiesInfo";
 	
-//	private final String fileName = "favoritesStorage";
-//	private final String preferencesFileName = "favoritesPreferencesStorage";
+	private final String fileName = "favoritesStorage";
+	private final String preferencesFileName = "favoritesPreferencesStorage";
 	
 	public FlightListFragment() {
 	}
@@ -62,28 +60,11 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		
 		ListView listView = (ListView) view.findViewById(R.id.flights_list_view);
 		
-//		try {
-//			retrieveData();
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-		
-		Destination dest1 = new Destination("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k");
-		Destination dest2 = new Destination("aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk");
-		Airline air = new Airline("caca", "SuperCacaViajes", "gabo_sos_una_puta_en_celo");
-		
-		AddedFlight f1 = new AddedFlight(dest1, dest2, air);
-		AddedFlight f2 = new AddedFlight(dest2, dest1, air);
-		AddedFlight f3 = new AddedFlight(dest1, dest1, air);
-		AddedFlight f4 = new AddedFlight(dest2, dest2, air);
-		
-		flightList.add(f1);
-				
-		flightList.add(f2);
-				
-		flightList.add(f3);
-		
-		flightList.add(f4);
+		try {
+			retrieveData();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		
 		generateAdapterDataSet();
 		
@@ -92,8 +73,7 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		adapter = new SimpleAdapter(getActivity(), adapterDataSet, android.R.layout.two_line_list_item, columns, renderTo);
 
 		/* Assign adapter to ListView */
-		listView.setAdapter(adapter); 	
-		
+		listView.setAdapter(adapter); 
 		listView.setOnItemClickListener(new OnItemClickListener() {
 
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
@@ -114,55 +94,21 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 	public void addFavorite(View view) {
 		Map<String, String> map = new HashMap<String, String>();
 
-//		String airlineName = getElementString(R.id.airline_input);
-//		if (airlinesMap == null){
-//			Toast.makeText(getActivity(), getActivity().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
-//			return;
-//		}
-//		Airline airline = airlinesMap.get(airlineName);
-//		
-//		if (airline == null) {
-//			Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_airline), Toast.LENGTH_SHORT).show();
-//			return;
-//		}
-//		
-//		map.put("airline_id", airline.getId());
-//		map.put("flight_num", getElementString(R.id.flight_number_input));
+		String airlineName = getElementString(R.id.airline_input);
+		if (airlinesMap == null){
+			Toast.makeText(getActivity(), getActivity().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		Airline airline = airlinesMap.get(airlineName);
+		
+		if (airline == null) {
+			Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_airline), Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		map.put("airline_id", airline.getId());
+		map.put("flight_num", getElementString(R.id.flight_number_input));
 
-		
-// HARD CODE, DESPUES LO SACO
-		
-		Destination dest1 = new Destination("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k");
-		Destination dest2 = new Destination("aa", "bb", "cc", "dd", "ee", "ff", "gg", "hh", "ii", "jj", "kk");
-		Airline air = new Airline("caca", "SuperCacaViajes", "gabo_sos_una_puta_en_celo");
-		
-		AddedFlight f1 = new AddedFlight(dest1, dest2, air);
-		AddedFlight f2 = new AddedFlight(dest2, dest1, air);
-		AddedFlight f3 = new AddedFlight(dest1, dest1, air);
-		AddedFlight f4 = new AddedFlight(dest2, dest2, air);
-		
-		flightList.add(f1);
-		addToAdapterDataSet(f1);
-		adapter.notifyDataSetChanged();
-		
-		flightList.add(f2);
-		addToAdapterDataSet(f2);
-		adapter.notifyDataSetChanged();
-		
-		flightList.add(f3);
-		addToAdapterDataSet(f3);
-		adapter.notifyDataSetChanged();
-		
-		flightList.add(f4);
-		addToAdapterDataSet(f4);
-		adapter.notifyDataSetChanged();
-		
-		
-		
-// HASTA ACA LLEGA!!!
-		
-		
-		
 //		QueryIntent query = new QueryIntent(new RequestReceiver() {
 //
 //			@Override
@@ -221,8 +167,8 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		Map<String,String> item = new HashMap<String,String>();
 		String departure = f.getDeparture().getCityName();
 		String arrival = f.getArrival().getCityName();
-		item.put(firstRowName, /* getActivity().getString(R.string.flight) + */ " " +  f.getFlightNumber() + " - " + f.getAirline().getName());
-		item.put(secondRowName, /* getCityFromString(departure)*/ departure + " - " +  arrival /*getCityFromString(arrival)*/);
+		item.put(firstRowName, getActivity().getString(R.string.flight) + " " + f.getFlightNumber() + " - " + f.getAirline().getName());
+		item.put(secondRowName, getCityFromString(departure) + " - " + getCityFromString(arrival));
 		adapterDataSet.add(item);
 	}
 	
@@ -236,61 +182,61 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		case ADD_FLIGHT:
 			addFavorite(view);
 			break;
-//		case REMOVE_FAVORITE:
-//			removeFavorite();
-//			break;
+		case REMOVE_FLIGHT:
+			removeFavorite();
+			break;
 		}
 		return;	
 	}
-//	
-//	private void removeFavorite() {
-//		flightList.remove(currentFlight);
-//		generateAdapterDataSet();
-//		removeFromMyFlights(fileName, currentFlight.getKey());
-//		removeFromMyFlights(preferencesFileName, currentFlight.getKey());
-//		adapter.notifyDataSetChanged();
-//		ListView lv = (ListView) view.findViewById(R.id.flights_list_view);
-//		lv.invalidateViews();
-//	}
-//	
-//	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
-//		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_WORLD_WRITEABLE);
-//		Editor editor = prefs.edit();
-//		editor.putString(uniqueKey, favorite.toString()).commit();
-//	}
-//	
-//	private void retrieveData() throws JSONException {
-//		FlightListFragment.flightList = new ArrayList<AddedFlight>();
-//		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_WORLD_READABLE);
-//		Map<String, String> map = (Map<String,String>)prefs.getAll();
-//		for (String s: map.values()){
-//			flightList.add(new AddedFlight(new JSONObject(s)));
-//		}
-//		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_WORLD_READABLE);
-//		map = (Map<String,String>)prefs.getAll();
-//		AddedFlight f;
-//		JSONObject jsonPrefs;
-//		for (String s: map.keySet()){
-//			f = getMyFlights(s);
-//			jsonPrefs = new JSONObject(map.get(s));
-//			if (f != null) {
-////				f.setNotificationConfiguration(jsonPrefs);
-//			}
-//		}
-//	}
-//	
-//	private void eraseField(int fieldId) {
-//		TextView tv = (TextView) getActivity().findViewById(fieldId);
-//		tv.setText("");
-//	}
-//	
-//	private AddedFlight getMyFlights(String key) {
-//		for(AddedFlight f : flightList) {
-//			if (f.getKey().equals(key))
-//				return f;
-//		}
-//		return null;
-//	}
+	
+	private void removeFavorite() {
+		flightList.remove(currentFlight);
+		generateAdapterDataSet();
+		removeFromMyFlights(fileName, currentFlight.getKey());
+		removeFromMyFlights(preferencesFileName, currentFlight.getKey());
+		adapter.notifyDataSetChanged();
+		ListView lv = (ListView) view.findViewById(R.id.flights_list_view);
+		lv.invalidateViews();
+	}
+	
+	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
+		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_WORLD_WRITEABLE);
+		Editor editor = prefs.edit();
+		editor.putString(uniqueKey, favorite.toString()).commit();
+	}
+	
+	private void retrieveData() throws JSONException {
+		FlightListFragment.flightList = new ArrayList<AddedFlight>();
+		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_WORLD_READABLE);
+		Map<String, String> map = (Map<String,String>)prefs.getAll();
+		for (String s: map.values()){
+			flightList.add(new AddedFlight(new JSONObject(s)));
+		}
+		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_WORLD_READABLE);
+		map = (Map<String,String>)prefs.getAll();
+		AddedFlight f;
+		JSONObject jsonPrefs;
+		for (String s: map.keySet()){
+			f = getMyFlights(s);
+			jsonPrefs = new JSONObject(map.get(s));
+			if (f != null) {
+//				f.setNotificationConfiguration(jsonPrefs);
+			}
+		}
+	}
+	
+	private void eraseField(int fieldId) {
+		TextView tv = (TextView) getActivity().findViewById(fieldId);
+		tv.setText("");
+	}
+	
+	private AddedFlight getMyFlights(String key) {
+		for(AddedFlight f : flightList) {
+			if (f.getKey().equals(key))
+				return f;
+		}
+		return null;
+	}
 	
 	@Override
 	public void onDestroyView() {
@@ -313,10 +259,10 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		return currentFlight;
 	}
 	
-//	public void removeFromMyFlights(String myFileName, String key){
-//		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_WORLD_WRITEABLE);
-//		Editor editor = prefs.edit();
-//		editor.remove(key).commit();
-//	}
+	public void removeFromMyFlights(String myFileName, String key){
+		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_WORLD_WRITEABLE);
+		Editor editor = prefs.edit();
+		editor.remove(key).commit();
+	}
 
 }
