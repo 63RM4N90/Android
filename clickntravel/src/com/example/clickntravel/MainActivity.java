@@ -1,19 +1,24 @@
 package com.example.clickntravel;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.SearchManager;
-import android.app.SearchableInfo;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -22,18 +27,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
+import com.example.api.ApiIntent;
+import com.example.api.ApiResultReceiver;
+import com.example.api.Callback;
 import com.example.fragments.ConfigurationFragment;
 import com.example.handlers.FragmentHandler;
+import com.example.utils.City;
 import com.example.utils.FragmentKey;
-import com.example.clickntravel.FlightsDbAdapter;
 
 public class MainActivity extends FragmentActivity implements
 		SearchView.OnQueryTextListener, OnCloseListener {
@@ -41,11 +47,13 @@ public class MainActivity extends FragmentActivity implements
 	private SearchView mSearchView;
 	private TextView mStatusView;
 	private ListView mListView;
+	private static final int CONFIG_ID = 1;
 	private FlightsDbAdapter mDbHelper;
 	private static final int GROUP_ID = 1;
-	private static final int CONFIG_ID = 1;
 	private ConfigurationFragment mPrefsFragment = null;
 	private FragmentHandler fragmentHandler;
+
+	private Map<String, City> citiesMap;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -70,18 +78,57 @@ public class MainActivity extends FragmentActivity implements
 		// Clean all Customers
 		mDbHelper.deleteAllFlights();
 
-		mDbHelper.createFlights("U$S 1800", "Buenos Aires", "Los Angeles",
-				"18/08/2013", "20/11/2013");
-		mDbHelper.createFlights("U$S 1800", "Bueno", "Los Angeles",
-				"18/08/2013", "20/11/2013");
-		mDbHelper.createFlights("U$S 1800", "Bueni", "Los Angeles",
-				"18/08/2013", "20/11/2013");
-		mDbHelper.createFlights("U$S 1800", "Buej", "Los Angeles",
-				"18/08/2013", "20/11/2013");
-		mDbHelper.createFlights("U$S 1800", "Buem", "Los Angeles",
-				"18/08/2013", "20/11/2013");
-		mDbHelper.createFlights("U$S 1500", "Córdoba", "Roma", "18/08/2013",
-				"20/11/2013");
+		createCities();
+		// mDbHelper.createFlights("U$S 1800", "Buenos Aires", "Los Angeles",
+		// "18/08/2013", "20/11/2013");
+		// mDbHelper.createFlights("U$S 1800", "Bueno", "Los Angeles",
+		// "18/08/2013", "20/11/2013");
+		// mDbHelper.createFlights("U$S 1800", "Bueni", "Los Angeles",
+		// "18/08/2013", "20/11/2013");
+		// mDbHelper.createFlights("U$S 1800", "Buej", "Los Angeles",
+		// "18/08/2013", "20/11/2013");
+		// mDbHelper.createFlights("U$S 1800", "Buem", "Los Angeles",
+		// "18/08/2013", "20/11/2013");
+		// mDbHelper.createFlights("U$S 1500", "Córdoba", "Roma", "18/08/2013",
+		// "20/11/2013");
+
+	}
+
+	private void createCities() {
+
+		// mDbHelper.createFlights("", "", "Los Angeles", "", "");
+
+		citiesMap = new HashMap<String, City>();
+
+		Callback callback = new Callback() {
+			public void handleResponse(JSONObject response) {
+				try {
+					JSONArray cityArray = response.getJSONArray("cities");
+					List<String> citiesList = new LinkedList<String>();
+
+					for (int i = 0; i < cityArray.length(); i++) {
+						String name = cityArray.getJSONObject(i).optString(
+								"name");
+						String id = cityArray.getJSONObject(i).optString(
+								"cityId");
+						// Log.d("airline", name);
+						// lstAirlines.add(name);
+						mDbHelper.createFlights("", "", name, "", "");
+						citiesMap.put(id, new City(id, name));
+						citiesList.add(name);
+					}
+
+				} catch (JSONException e) {
+				}
+			}
+
+		};
+
+		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(),
+				callback);
+		ApiIntent intent = new ApiIntent("GetCities", "Geo", receiver, this);
+		intent.setParams(new LinkedList<NameValuePair>());
+		this.startService(intent);
 
 	}
 

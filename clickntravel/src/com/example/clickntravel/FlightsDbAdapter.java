@@ -78,6 +78,16 @@ public class FlightsDbAdapter {
         }
     }
 
+    public long createCities(String city) {
+    
+    	ContentValues initialValues = new ContentValues();
+        String searchValue = city;
+        
+        initialValues.put(KEY_TO, city);
+        initialValues.put(KEY_SEARCH, searchValue);
+        
+        return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
+    }
 
     public long createFlights(String customer, String name, String city, String state, String zipCode) {
 
