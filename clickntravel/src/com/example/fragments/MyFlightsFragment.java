@@ -9,14 +9,13 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 
 import com.example.clickntravel.MainActivity;
 import com.example.clickntravel.R;
-import com.example.handlers.ActionHandler;
 import com.example.utils.Airline;
 import com.example.utils.FragmentKey;
-import com.example.utils.MyFlightsCases;
+
 
 
 public class MyFlightsFragment extends Fragment{
@@ -25,6 +24,7 @@ public class MyFlightsFragment extends Fragment{
 	ViewGroup vg;
 	Fragment addFragment;
 	Fragment listFragment;
+	public static Map<String, Airline> airlinesMap;
 	
 	public MyFlightsFragment(){
 		/*empty constructor*/
@@ -70,7 +70,6 @@ public class MyFlightsFragment extends Fragment{
 	
 	
 	public void addFlight(View view) {
-		((FlightListFragment)listFragment).setAirlines(((AddFlightFragment) addFragment).getAirlines());
 		((FlightListFragment) listFragment).addFlight();
 	}
 	

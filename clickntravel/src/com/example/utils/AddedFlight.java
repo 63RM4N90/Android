@@ -91,22 +91,6 @@ public class AddedFlight{
 		return status;
 	}
 	
-//	public void setNotificationConfiguration(JSONObject jsonPrefs) throws JSONException {
-//		config.setNotifyOnStatusChanged(jsonPrefs.getBoolean("status"));
-//		config.setNotifyOnTerminalChanged(jsonPrefs.getBoolean("terminal"));
-//		config.setNotifyOnGateChanged(jsonPrefs.getBoolean("gate"));
-//		config.setNotifyOnScheduledTimeChanged(jsonPrefs.getBoolean("time"));
-//	}
-//	
-//	public JSONObject generateJsonPreferences() throws JSONException {
-//		JSONObject jsonPrefs = new JSONObject();
-//		jsonPrefs.put("status", String.valueOf(config.isNotifyOnStatusChanged()));
-//		jsonPrefs.put("gate", String.valueOf(config.isNotifyOnGateChanged()));
-//		jsonPrefs.put("terminal", String.valueOf(config.isNotifyOnTerminalChanged()));
-//		jsonPrefs.put("time", String.valueOf(config.isNotifyOnScheduledTimeChanged()));
-//		return jsonPrefs;
-//	}
-	
 	
 	@Override
 	public boolean equals(Object o) {
@@ -119,26 +103,6 @@ public class AddedFlight{
 		return String.valueOf(flightId) + airline.getId();
 	}
 
-//	public NotificationConfiguration getConfig() {
-//		return config;
-//	}
-//
-//	public void setConfig(NotificationConfiguration config) {
-//		this.config = config;
-//	}
-//	
-//	public String getNotificationString(AddedFlight f) {
-//		StringBuffer ans = new StringBuffer("");
-//		if (config.isNotifyOnStatusChanged() && status.equals(f.status))
-//			ans.append("Status changed from " + status + " to " + f.status + "\n");
-//		if (config.isNotifyOnTerminalChanged() && !departure.getAirportTerminal().equals(f.departure.getAirportTerminal()))
-//			ans.append("Departure terminal changed from " + departure.getAirportTerminal() + " to " + f.departure.getAirportTerminal() + "\n");
-//		if (config.isNotifyOnGateChanged() && !departure.getAirportGate().equals(f.departure.getAirportGate()))
-//			ans.append("Departure gate changed from " + departure.getAirportGate() + " to " + f.departure.getAirportGate() + "\n");
-//		if (config.isNotifyOnScheduledTimeChanged() && !departure.getScheduledTime().equals(f.departure.getScheduledGateTime()))
-//				ans.append("Scheduled departure tate changed from " + departure.getScheduledTime() + " to " + f.departure.getScheduledTime() + "\n");
-//		return ans.toString();
-//	}
 	
 	public List<NameValuePair> getParams() {
 		List<NameValuePair> params = new LinkedList<NameValuePair> ();
