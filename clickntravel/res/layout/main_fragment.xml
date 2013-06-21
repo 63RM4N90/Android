@@ -14,7 +14,7 @@
         android:scaleType="center"
         android:src="@drawable/cntlogohdpi" />
 
-        <TextView
+    <TextView
         android:id="@+id/status_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,6 +27,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#BBBBBB" />
+
     <Button
         android:id="@+id/myflights"
         android:layout_width="300dp"
