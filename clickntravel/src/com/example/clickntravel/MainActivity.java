@@ -1,5 +1,6 @@
 package com.example.clickntravel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -96,13 +97,26 @@ public class MainActivity extends FragmentActivity implements
 								"name");
 						String id = cityArray.getJSONObject(i).optString(
 								"cityId");
-						mDbHelper.createFlights("", "", name, "", "");
+						addFlight(name);
 						citiesMap.put(id, new City(id, name));
 						citiesList.add(name);
 					}
 
 				} catch (JSONException e) {
 				}
+			}
+
+			private void addFlight(String name) {
+				
+				if (name.contains("Barcelona")) {
+					
+					name = "Barcelona, España";
+				} else if (name.contains("Madrid")) {
+					
+					name = "Madrid, Comunidad de Madrid, España";
+				}
+				
+				mDbHelper.createFlights("", "", name, "", "");
 			}
 
 		};
