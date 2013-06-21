@@ -10,8 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.example.clickntravel.R;
+import com.example.handlers.ImageHandler;
 import com.example.utils.AddedFlight;
 
 public class FlightInfoFragment extends Fragment {
@@ -30,22 +33,20 @@ public class FlightInfoFragment extends Fragment {
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.flight_details_fragment, container, false);
+		ImageView iv = (ImageView)view.findViewById(R.id.airline_name_value);
+		ImageHandler ih = new ImageHandler();
+		
+		iv.setImageResource(ih.getImage(currentFlight.getAirline().getName()));
 		setIntoTextView(R.id.flight_number, getActivity().getString(R.string.flight_number) + " " + currentFlight.getFlightNumber());
 		setIntoTextView(R.id.departure_city_value, getCityFromString(currentFlight.getDeparture().getCityName()));
 		setIntoTextView(R.id.arrival_city_value, getCityFromString(currentFlight.getArrival().getCityName()));
-		setIntoTextView(R.id.airline_name_value, currentFlight.getAirline() .getName());
 		setIntoTextView(R.id.flight_status, getStatus(currentFlight.getFlightStatus()));
-		setIntoTextView(R.id.airport_terminal, currentFlight.getDeparture().getAirportTerminal());
-		setIntoTextView(R.id.airport_gate, currentFlight.getDeparture().getAirportGate());
-		setIntoTextView(R.id.scheduled_time, currentFlight.getDeparture().getScheduledTime());
-		// setChecked(R.id.status_check,
-		// currentFlight.getConfig().isNotifyOnStatusChanged());
-		// setChecked(R.id.time_check,
-		// currentFlight.getConfig().isNotifyOnScheduledTimeChanged());
-		// setChecked(R.id.terminal_check,
-		// currentFlight.getConfig().isNotifyOnTerminalChanged());
-		// setChecked(R.id.gate_check,
-		// currentFlight.getConfig().isNotifyOnGateChanged());
+		setIntoTextView(R.id.departure_airport_terminal, currentFlight.getDeparture().getAirportTerminal());
+		setIntoTextView(R.id.arrival_airport_terminal, currentFlight.getArrival().getAirportTerminal());
+		setIntoTextView(R.id.departure_airport_gate, currentFlight.getDeparture().getAirportGate());
+		setIntoTextView(R.id.departure_scheduled_time, currentFlight.getDeparture().getScheduledTime());
+		setIntoTextView(R.id.arrival_airport_gate, currentFlight.getArrival().getAirportGate());
+		setIntoTextView(R.id.arrival_scheduled_time, currentFlight.getArrival().getScheduledTime());
 		return view;
 	}
 
@@ -96,15 +97,4 @@ public class FlightInfoFragment extends Fragment {
 		// }
 		super.onDestroyView();
 	}
-
-	private boolean getChecked(int checkboxId) {
-		CheckBox cb = (CheckBox) view.findViewById(checkboxId);
-		return cb.isChecked();
-	}
-
-	private void setChecked(int checkboxId, boolean checked) {
-		CheckBox cb = (CheckBox) view.findViewById(checkboxId);
-		cb.setChecked(checked);
-	}
-
 }
