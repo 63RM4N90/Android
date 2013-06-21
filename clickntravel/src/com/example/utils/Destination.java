@@ -1,5 +1,10 @@
 package com.example.utils;
 
+import android.app.Activity;
+import android.util.Log;
+
+import com.example.clickntravel.R;
+
 public class Destination {
 
 	private String airportId, airportDescription, cityName, countryName,
@@ -60,12 +65,12 @@ public class Destination {
 		return actualRunwayTime;
 	}
 
-	public String getAirportTerminal() {
-		return airportTerminal;
+	public String getAirportTerminal(Activity a) {
+		return ((airportTerminal != "null") ? airportTerminal : a.getText(R.string.n_a).toString());
 	}
 
-	public String getAirportGate() {
-		return airportGate;
+	public String getAirportGate(Activity a) {
+		return ((airportGate != "null") ? airportGate : a.getText(R.string.n_a).toString());
 	}
 
 }

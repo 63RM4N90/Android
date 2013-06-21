@@ -50,5 +50,6 @@
     <string name="no_internet_connection">fallo la coneccion a internet</string>
     <string name="invalid_airline">Aerolinea invalida</string>
     <string name="flight">Vuelo: </string>
+    <string name="n_a">Sin Definir</string>
 
 </resources>

@@ -3,18 +3,19 @@ package com.example.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.clickntravel.R;
 import com.example.handlers.ImageHandler;
+import com.example.handlers.StatusHandler;
 import com.example.utils.AddedFlight;
 
 public class FlightInfoFragment extends Fragment {
@@ -35,41 +36,28 @@ public class FlightInfoFragment extends Fragment {
 		view = inflater.inflate(R.layout.flight_details_fragment, container, false);
 		ImageView iv = (ImageView)view.findViewById(R.id.airline_name_value);
 		ImageHandler ih = new ImageHandler();
+		StatusHandler sh = new StatusHandler();
 		
 		iv.setImageResource(ih.getImage(currentFlight.getAirline().getName()));
-		setIntoTextView(R.id.flight_number, getActivity().getString(R.string.flight_number) + " " + currentFlight.getFlightNumber());
-		setIntoTextView(R.id.departure_city_value, getCityFromString(currentFlight.getDeparture().getCityName()));
-		setIntoTextView(R.id.arrival_city_value, getCityFromString(currentFlight.getArrival().getCityName()));
-		setIntoTextView(R.id.flight_status, getStatus(currentFlight.getFlightStatus()));
-		setIntoTextView(R.id.departure_airport_terminal, currentFlight.getDeparture().getAirportTerminal());
-		setIntoTextView(R.id.arrival_airport_terminal, currentFlight.getArrival().getAirportTerminal());
-		setIntoTextView(R.id.departure_airport_gate, currentFlight.getDeparture().getAirportGate());
-		setIntoTextView(R.id.departure_scheduled_time, currentFlight.getDeparture().getScheduledTime());
-		setIntoTextView(R.id.arrival_airport_gate, currentFlight.getArrival().getAirportGate());
-		setIntoTextView(R.id.arrival_scheduled_time, currentFlight.getArrival().getScheduledTime());
+		setIntoTextView(R.id.flight_number_value, " " + currentFlight.getFlightNumber());
+		setIntoTextView(R.id.departure_city_value, " " +  getCityFromString(currentFlight.getDeparture().getCityName()));
+		setIntoTextView(R.id.arrival_city_value, " " + getCityFromString(currentFlight.getArrival().getCityName()));
+		TextView textView = (TextView) view.findViewById(R.id.flight_status_value);
+		textView.setTextColor(sh.getStatusColor(currentFlight.getFlightStatus()));
+		textView.setBackgroundColor(sh.getStatusBackgroundColor(currentFlight.getFlightStatus()));
+		setIntoTextView(R.id.flight_status_value, getActivity().getString(sh.getStatus(currentFlight.getFlightStatus())));
+		setIntoTextView(R.id.departure_airport_terminal_value, " " + currentFlight.getDeparture().getAirportTerminal(getActivity()));
+		setIntoTextView(R.id.arrival_airport_terminal_value, " " + currentFlight.getArrival().getAirportTerminal(getActivity()));
+		setIntoTextView(R.id.departure_airport_gate_value, " " + currentFlight.getDeparture().getAirportGate(getActivity()));
+		setIntoTextView(R.id.departure_scheduled_time_value, " " + currentFlight.getDeparture().getScheduledTime());
+		setIntoTextView(R.id.arrival_airport_gate_value, " " + currentFlight.getArrival().getAirportGate(getActivity()));
+		setIntoTextView(R.id.arrival_scheduled_time_value, " " + currentFlight.getArrival().getScheduledTime());
 		return view;
 	}
 
 	private void setIntoTextView(int textViewId, String string) {
 		TextView textView = (TextView) view.findViewById(textViewId);
 		textView.setText(string);
-	}
-
-	private String getStatus(String status) {
-		Log.d("Flight status", status);
-		if (status.equals("S")) {
-			return getActivity().getString(R.string.scheduled);
-		} else if (status.equals("A")) {
-			return getActivity().getString(R.string.active);
-		} else if (status.equals("D")) {
-			return getActivity().getString(R.string.deviated);
-		} else if (status.equals("L")) {
-			return getActivity().getString(R.string.landed);
-		} else if (status.equals("C")) {
-			return getActivity().getString(R.string.cancelled);
-		}
-		return getActivity().getString(R.string.unknown);
-
 	}
 
 	private String getCityFromString(String s) {
