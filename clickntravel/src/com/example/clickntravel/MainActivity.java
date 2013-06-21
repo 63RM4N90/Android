@@ -75,28 +75,12 @@ public class MainActivity extends FragmentActivity implements
 		mDbHelper = new FlightsDbAdapter(this);
 		mDbHelper.open();
 
-		// Clean all Customers
 		mDbHelper.deleteAllFlights();
 
 		createCities();
-		// mDbHelper.createFlights("U$S 1800", "Buenos Aires", "Los Angeles",
-		// "18/08/2013", "20/11/2013");
-		// mDbHelper.createFlights("U$S 1800", "Bueno", "Los Angeles",
-		// "18/08/2013", "20/11/2013");
-		// mDbHelper.createFlights("U$S 1800", "Bueni", "Los Angeles",
-		// "18/08/2013", "20/11/2013");
-		// mDbHelper.createFlights("U$S 1800", "Buej", "Los Angeles",
-		// "18/08/2013", "20/11/2013");
-		// mDbHelper.createFlights("U$S 1800", "Buem", "Los Angeles",
-		// "18/08/2013", "20/11/2013");
-		// mDbHelper.createFlights("U$S 1500", "Córdoba", "Roma", "18/08/2013",
-		// "20/11/2013");
-
 	}
 
 	private void createCities() {
-
-		// mDbHelper.createFlights("", "", "Los Angeles", "", "");
 
 		citiesMap = new HashMap<String, City>();
 
@@ -146,7 +130,6 @@ public class MainActivity extends FragmentActivity implements
 		mSearchView.setOnCloseListener(this);
 		mSearchView.setQueryHint("Búsqueda por destino");
 		mListView = (ListView) findViewById(R.id.list);
-		// setupSearchView(searchItem);
 
 		menu.add(GROUP_ID, CONFIG_ID, CONFIG_ID,
 				R.string.main_button_configuration);
@@ -198,16 +181,12 @@ public class MainActivity extends FragmentActivity implements
 		return super.onKeyDown(keyCode, event);
 	}
 
-	// Search View
-
 	public boolean onQueryTextChange(String newText) {
-		// mStatusView.setText("Query = " + newText);
 		showResults(newText + "*");
 		return false;
 	}
 
 	public boolean onQueryTextSubmit(String query) {
-		// mStatusView.setText("Query = " + query + " : submitted");
 		showResults(query + "*");
 		return false;
 	}
@@ -235,8 +214,7 @@ public class MainActivity extends FragmentActivity implements
 
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
-			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
-					R.id.sstate, R.id.szipCode };
+			int[] to = new int[] { 0, 0, R.id.scity, 0, 0 };
 
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
