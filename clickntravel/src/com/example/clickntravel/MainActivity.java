@@ -20,6 +20,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -95,8 +96,6 @@ public class MainActivity extends FragmentActivity implements
 								"name");
 						String id = cityArray.getJSONObject(i).optString(
 								"cityId");
-						// Log.d("airline", name);
-						// lstAirlines.add(name);
 						mDbHelper.createFlights("", "", name, "", "");
 						citiesMap.put(id, new City(id, name));
 						citiesList.add(name);
@@ -128,8 +127,11 @@ public class MainActivity extends FragmentActivity implements
 													// si se comenta
 		mSearchView.setOnQueryTextListener(this);
 		mSearchView.setOnCloseListener(this);
-		mSearchView.setQueryHint("Búsqueda por destino");
 		mListView = (ListView) findViewById(R.id.list);
+		
+		// Setea el color del textito de la search view
+        String text = "<font color = #DDDDDD>" + "Búsqueda por destino" + "</font>";
+        mSearchView.setQueryHint(Html.fromHtml(text));
 
 		menu.add(GROUP_ID, CONFIG_ID, CONFIG_ID,
 				R.string.main_button_configuration);

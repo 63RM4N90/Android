@@ -8,12 +8,14 @@
         android:id="@+id/status_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal" />
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"  />
 
     <ListView
         android:id="@+id/list"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#457586" />
 
     <ImageView
         android:id="@+id/imageView1"
