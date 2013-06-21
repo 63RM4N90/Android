@@ -31,29 +31,30 @@ public final class R {
         public static final int ic_launcher=0x7f020003;
     }
     public static final class id {
-        public static final int aboutus=0x7f0a0016;
-        public static final int action_search=0x7f0a001c;
-        public static final int action_settings=0x7f0a001b;
+        public static final int aboutus=0x7f0a0017;
+        public static final int action_search=0x7f0a001d;
+        public static final int action_settings=0x7f0a001c;
         public static final int address=0x7f0a0008;
-        public static final int checkBox=0x7f0a0017;
+        public static final int checkBox=0x7f0a0018;
         public static final int city=0x7f0a0009;
         public static final int comma=0x7f0a000a;
         public static final int container=0x7f0a0002;
         public static final int customer=0x7f0a0006;
         public static final int customerLayout=0x7f0a0004;
         public static final int imageView1=0x7f0a0000;
-        public static final int menu_settings=0x7f0a001a;
-        public static final int mydeals=0x7f0a0015;
-        public static final int myflights=0x7f0a0014;
+        public static final int list=0x7f0a0014;
+        public static final int menu_settings=0x7f0a001b;
+        public static final int mydeals=0x7f0a0016;
+        public static final int myflights=0x7f0a0015;
         public static final int mytext=0x7f0a0001;
         public static final int name=0x7f0a0007;
-        public static final int notif=0x7f0a0018;
+        public static final int notif=0x7f0a0019;
         public static final int relativeLayout1=0x7f0a0005;
         public static final int saddress=0x7f0a000f;
         public static final int scity=0x7f0a0010;
         public static final int scomma=0x7f0a0011;
         public static final int scustomer=0x7f0a000d;
-        public static final int searchView1=0x7f0a0019;
+        public static final int searchView1=0x7f0a001a;
         public static final int sname=0x7f0a000e;
         public static final int sstate=0x7f0a0012;
         public static final int state=0x7f0a000b;
@@ -69,13 +70,15 @@ public final class R {
         public static final int configuration_fragment=0x7f030004;
         public static final int customerinfo=0x7f030005;
         public static final int customerresult=0x7f030006;
-        public static final int main_fragment=0x7f030007;
-        public static final int my_deals_fragment=0x7f030008;
-        public static final int my_flights_fragment=0x7f030009;
-        public static final int mydeals_abs_layout=0x7f03000a;
-        public static final int myflights_abs_layout=0x7f03000b;
-        public static final int notification_info=0x7f03000c;
-        public static final int search=0x7f03000d;
+        public static final int flightinfo=0x7f030007;
+        public static final int flightresult=0x7f030008;
+        public static final int main_fragment=0x7f030009;
+        public static final int my_deals_fragment=0x7f03000a;
+        public static final int my_flights_fragment=0x7f03000b;
+        public static final int mydeals_abs_layout=0x7f03000c;
+        public static final int myflights_abs_layout=0x7f03000d;
+        public static final int notification_info=0x7f03000e;
+        public static final int search=0x7f03000f;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
