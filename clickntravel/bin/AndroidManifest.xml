@@ -49,7 +49,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <service android:name=".api.ApiService"/>
+        <service android:name="com.example.api.ApiService"/>
     </application>
 
 </manifest>
