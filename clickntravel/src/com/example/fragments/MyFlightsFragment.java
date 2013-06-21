@@ -1,5 +1,7 @@
 package com.example.fragments;
 
+import java.util.Map;
+
 import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,11 +14,12 @@ import android.widget.Toast;
 import com.example.clickntravel.MainActivity;
 import com.example.clickntravel.R;
 import com.example.handlers.ActionHandler;
+import com.example.utils.Airline;
 import com.example.utils.FragmentKey;
 import com.example.utils.MyFlightsCases;
 
 
-public class MyFlightsFragment extends Fragment implements ActionHandler{
+public class MyFlightsFragment extends Fragment{
 
 	View view;
 	ViewGroup vg;
@@ -64,28 +67,12 @@ public class MyFlightsFragment extends Fragment implements ActionHandler{
 		super.onDestroyView();
 	}
 
-
-	public void Handle(MyFlightsCases c, View view) {
-		switch (c) {
-		case ADD_FLIGHT:
-			((FlightListFragment)listFragment).setAirlinesMap(((AddFlightFragment)addFragment).getAirlinesMap());
-			((ActionHandler)listFragment).Handle(MyFlightsCases.ADD_FLIGHT, view);
-			break;
-		case REMOVE_FLIGHT:
-			((ActionHandler)listFragment).Handle(MyFlightsCases.REMOVE_FLIGHT, view);
-			break;
-		}
-		return;		
-	} 
 	
 	
 	public void addFlight(View view) {
-		// TODO
-		Toast.makeText(getActivity(), "SUPUESTAMENTE AGREGASTE EL FLIGHT", Toast.LENGTH_SHORT).show();
+		((FlightListFragment)listFragment).setAirlines(((AddFlightFragment) addFragment).getAirlines());
+		((FlightListFragment) listFragment).addFlight();
 	}
-	
-	
-	
 	
 }
 
