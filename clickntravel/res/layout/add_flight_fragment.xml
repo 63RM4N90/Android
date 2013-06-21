@@ -32,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:padding="5dp"
+            android:gravity="center"
             android:layout_alignRight="@+id/airline_input"
             android:layout_below="@+id/airline_input"
         	android:background="#0C81C7"
