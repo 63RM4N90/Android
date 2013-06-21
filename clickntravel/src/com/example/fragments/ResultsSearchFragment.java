@@ -48,8 +48,6 @@ public class ResultsSearchFragment extends Fragment {
 		Bundle arguments = getArguments();
 		this.idTo = arguments.getString("cityId");
 		
-		Log.d("idTo", this.idTo);
-		
 		ListView listView = (ListView) view.findViewById(R.id.deals_list_view);
 
 //		try {
@@ -69,6 +67,8 @@ public class ResultsSearchFragment extends Fragment {
 //		actionBar.setHomeButtonEnabled(true);
 //
 //		return inflater.inflate(R.layout.results_search_fragment, container, false);
+		
+		createDeals();
 		
 		return view;
 	}
@@ -98,7 +98,7 @@ public class ResultsSearchFragment extends Fragment {
 			}
 
 			private void addDeal(String id, String price) {
-
+				
 				if (!id.equals(idTo)) {
 					
 					return;
