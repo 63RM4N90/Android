@@ -6,5 +6,8 @@ public enum FragmentKey {
 	CONFIGURATION,
 	ABOUT_US,
 	MY_DEALS,
+	ADD_FLIGHT,
+	FLIGHT_LIST,
 	BASE;
+	
 }

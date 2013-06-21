@@ -27,7 +27,7 @@ import android.widget.Toast;
 
 import com.example.clickntravel.MainActivity;
 import com.example.clickntravel.R;
-import com.example.utils.ActionHandler;
+import com.example.handlers.ActionHandler;
 import com.example.utils.AddedFlight;
 import com.example.utils.Airline;
 import com.example.utils.Destination;
@@ -233,7 +233,7 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 
 	public void Handle(MyFlightsCases c, View view) {
 		switch (c) {
-		case ADD_FAVORITE:
+		case ADD_FLIGHT:
 			addFavorite(view);
 			break;
 //		case REMOVE_FAVORITE:

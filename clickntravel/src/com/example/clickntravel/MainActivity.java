@@ -109,5 +109,9 @@ public class MainActivity extends FragmentActivity {
 	public void addFlight(View view) {
 		((MyFlightsFragment) fragmentHandler.getFragment(FragmentKey.MY_FLIGHTS)).addFlight(view);
 	}
+	
+	public FragmentHandler getFragmentHandler(){
+		return fragmentHandler;
+	}
 
 }
