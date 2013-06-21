@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -40,7 +41,6 @@ public class AddFlightFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		Log.d("asd", "asdasd");
 		if (view == null) {
 			view = inflater.inflate(R.layout.add_flight_fragment, container, false);
 			airlinesMap = new HashMap<String, Airline>();
@@ -53,14 +53,12 @@ public class AddFlightFragment extends Fragment {
 							String name = cityArray.getJSONObject(i).optString("name");
 							String id = cityArray.getJSONObject(i).optString("airlineId");
 							Log.d("airline", name);
-							lstAirlines.add(name);
-							airlinesMap.put(id, new Airline(id, name, "que_se_yo"));
-							airlinesList.add(name);
+							airlinesMap.put(name, new Airline(id, name, "que_se_yo"));
 						}
 						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 								getActivity(),
 								android.R.layout.simple_dropdown_item_1line,
-								lstAirlines);
+								new ArrayList<String>(airlinesMap.keySet()));
 
 						AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.airline_input);
 						
@@ -85,7 +83,7 @@ public class AddFlightFragment extends Fragment {
 		super.onDestroyView();
 	}
 	
-	public Map<String, Airline> getAirlinesMap(){
+	public Map<String, Airline> getAirlines(){
 		return airlinesMap;
 	}
 

@@ -2,9 +2,13 @@ package com.example.fragments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -13,17 +17,24 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.api.ApiIntent;
+import com.example.api.ApiResultReceiver;
+import com.example.api.Callback;
 import com.example.clickntravel.MainActivity;
 import com.example.clickntravel.R;
 import com.example.handlers.ActionHandler;
@@ -31,7 +42,7 @@ import com.example.utils.AddedFlight;
 import com.example.utils.Airline;
 import com.example.utils.MyFlightsCases;
 
-public class FlightListFragment extends Fragment implements ActionHandler {
+public class FlightListFragment extends Fragment {
 
 	public static List<AddedFlight> flightList = new ArrayList<AddedFlight>();
 	private SimpleAdapter adapter;
@@ -91,8 +102,7 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		return view;
 	}
 	
-	public void addFavorite(View view) {
-		Map<String, String> map = new HashMap<String, String>();
+	public void addFlight() {
 
 		String airlineName = getElementString(R.id.airline_input);
 		if (airlinesMap == null){
@@ -105,52 +115,43 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 			Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_airline), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		
-		map.put("airline_id", airline.getId());
-		map.put("flight_num", getElementString(R.id.flight_number_input));
 
-//		QueryIntent query = new QueryIntent(new RequestReceiver() {
-//
-//			@Override
-//			public void onStarted() {
-//			}
-//
-//			@Override
-//			public void onData(String data) {
-//				JSONObject jo;
-//				try {
-//					jo = new JSONObject(data);
-//					if (jo.has("error")) {
-//						Toast.makeText(getActivity().getApplicationContext(),
-//								jo.getJSONObject("error").getString("message"),
-//								Toast.LENGTH_SHORT).show();
-//						return;
-//					}
-//					JSONObject joStatus = jo.getJSONObject("status");
-//					Favorite flight = new Favorite(joStatus);
-//					if (!favList.contains(flight)) {
-//						storeOnSharedPreferences(joStatus, flight.getKey());
-//						favList.add(flight);
-//						addToAdapterDataSet(flight);
-//						adapter.notifyDataSetChanged();
-//					} else {
-//						Toast.makeText(getActivity(), getActivity().getString(R.string.flight_already_on_favorites), Toast.LENGTH_SHORT).show();
-//					}
-//					eraseField(R.id.flight_number_input);
-//					eraseField(R.id.airline_input);
-//					
-//				} catch (JSONException e) {
-//					e.printStackTrace();
-//				}
-//
-//			}
-//
-//			@Override
-//			public void onError(String error) {
-//			}
-//
-//		}, FlightsAPIService.GET, "Status", "GetFlightStatus", map, "", getActivity());
-//		getActivity().startService(query);
+		
+		Callback callback = new Callback() {
+			public void handleResponse(JSONObject response) {
+				try {
+					if (response.has("error")) {
+						Toast.makeText(getActivity().getApplicationContext(),
+								response.getJSONObject("error").getString("message"),
+								Toast.LENGTH_SHORT).show();
+						return;
+					}
+					JSONObject joStatus = response.getJSONObject("status");
+					AddedFlight flight = new AddedFlight(joStatus);
+					if (!flightList.contains(flight)) {
+						storeOnSharedPreferences(joStatus, flight.getKey());
+						flightList.add(flight);
+						addToAdapterDataSet(flight);
+						adapter.notifyDataSetChanged();
+					} else {
+						Toast.makeText(getActivity(), "Ya estaba el vuelvo ehh guachiiin!!!", Toast.LENGTH_SHORT).show();
+					}
+					eraseField(R.id.flight_number_input);
+					eraseField(R.id.airline_input);
+					
+				} catch (JSONException e) {		}
+			}
+			
+		};
+
+		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(), callback);
+		ApiIntent intent = new ApiIntent("GetFlightStatus", "Status", receiver, this.getActivity());
+		LinkedList<NameValuePair> params = new LinkedList<NameValuePair>();
+		params.add(new BasicNameValuePair("airline_id", airline.getId()));
+		params.add(new BasicNameValuePair("flight_num", getElementString(R.id.flight_number_input)));
+		intent.setParams(params);
+		this.getActivity().startService(intent);
+		
 	}
 	
 	private String getElementString(int elementId){
@@ -175,19 +176,6 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 	private String getCityFromString(String s) {
 		return s.substring(0, s.indexOf(','));
 	}
-
-
-	public void Handle(MyFlightsCases c, View view) {
-		switch (c) {
-		case ADD_FLIGHT:
-			addFavorite(view);
-			break;
-		case REMOVE_FLIGHT:
-			removeFavorite();
-			break;
-		}
-		return;	
-	}
 	
 	private void removeFavorite() {
 		flightList.remove(currentFlight);
@@ -200,19 +188,19 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 	}
 	
 	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
-		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_WORLD_WRITEABLE);
+		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
 		Editor editor = prefs.edit();
 		editor.putString(uniqueKey, favorite.toString()).commit();
 	}
 	
 	private void retrieveData() throws JSONException {
 		FlightListFragment.flightList = new ArrayList<AddedFlight>();
-		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_WORLD_READABLE);
+		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
 		Map<String, String> map = (Map<String,String>)prefs.getAll();
 		for (String s: map.values()){
 			flightList.add(new AddedFlight(new JSONObject(s)));
 		}
-		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_WORLD_READABLE);
+		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE);
 		map = (Map<String,String>)prefs.getAll();
 		AddedFlight f;
 		JSONObject jsonPrefs;
@@ -263,6 +251,10 @@ public class FlightListFragment extends Fragment implements ActionHandler {
 		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_WORLD_WRITEABLE);
 		Editor editor = prefs.edit();
 		editor.remove(key).commit();
+	}
+	
+	public void setAirlines(Map<String, Airline> airlinesMap) {
+		this.airlinesMap = airlinesMap;
 	}
 
 }
