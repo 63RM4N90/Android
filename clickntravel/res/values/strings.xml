@@ -41,6 +41,6 @@
     <string name="pref_user_profile">User Profile</string>
     <string name="pref_update_setting">Update Settings</string>
      
-    <string name="search_view_text">Búsqueda de ofertas por destino</string>
+    <string name="search_view_text">Buscar de ofertas por destino</string>
      
 </resources>

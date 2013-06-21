@@ -152,8 +152,7 @@ public class MainActivity extends FragmentActivity implements
 		mListView = (ListView) findViewById(R.id.list);
 
 		// Setea el color del textito de la search view
-		String text = "<font color = #DDDDDD>" + "Buscar ofertas por destino"
-				+ "</font>";
+		String text = "<font color = #DDDDDD>" + getString(R.string.search_view_text) + "</font>";
 		mSearchView.setQueryHint(Html.fromHtml(text));
 
 		menu.add(GROUP_ID, CONFIG_ID, CONFIG_ID,
@@ -210,7 +209,7 @@ public class MainActivity extends FragmentActivity implements
 
 		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
-
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -291,7 +290,12 @@ public class MainActivity extends FragmentActivity implements
 					
 					String idCity = city.getId();
 					
-					Log.d("idcity", idCity);
+					Bundle resultSearchBundle = new Bundle();
+					resultSearchBundle.putString("cityId", idCity);
+					
+					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST, resultSearchBundle);
+					
+//					Log.d("idcity", idCity);
 				}
 			});
 		}

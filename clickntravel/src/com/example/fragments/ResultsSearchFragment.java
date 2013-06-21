@@ -11,13 +11,14 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
@@ -35,20 +36,41 @@ public class ResultsSearchFragment extends Fragment {
 	private String nameTo;
 	private String idTo;
 
+	private View view;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ActionBar actionBar = getActivity().getActionBar();
+		
+		if (view == null) 
+			view = inflater.inflate(R.layout.deal_list_fragment, container, false);
+		
+		Bundle arguments = getArguments();
+		this.idTo = arguments.getString("cityId");
+		
+		Log.d("idTo", this.idTo);
+		
+		ListView listView = (ListView) view.findViewById(R.id.deals_list_view);
 
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-		actionBar.setCustomView(R.layout.resultssearch_abs_layout);
-
-		actionBar.setDisplayShowTitleEnabled(true);
-		actionBar.setTitle(R.string.main_button_resultssearch);
-		actionBar.setDisplayShowHomeEnabled(true);
-		actionBar.setHomeButtonEnabled(true);
-
-		return inflater.inflate(R.layout.results_search_fragment, container, false);
+//		try {
+//			retrieveData();
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
+		
+//		ActionBar actionBar = getActivity().getActionBar();
+//
+//		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+//		actionBar.setCustomView(R.layout.resultssearch_abs_layout);
+//
+//		actionBar.setDisplayShowTitleEnabled(true);
+//		actionBar.setTitle(R.string.main_button_resultssearch);
+//		actionBar.setDisplayShowHomeEnabled(true);
+//		actionBar.setHomeButtonEnabled(true);
+//
+//		return inflater.inflate(R.layout.results_search_fragment, container, false);
+		
+		return view;
 	}
 
 	public void createDeals() {
@@ -99,5 +121,24 @@ public class ResultsSearchFragment extends Fragment {
 		intent.setParams(nameValuePair);
 
 		this.getActivity().startService(intent);
+	}
+	
+	@Override
+	public void onDestroyView() {
+		
+		if (view != null) {
+		
+			((ViewGroup)view.getParent()).removeAllViews();
+		}
+		
+		ListView lv = (ListView) getActivity().findViewById(R.id.deals_list_view);
+		
+		if (lv != null) {
+		
+			((ViewGroup)lv.getParent()).removeView(lv);
+			lv.removeAllViews();
+		}
+		
+		super.onDestroyView();
 	}
 }
