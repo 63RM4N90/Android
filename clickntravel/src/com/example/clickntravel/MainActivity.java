@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.alerts.AlertNotification;
+import com.example.notifications.NotificationIntent;
 import com.example.fragments.ConfigurationFragment;
 import com.example.fragments.FlightInfoFragment;
 import com.example.fragments.MyFlightsFragment;
@@ -39,6 +41,10 @@ public class MainActivity extends FragmentActivity {
         this.fragmentHandler.setFragment(FragmentKey.MAIN);  
         actionBar.setBackgroundDrawable(actionBarBackground);
         actionBar.setIcon(R.drawable.back);
+        
+        AlertNotification.context = this;
+        NotificationIntent intent = new NotificationIntent(this);
+        startService(intent);
 	}
 	
 	@Override

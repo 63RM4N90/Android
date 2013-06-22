@@ -2,7 +2,6 @@ package com.example.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ public class FlightInfoFragment extends Fragment {
 		view = inflater.inflate(R.layout.flight_details_fragment, container, false);
 		ImageView iv = (ImageView)view.findViewById(R.id.airline_name_value);
 		ImageHandler ih = new ImageHandler();
-		
+
 		iv.setImageResource(ih.getImage(currentFlight.getAirline().getName()));
 		setIntoTextView(R.id.flight_number, getActivity().getString(R.string.flight_number) + " " + currentFlight.getFlightNumber());
 		setIntoTextView(R.id.departure_city_value, getCityFromString(currentFlight.getDeparture().getCityName()));
