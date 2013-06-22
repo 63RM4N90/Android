@@ -1,12 +1,8 @@
 package com.example.fragments;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +18,6 @@ public class FlightInfoFragment extends Fragment {
 
 	private AddedFlight currentFlight;
 	private View view;
-	private final String myFlightsFileName = "MyFlightsStorage";
 
 	public FlightInfoFragment() {
 
@@ -62,27 +57,5 @@ public class FlightInfoFragment extends Fragment {
 
 	private String getCityFromString(String s) {
 		return s.substring(0, s.indexOf(','));
-	}
-
-	@Override
-	public void onDestroyView() {
-		SharedPreferences prefs = getActivity().getSharedPreferences(myFlightsFileName, Context.MODE_WORLD_WRITEABLE);
-		Editor editor = prefs.edit();
-		String uniqueKey = currentFlight.getKey();
-		// NotificationConfiguration conf = currentFlight.getConfig();
-		// conf.setNotifyOnStatusChanged(getChecked(R.id.status_check));
-		// conf.setNotifyOnGateChanged(getChecked(R.id.gate_check));
-		// conf.setNotifyOnTerminalChanged(getChecked(R.id.terminal_check));
-		// // conf.setNotifyOnScheduledTimeChanged(getChecked(R.id.time_check));
-		//
-		// JSONObject jsonPrefs;
-		//
-		// try {
-		// jsonPrefs = currentFlight.generateJsonPreferences();
-		// editor.putString(uniqueKey, jsonPrefs.toString()).commit();
-		// } catch (JSONException e) {
-		// e.printStackTrace();
-		// }
-		super.onDestroyView();
 	}
 }

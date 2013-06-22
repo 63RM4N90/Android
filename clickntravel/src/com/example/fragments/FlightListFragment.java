@@ -40,7 +40,6 @@ public class FlightListFragment extends Fragment {
 	public static List<AddedFlight> flightList = new ArrayList<AddedFlight>();
 	private CustomAdapter adapter;
 	private List<Map<String, String>> adapterDataSet = new ArrayList<Map<String,String>>();
-	private Map<String, Airline> airlinesMap;
 	private AddedFlight currentFlight;
 	private View view;
 	
@@ -91,11 +90,11 @@ public class FlightListFragment extends Fragment {
 	public void addFlight() {
 
 		String airlineName = getElementString(R.id.airline_input);
-		if (airlinesMap == null){
+		if (MyFlightsFragment.airlinesMap == null){
 			Toast.makeText(getActivity(), getActivity().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
 			return;
 		}
-		Airline airline = airlinesMap.get(airlineName);
+		Airline airline = MyFlightsFragment.airlinesMap.get(airlineName);
 		
 		if (airline == null) {
 			Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_airline), Toast.LENGTH_SHORT).show();
@@ -147,14 +146,17 @@ public class FlightListFragment extends Fragment {
 		return s.substring(0, s.indexOf(','));
 	}
 	
-	private void removeFavorite() {
-		flightList.remove(currentFlight);
-		removeFromMyFlights(fileName, currentFlight.getKey());
-		removeFromMyFlights(preferencesFileName, currentFlight.getKey());
-		adapter.notifyDataSetChanged();
-		ListView lv = (ListView) view.findViewById(R.id.flights_list_view);
-		lv.invalidateViews();
-	}
+
+//	private void removeFavorite() {
+//		flightList.remove(currentFlight);
+//		generateAdapterDataSet();
+//		removeFromMyFlights(fileName, currentFlight.getKey());
+//		removeFromMyFlights(preferencesFileName, currentFlight.getKey());
+//		adapter.notifyDataSetChanged();
+//		ListView lv = (ListView) view.findViewById(R.id.flights_list_view);
+//		lv.invalidateViews();
+//	}
+
 	
 	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
 		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
@@ -162,6 +164,7 @@ public class FlightListFragment extends Fragment {
 		editor.putString(uniqueKey, favorite.toString()).commit();
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void retrieveData() throws JSONException {
 		FlightListFragment.flightList = new ArrayList<AddedFlight>();
 		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
@@ -171,15 +174,6 @@ public class FlightListFragment extends Fragment {
 		}
 		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE);
 		map = (Map<String,String>)prefs.getAll();
-		AddedFlight f;
-		JSONObject jsonPrefs;
-		for (String s: map.keySet()){
-			f = getMyFlights(s);
-			jsonPrefs = new JSONObject(map.get(s));
-			if (f != null) {
-//				f.setNotificationConfiguration(jsonPrefs);
-			}
-		}
 	}
 	
 	private void eraseField(int fieldId) {
@@ -187,13 +181,13 @@ public class FlightListFragment extends Fragment {
 		tv.setText("");
 	}
 	
-	private AddedFlight getMyFlights(String key) {
-		for(AddedFlight f : flightList) {
-			if (f.getKey().equals(key))
-				return f;
-		}
-		return null;
-	}
+//	private AddedFlight getMyFlights(String key) {
+//		for(AddedFlight f : flightList) {
+//			if (f.getKey().equals(key))
+//				return f;
+//		}
+//		return null;
+//	}
 	
 	@Override
 	public void onDestroyView() {
@@ -207,23 +201,14 @@ public class FlightListFragment extends Fragment {
 		super.onDestroyView();
 	}
 
-	public void setAirlinesMap(Map<String,Airline> map){
-		airlinesMap = map;
-	}
-
-
 	public AddedFlight getCurrentFlight() {
 		return currentFlight;
 	}
 	
-	public void removeFromMyFlights(String myFileName, String key){
-		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_WORLD_WRITEABLE);
-		Editor editor = prefs.edit();
-		editor.remove(key).commit();
-	}
-	
-	public void setAirlines(Map<String, Airline> airlinesMap) {
-		this.airlinesMap = airlinesMap;
-	}
+//	public void removeFromMyFlights(String myFileName, String key){
+//		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_WORLD_WRITEABLE);
+//		Editor editor = prefs.edit();
+//		editor.remove(key).commit();
+//	}
 
 }

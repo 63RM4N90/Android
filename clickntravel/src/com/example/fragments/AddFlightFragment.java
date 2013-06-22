@@ -3,9 +3,6 @@ package com.example.fragments;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.json.JSONArray;
@@ -31,8 +28,6 @@ import com.example.utils.Airline;
 public class AddFlightFragment extends Fragment {
 
 	private View view;
-	private Map<String, Airline> airlinesMap;
-	List<String> lstAirlines = new  ArrayList<String>();
 
 
 	public AddFlightFragment() {
@@ -43,22 +38,21 @@ public class AddFlightFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (view == null) {
 			view = inflater.inflate(R.layout.add_flight_fragment, container, false);
-			airlinesMap = new HashMap<String, Airline>();
+			MyFlightsFragment.airlinesMap = new HashMap<String, Airline>();
 			Callback callback = new Callback() {
 				public void handleResponse(JSONObject response) {
 					try {
 						JSONArray cityArray = response.getJSONArray("airlines");
-						List<String> airlinesList = new LinkedList<String>();
 						for (int i = 0 ; i < cityArray.length() ; i++) {
 							String name = cityArray.getJSONObject(i).optString("name");
 							String id = cityArray.getJSONObject(i).optString("airlineId");
 							Log.d("airline", name);
-							airlinesMap.put(name, new Airline(id, name, "que_se_yo"));
+							MyFlightsFragment.airlinesMap.put(name, new Airline(id, name, "que_se_yo"));
 						}
 						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 								getActivity(),
 								android.R.layout.simple_dropdown_item_1line,
-								new ArrayList<String>(airlinesMap.keySet()));
+								new ArrayList<String>(MyFlightsFragment.airlinesMap.keySet()));
 
 						AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.airline_input);
 						
@@ -81,10 +75,6 @@ public class AddFlightFragment extends Fragment {
 	public void onDestroyView() {
 		((ViewGroup) view.getParent()).removeAllViews();
 		super.onDestroyView();
-	}
-	
-	public Map<String, Airline> getAirlines(){
-		return airlinesMap;
 	}
 
 }
