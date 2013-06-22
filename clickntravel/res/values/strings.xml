@@ -50,5 +50,6 @@
     <string name="invalid_airline">Invalid Airline</string>
     <string name="flight">Flight: </string>
     <string name="n_a">Not Anounced</string>
+    <string name="details">Details</string>
 
 </resources>

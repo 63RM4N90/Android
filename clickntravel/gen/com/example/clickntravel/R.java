@@ -26,22 +26,25 @@ public final class R {
     }
     public static final class drawable {
         public static final int aa=0x7f020000;
-        public static final int af=0x7f020001;
-        public static final int am=0x7f020002;
-        public static final int ar=0x7f020003;
-        public static final int av=0x7f020004;
-        public static final int az=0x7f020005;
-        public static final int ba=0x7f020006;
-        public static final int back=0x7f020007;
-        public static final int bullet=0x7f020008;
-        public static final int cm=0x7f020009;
-        public static final int cntlogohdpi=0x7f02000a;
-        public static final int ib=0x7f02000b;
-        public static final int ic_launcher=0x7f02000c;
-        public static final int jj=0x7f02000d;
-        public static final int la=0x7f02000e;
-        public static final int sol=0x7f02000f;
-        public static final int ta=0x7f020010;
+        public static final int add_comment=0x7f020001;
+        public static final int af=0x7f020002;
+        public static final int am=0x7f020003;
+        public static final int ar=0x7f020004;
+        public static final int av=0x7f020005;
+        public static final int az=0x7f020006;
+        public static final int ba=0x7f020007;
+        public static final int back=0x7f020008;
+        public static final int bullet=0x7f020009;
+        public static final int cm=0x7f02000a;
+        public static final int cntlogohdpi=0x7f02000b;
+        public static final int comments=0x7f02000c;
+        public static final int ib=0x7f02000d;
+        public static final int ic_launcher=0x7f02000e;
+        public static final int jj=0x7f02000f;
+        public static final int la=0x7f020010;
+        public static final int remove=0x7f020011;
+        public static final int sol=0x7f020012;
+        public static final int ta=0x7f020013;
     }
     public static final class id {
         public static final int aboutus=0x7f0a001d;
@@ -92,15 +95,16 @@ public final class R {
         public static final int add_flight_fragment=0x7f030003;
         public static final int configuration_abs_layout=0x7f030004;
         public static final int configuration_fragment=0x7f030005;
-        public static final int flight_details_fragment=0x7f030006;
-        public static final int flight_list_fragment=0x7f030007;
-        public static final int main_fragment=0x7f030008;
-        public static final int my_deals_fragment=0x7f030009;
-        public static final int my_flights_fragment=0x7f03000a;
-        public static final int my_flights_row=0x7f03000b;
-        public static final int mydeals_abs_layout=0x7f03000c;
-        public static final int myflights_abs_layout=0x7f03000d;
-        public static final int notification_info=0x7f03000e;
+        public static final int details_abs_layout=0x7f030006;
+        public static final int flight_details_fragment=0x7f030007;
+        public static final int flight_list_fragment=0x7f030008;
+        public static final int main_fragment=0x7f030009;
+        public static final int my_deals_fragment=0x7f03000a;
+        public static final int my_flights_fragment=0x7f03000b;
+        public static final int my_flights_row=0x7f03000c;
+        public static final int mydeals_abs_layout=0x7f03000d;
+        public static final int myflights_abs_layout=0x7f03000e;
+        public static final int notification_info=0x7f03000f;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
@@ -126,6 +130,7 @@ public final class R {
         public static final int departure_airport_terminal=0x7f070021;
         public static final int departure_city=0x7f07001e;
         public static final int departure_scheduled_time=0x7f070024;
+        public static final int details=0x7f070031;
         public static final int deviated=0x7f070029;
         public static final int door_change=0x7f070017;
         public static final int flight=0x7f07002f;
@@ -148,7 +153,7 @@ public final class R {
         public static final int names=0x7f07000e;
         public static final int no_internet_connection=0x7f07002d;
         public static final int notifications=0x7f07000f;
-        public static final int save_config=0x7f070031;
+        public static final int save_config=0x7f070032;
         public static final int scheduled=0x7f070027;
         public static final int search_hint=0x7f07000a;
         public static final int status_change=0x7f070015;

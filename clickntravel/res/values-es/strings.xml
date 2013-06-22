@@ -51,5 +51,6 @@
     <string name="invalid_airline">Aerolinea invalida</string>
     <string name="flight">Vuelo: </string>
     <string name="n_a">Sin Definir</string>
+    <string name="details">Detalle</string>
 
 </resources>
