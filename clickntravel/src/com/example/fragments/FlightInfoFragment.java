@@ -40,8 +40,6 @@ public class FlightInfoFragment extends Fragment {
 				false);
 		ImageView iv = (ImageView) view.findViewById(R.id.airline_name_value);
 		ImageHandler ih = new ImageHandler();
-<<<<<<< HEAD
-=======
 		StatusHandler sh = new StatusHandler();
 
 		((MainActivity) getActivity()).showDetailOptions();
@@ -49,7 +47,6 @@ public class FlightInfoFragment extends Fragment {
 		actionBar.setCustomView(R.layout.details_abs_layout);
         actionBar.setDisplayShowHomeEnabled(true);
         actionBar.setHomeButtonEnabled(true);
->>>>>>> ed52c6611defd14c5321e95d8084f44d010cf8c9
 
 		iv.setImageResource(ih.getImage(currentFlight.getAirline().getName()));
 		setIntoTextView(R.id.flight_number_value,
