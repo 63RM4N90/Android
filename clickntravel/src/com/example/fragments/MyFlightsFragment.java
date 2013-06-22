@@ -36,12 +36,10 @@ public class MyFlightsFragment extends Fragment{
 		if (view == null) {
 			ActionBar actionBar = getActivity().getActionBar();
 			FragmentTransaction ft;
-			
+
 			actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
 			actionBar.setCustomView(R.layout.myflights_abs_layout);
-			actionBar.setDisplayShowTitleEnabled(true);
-			actionBar.setTitle(R.string.main_button_myflights);
-			actionBar.setDisplayShowHomeEnabled(true);
+	        actionBar.setDisplayShowHomeEnabled(true);
 	        actionBar.setHomeButtonEnabled(true);
 	        
 			vg = container;
