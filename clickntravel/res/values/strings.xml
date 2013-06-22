@@ -49,7 +49,16 @@
     <string name="no_internet_connection">Internet connection failed</string>
     <string name="invalid_airline">Invalid Airline</string>
     <string name="flight">Flight: </string>
-    <string name="n_a">Not Anounced</string>
+    <string name="n_a">Not Announced</string>
     <string name="details">Details</string>
-
+    <string name="food_rating_text">Food:</string>
+    <string name="kindness_rating_text">Kindness:</string>
+    <string name="punctuality_rating_text">Punctuality:</string>
+    <string name="millage_program_rating_text">Millage program:</string>
+    <string name="comfort_rating_text">Comfort:</string>
+    <string name="price_quality_relation_rating_text">Price-Quality relation:</string>
+    <string name="recommend_switch_text">Recommend:</string>
+    <string name="no">no</string>
+    <string name="yes">yes</string>
+    <string name="comment_text">Comment</string>
 </resources>

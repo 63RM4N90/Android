@@ -1,6 +1,8 @@
 package com.example.clickntravel;
 
-import android.R.bool;
+
+
+import com.example.clickntravel.R;
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -11,7 +13,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ public class MainActivity extends FragmentActivity {
 	private FragmentHandler fragmentHandler;
 
 	MenuItem remove;
+	MenuItem submitComment;
 	MenuItem comment;
 	MenuItem seeComments;
 	MenuItem configuration;
@@ -124,8 +126,10 @@ public class MainActivity extends FragmentActivity {
 				FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
 				mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
 				mFragmentTransaction.addToBackStack(null).commit();
-				this.fragmentHandler.setFragment(FragmentKey.BASE);
+				fragmentHandler.setFragment(FragmentKey.BASE);
 				return true;
+			case 4:
+				fragmentHandler.setFragment(FragmentKey.ADD_COMMENT);
 			case android.R.id.home:
 				Intent intent = new Intent(this, MainActivity.class);
 				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -140,19 +144,23 @@ public class MainActivity extends FragmentActivity {
 		comment = menu.add(0, 1, 1, "comment");
 		seeComments = menu.add(0, 2, 2, "see comments");
 		configuration = menu.add(0, 3, 3, R.string.main_button_configuration);
+		submitComment = menu.add(0,4,4,"submit comment");
 
 		remove.setIcon(R.drawable.remove);
 		comment.setIcon(R.drawable.add_comment);
 		seeComments.setIcon(R.drawable.comments);
+		submitComment.setIcon(R.drawable.submit_comment);
 		
 		remove.setVisible(false);
 		comment.setVisible(false);
 		seeComments.setVisible(false);
+		submitComment.setVisible(false);
 		configuration.setVisible(true);
 
 		remove.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		comment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		seeComments.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		submitComment.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		configuration.setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
 	}
 	
@@ -161,6 +169,10 @@ public class MainActivity extends FragmentActivity {
 		comment.setVisible(true);
 		seeComments.setVisible(true);
 		configuration.setVisible(true);
+	}
+	
+	public void showSubmitComment(){
+		submitComment.setVisible(true);
 	}
 
 }

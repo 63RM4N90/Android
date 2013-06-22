@@ -52,5 +52,15 @@
     <string name="flight">Vuelo: </string>
     <string name="n_a">Sin Definir</string>
     <string name="details">Detalle</string>
+    <string name="food_rating_text">Comida:</string>
+    <string name="kindness_rating_text">Amabilidad:</string>
+    <string name="punctuality_rating_text">Puntualidad:</string>
+    <string name="millage_program_rating_text">Programa de millas:</string>
+    <string name="comfort_rating_text">Comfort:</string>
+    <string name="price_quality_relation_rating_text">Relación Precio-Calidad:</string>
+    <string name="recommend_switch_text">Recomendado:</string>
+    <string name="no">no</string>
+    <string name="yes">si</string>
+    <string name="comment_text">Comentar</string>
 
 </resources>

@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.clickntravel.R;
 import com.example.fragments.AboutUsFragment;
+import com.example.fragments.AddCommentFragment;
 import com.example.fragments.AddFlightFragment;
 import com.example.fragments.BaseFragment;
 import com.example.fragments.FlightListFragment;
@@ -30,7 +31,8 @@ public class FragmentHandler {
 		this.fragmentMap.put(FragmentKey.ADD_FLIGHT, new AddFlightFragment());
 		this.fragmentMap.put(FragmentKey.FLIGHT_LIST, new FlightListFragment());
 		this.fragmentMap.put(FragmentKey.MY_DEALS, new MyDealsFragment());
-		
+		this.fragmentMap.put(FragmentKey.ADD_COMMENT, new AddCommentFragment());
+
 		this.fragmentManager = fManager;
 	}
 	
