@@ -39,7 +39,6 @@ public class FlightListFragment extends Fragment {
 
 	public static List<AddedFlight> flightList = new ArrayList<AddedFlight>();
 	private CustomAdapter adapter;
-	private List<Map<String, String>> adapterDataSet = new ArrayList<Map<String,String>>();
 	private AddedFlight currentFlight;
 	private View view;
 	
@@ -140,10 +139,6 @@ public class FlightListFragment extends Fragment {
 	
 	private String getElementString(int elementId){
 		return ((TextView)getActivity().findViewById(elementId)).getText().toString();
-	}
-	
-	private String getCityFromString(String s) {
-		return s.substring(0, s.indexOf(','));
 	}
 	
 

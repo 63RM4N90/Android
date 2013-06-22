@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 
 
+import com.example.alerts.AlertNotification;
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
 import com.example.api.Callback;
@@ -63,11 +64,11 @@ public class NotificationService extends IntentService {
 				} catch (JSONException e) {
 					Log.d("json", "invalid status");
 				}
-//				List<AlertNotification> notifs = flight.check(currentFlightStatus);
-//				if (notifs.isEmpty())
-//					Log.d("notif", "no hay notifs" + flight.getFlightNumber());
-//				for (AlertNotification n : notifs)
-//					n.notifyAlert();
+				List<AlertNotification> notifs = flight.check(currentFlightStatus);
+				if (notifs.isEmpty())
+					Log.d("notif", "no hay notifs" + flight.getFlightNumber());
+				for (AlertNotification n : notifs)
+					n.notifyAlert();
 			}
 		};
 		receiver = new ApiResultReceiver(new Handler(), callback);

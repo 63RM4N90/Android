@@ -9,6 +9,18 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.alerts.Alert;
+import com.example.alerts.AlertNotification;
+import com.example.alerts.ArrivalGateAlert;
+import com.example.alerts.ArrivalTerminalAlert;
+import com.example.alerts.ArrivalTimeAlert;
+import com.example.alerts.BaggageGateAlert;
+import com.example.alerts.DepartureGateAlert;
+import com.example.alerts.DepartureTerminalAlert;
+import com.example.alerts.DepartureTimeAlert;
+import com.example.alerts.StatusAlert;
+import com.example.utils.FlightStatus;
+
 public class AddedFlight{
 
 	private Destination departure;
@@ -16,30 +28,22 @@ public class AddedFlight{
 	private Airline airline;
 	private int flightId;
 	private int flightNumber;
-	private String status;
-	
-//	private NotificationConfiguration config;
+//	private String status;
+	private List<Alert> alerts;
+	private FlightStatus status;
 
 	public AddedFlight(JSONObject status) throws JSONException {
 
 		this.flightId = status.getInt("flightId"); 
 		this.flightNumber = status.getInt("number");
-		this.status = status.getString("status");
+		this.status = new FlightStatus(status);
 		this.departure = getDestination(status.getJSONObject("departure"));
 		this.arrival = getDestination(status.getJSONObject("arrival"));
 		this.airline = getAirline(status.getJSONObject("airline"));
-//		setConfig(new NotificationConfiguration());
+		this.alerts = getAlerts(status);
 		
 	}
 	
-	public AddedFlight(Destination de, Destination ar, Airline ai) {
-		departure= de;
-		arrival= ar;
-		airline= ai;
-		flightId= 123;
-		flightNumber= flightId;
-		status= "puto";
-	}
 
 	private Destination getDestination(JSONObject destiny) throws JSONException {
 		
@@ -88,7 +92,7 @@ public class AddedFlight{
 	}
 	
 	public String getFlightStatus() {
-		return status;
+		return status.getStatus();
 	}
 	
 	
@@ -109,6 +113,36 @@ public class AddedFlight{
 		params.add(new BasicNameValuePair("airline_id", this.airline.getId()));
 		params.add(new BasicNameValuePair("flight_num", String.valueOf(this.flightNumber)));
 		return params;
+	}
+	
+	public List<AlertNotification> check(FlightStatus newStatus) {
+		List<AlertNotification> notifications = new LinkedList<AlertNotification>();
+		for (Alert a : alerts) {
+			if (Alert.activeAlerts.get(a.getClass().toString()) && a.changedStatus(status, newStatus))
+				notifications.add(a.getNotification(newStatus));
+		}
+		return notifications;
+	}
+	
+	private List<Alert> getAlerts(JSONObject json) {
+		List<Alert> ret = new LinkedList<Alert>();
+		if (json.optBoolean("Status"))
+			ret.add(new StatusAlert());
+		if (json.optBoolean("DepartureTime"))
+			ret.add(new DepartureTimeAlert());
+		if (json.optBoolean("DepartureTerminal"))
+			ret.add(new DepartureTerminalAlert());
+		if (json.optBoolean("DepartureGate"))
+			ret.add(new DepartureGateAlert());
+		if (json.optBoolean("BaggageGate"))
+			ret.add(new BaggageGateAlert());
+		if (json.optBoolean("ArrivalTime"))
+			ret.add(new ArrivalTimeAlert());
+		if (json.optBoolean("ArrivalTerminal"))
+			ret.add(new ArrivalTerminalAlert());
+		if (json.optBoolean("ArrivalGate"))
+			ret.add(new ArrivalGateAlert());
+		return ret;
 	}
 	
 }

@@ -50,6 +50,7 @@
                 android:resource="@xml/searchable" />
         </activity>
         <service android:name="com.example.api.ApiService"/>
+        <service android:name="com.example.notifications.NotificationService"/>
     </application>
 
 </manifest>

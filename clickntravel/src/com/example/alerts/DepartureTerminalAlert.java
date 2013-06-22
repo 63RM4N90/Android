@@ -2,7 +2,7 @@ package com.example.alerts;
 
 import com.example.utils.FlightStatus;
 
-public class DepartureTerminalAlert implements Alert {
+public class DepartureTerminalAlert extends Alert {
 
 	public boolean changedStatus(FlightStatus oldStatus, FlightStatus newStatus) {
 		return !oldStatus.getDepartureTerminal().equals(newStatus.getDepartureTerminal());

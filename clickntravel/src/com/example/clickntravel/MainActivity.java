@@ -17,6 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.alerts.AlertNotification;
+import com.example.notifications.NotificationIntent;
 import com.example.fragments.ConfigurationFragment;
 import com.example.fragments.FlightInfoFragment;
 import com.example.fragments.MyFlightsFragment;
@@ -42,12 +44,16 @@ public class MainActivity extends FragmentActivity {
 		ColorDrawable actionBarBackground = new ColorDrawable(Color.rgb(12,
 				129, 199));
 		ActionBar actionBar = getActionBar();
+        AlertNotification.context = this;
+        NotificationIntent intent = new NotificationIntent(this);
+        startService(intent);
 
 		setContentView(R.layout.activity_main);
 		this.fragmentHandler = new FragmentHandler(getSupportFragmentManager());
 		this.fragmentHandler.setFragment(FragmentKey.MAIN);
 		actionBar.setBackgroundDrawable(actionBarBackground);
 		actionBar.setIcon(R.drawable.back);
+
 	}
 
 	public void onClickMyFlights(View view) {

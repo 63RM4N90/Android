@@ -2,7 +2,7 @@ package com.example.alerts;
 
 import com.example.utils.FlightStatus;
 
-public class StatusAlert implements Alert {
+public class StatusAlert extends Alert {
 
 	public boolean changedStatus(FlightStatus oldStatus,
 			FlightStatus newStatus) {

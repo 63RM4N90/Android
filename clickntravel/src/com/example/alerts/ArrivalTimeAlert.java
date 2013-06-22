@@ -2,7 +2,7 @@ package com.example.alerts;
 
 import com.example.utils.FlightStatus;
 
-public class ArrivalTimeAlert implements Alert {
+public class ArrivalTimeAlert extends Alert {
 	
 	public boolean changedStatus(FlightStatus oldStatus, FlightStatus newStatus) {
 		return !oldStatus.getArrivalTime().equals(newStatus.getArrivalTime());
