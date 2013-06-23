@@ -1,4 +1,4 @@
-package com.example.clickntravel;
+package com.example.utils;
 
 import android.content.ContentValues;
 import android.content.Context;

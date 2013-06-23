@@ -1,67 +1,39 @@
 package com.example.clickntravel;
 
-import java.text.Format;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-
-import org.apache.http.NameValuePair;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
-import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-import com.example.api.ApiIntent;
-import com.example.api.ApiResultReceiver;
-import com.example.api.Callback;
 import com.example.fragments.ConfigurationFragment;
 import com.example.handlers.FragmentHandler;
-import com.example.utils.City;
 import com.example.utils.FragmentKey;
 
-public class MainActivity extends FragmentActivity implements
-		SearchView.OnQueryTextListener, OnCloseListener {
+public class MainActivity extends FragmentActivity {
 
-	private SearchView mSearchView;
 	private TextView mStatusView;
-	private ListView mListView;
+
 	private static final int CONFIG_ID = 1;
-	private FlightsDbAdapter mDbHelper;
 	private static final int GROUP_ID = 1;
 	private ConfigurationFragment mPrefsFragment = null;
 	private FragmentHandler fragmentHandler;
 
-	private Map<String, City> citiesMap;
-
+	@Override
+    public void onSaveInstanceState(Bundle outState) {
+        
+    	super.onSaveInstanceState(outState);
+    }
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -80,86 +52,10 @@ public class MainActivity extends FragmentActivity implements
 		this.fragmentHandler.setFragment(FragmentKey.MAIN);
 		actionBar.setBackgroundDrawable(actionBarBackground);
 		actionBar.setIcon(R.drawable.back);
-
-		mDbHelper = new FlightsDbAdapter(this);
-		mDbHelper.open();
-
-		mDbHelper.deleteAllFlights();
-
-		createCities();
-	}
-
-	private void createCities() {
-
-		citiesMap = new HashMap<String, City>();
-
-		Callback callback = new Callback() {
-
-			public void handleResponse(JSONObject response) {
-
-				try {
-
-					JSONArray cityArray = response.getJSONArray("cities");
-
-					for (int i = 0; i < cityArray.length(); i++) {
-
-						String name = cityArray.getJSONObject(i).optString(
-								"name");
-						String id = cityArray.getJSONObject(i).optString(
-								"cityId");
-
-						addFlight(name, id);
-					}
-
-				} catch (JSONException e) {
-				}
-			}
-
-			private void addFlight(String name, String id) {
-
-				if (name.contains("Barcelona")) {
-
-					name = "Barcelona, España";
-				} else if (name.contains("Madrid")) {
-
-					name = "Madrid, Comunidad de Madrid, España";
-				}
-
-				citiesMap.put(name, new City(id, name));
-
-				mDbHelper.createFlights("", "", name, "", "");
-			}
-
-		};
-
-		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(),
-				callback);
-		ApiIntent intent = new ApiIntent("GetCities", "Geo", receiver, this);
-		intent.setParams(new LinkedList<NameValuePair>());
-
-		this.startService(intent);
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		super.onCreateOptionsMenu(menu);
-
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.searchview_in_menu, menu);
-		MenuItem searchItem = menu.findItem(R.id.action_search);
-		mSearchView = (SearchView) searchItem.getActionView();
-		mSearchView.setIconifiedByDefault(false); // Pone la lupita a la derecha
-													// si se comenta
-		mSearchView.setOnQueryTextListener(this);
-		mSearchView.setOnCloseListener(this);
-		mListView = (ListView) findViewById(R.id.list);
-
-		// Setea el color del textito de la search view
-		String text = "<font color = #DDDDDD>"
-				+ getString(R.string.search_view_text) + "</font>";
-		mSearchView.setQueryHint(Html.fromHtml(text));
 
 		menu.add(GROUP_ID, CONFIG_ID, CONFIG_ID,
 				R.string.main_button_configuration);
@@ -226,85 +122,5 @@ public class MainActivity extends FragmentActivity implements
 		}
 
 		return super.onKeyDown(keyCode, event);
-	}
-
-	public boolean onQueryTextChange(String newText) {
-
-		showResults(newText + "*");
-
-		return false;
-	}
-
-	public boolean onQueryTextSubmit(String query) {
-
-		showResults(query + "*");
-
-		return false;
-	}
-
-	public boolean onClose() {
-
-		mStatusView.setText("Closed!");
-
-		return false;
-	}
-
-	protected boolean isAlwaysExpanded() {
-
-		return false;
-	}
-
-	private void showResults(String query) {
-
-		if (query == null) {
-
-			return;
-		}
-
-		Cursor cursor = mDbHelper.searchFlights(query.toString());
-
-		if (cursor != null) {
-
-			// Specify the columns we want to display in the result
-			String[] from = new String[] { FlightsDbAdapter.KEY_TO };
-
-			// Specify the Corresponding layout elements where we want the
-			// columns to go
-			int[] to = new int[] { R.id.scity };
-
-			// Create a simple cursor adapter for the definitions and apply them
-			// to the ListView
-			@SuppressWarnings("deprecation")
-			SimpleCursorAdapter Flights = new SimpleCursorAdapter(this,
-					R.layout.flightresult, cursor, from, to);
-			mListView.setAdapter(Flights);
-
-			// Define the on-click listener for the list items
-			mListView.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-
-					// Get the cursor, positioned to the corresponding row in
-					// the result set
-					Cursor cursor = (Cursor) mListView
-							.getItemAtPosition(position);
-
-					// Get the city from this row in the database
-					String name = cursor.getString(cursor
-							.getColumnIndexOrThrow("city"));
-
-					City city = citiesMap.get(name);
-
-					Bundle resultSearchBundle = new Bundle();
-					resultSearchBundle.putString("cityId", city.getId());
-					resultSearchBundle.putString("cityName", city.getName());
-
-					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST,
-							resultSearchBundle);
-				}
-			});
-		}
 	}
 }

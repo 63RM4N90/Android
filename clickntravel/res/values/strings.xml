@@ -7,7 +7,7 @@
     <string name="main_button_myflights">Mis Vuelos</string>
     <string name="main_button_mydeals">Mis Ofertas</string>
     <string name="main_button_aboutus">Nosotros</string>
-    <string name="main_button_resultssearch">Resultados de búsqueda de ofertas</string>
+    <string name="main_button_resultssearch">Resultados de ofertas</string>
     <string name="title_activity_my_flights">Mis Vuelos</string>
     <string name="title_activity_configuration">Configuración</string>
     <string name="title_activity_my_deals">Mis ofertas</string>
