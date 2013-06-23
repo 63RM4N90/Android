@@ -37,15 +37,15 @@ public class AddedFlight{
 		this.flightId = status.getInt("flightId"); 
 		this.flightNumber = status.getInt("number");
 		this.status = new FlightStatus(status);
-		this.departure = getDestination(status.getJSONObject("departure"));
-		this.arrival = getDestination(status.getJSONObject("arrival"));
+		this.departure = parseDestination(status.getJSONObject("departure"));
+		this.arrival = parseDestination(status.getJSONObject("arrival"));
 		this.airline = getAirline(status.getJSONObject("airline"));
-		this.alerts = getAlerts(status);
+		this.alerts = parseAlerts(status);
 		
 	}
 	
 
-	private Destination getDestination(JSONObject destiny) throws JSONException {
+	private Destination parseDestination(JSONObject destiny) throws JSONException {
 		
 		JSONObject airport = destiny.getJSONObject("airport");
 		JSONObject city = destiny.getJSONObject("city");
@@ -124,7 +124,7 @@ public class AddedFlight{
 		return notifications;
 	}
 	
-	private List<Alert> getAlerts(JSONObject json) {
+	private List<Alert> parseAlerts(JSONObject json) {
 		List<Alert> ret = new LinkedList<Alert>();
 		if (json.optBoolean("Status"))
 			ret.add(new StatusAlert());

@@ -7,9 +7,11 @@ import android.app.ActionBar;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.alerts.Alert;
 import com.example.alerts.AlertNotification;
 import com.example.notifications.NotificationIntent;
 import com.example.fragments.ConfigurationFragment;
@@ -40,7 +43,15 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		
+		Alert.CONTEXT = this;
+		Alert.refreshAlerts();
+		PreferenceManager.getDefaultSharedPreferences(this).registerOnSharedPreferenceChangeListener( new SharedPreferences.OnSharedPreferenceChangeListener() 
+			{
+	            public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+	            	Alert.refreshAlerts();
+            }
+        });
 		ColorDrawable actionBarBackground = new ColorDrawable(Color.rgb(12,
 				129, 199));
 		ActionBar actionBar = getActionBar();
@@ -71,8 +82,6 @@ public class MainActivity extends FragmentActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && mPrefsFragment != null) {
-			// mPrefsFragment.getPreferenceScreen().removeAll();
-			// mPrefsFragment = null;
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);

@@ -9,7 +9,7 @@ public class ArrivalGateAlert extends Alert {
 	}
 
 	public AlertNotification getNotification(FlightStatus newStatus) {
-		return new AlertNotification("La nueva puerta de arribo es: " + newStatus.getArrivalGate(), "Puerta de arribo");
+		return new AlertNotification("La nueva puerta es: " + newStatus.getArrivalGate(), "Puerta de arribo");
 	}
 	
 	public String getName() {

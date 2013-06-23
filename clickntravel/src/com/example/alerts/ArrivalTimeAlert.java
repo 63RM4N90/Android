@@ -9,7 +9,7 @@ public class ArrivalTimeAlert extends Alert {
 	}
 	
 	public AlertNotification getNotification(FlightStatus newStatus) {
-		return new AlertNotification("El nuevo horario de llegada es: " + newStatus.getArrivalTime());
+		return new AlertNotification("El nuevo horario del vuelo es: " + newStatus.getArrivalTime());
 	}
 
 	public String getName() {

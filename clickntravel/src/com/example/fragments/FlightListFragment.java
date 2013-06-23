@@ -42,8 +42,7 @@ public class FlightListFragment extends Fragment {
 	private AddedFlight currentFlight;
 	private View view;
 	
-	private final String fileName = "favoritesStorage";
-	private final String preferencesFileName = "favoritesPreferencesStorage";
+	private final String fileName = "addedFlightsStorage";
 	
 	public FlightListFragment() {
 	}
@@ -167,8 +166,6 @@ public class FlightListFragment extends Fragment {
 		for (String s: map.values()){
 			flightList.add(new AddedFlight(new JSONObject(s)));
 		}
-		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE);
-		map = (Map<String,String>)prefs.getAll();
 	}
 	
 	private void eraseField(int fieldId) {
