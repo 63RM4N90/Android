@@ -74,10 +74,10 @@ public class FlightListFragment extends Fragment {
 				currentFlight = flightList.get(arg2);
 				int screenLayout = getActivity().getResources().getConfiguration().screenLayout;
 				if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
-					((MainActivity)getActivity()).goToNewFavoriteInfoFragmentLarge(currentFlight);
+					((MainActivity)getActivity()).goToNewMyFlightsInfoFragmentLarge(currentFlight);
 				} else {
 					getActivity().getActionBar().selectTab(null);
-					((MainActivity)getActivity()).goToNewFavoriteInfoFragment(currentFlight);
+					((MainActivity)getActivity()).goToNewMyFlightsInfoFragment(currentFlight);
 				}
 			}
 		});
