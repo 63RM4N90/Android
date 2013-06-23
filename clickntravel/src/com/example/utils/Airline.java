@@ -13,6 +13,10 @@ public class Airline {
 		this.id = id;
 		this.name = name;
 	}
+	public Airline(String id, String name){
+		this.id = id;
+		this.name = name;
+	}
 	
 	public Airline(JSONObject airline) throws JSONException {
 		this.id = airline.getString("id");

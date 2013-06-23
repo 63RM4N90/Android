@@ -105,7 +105,7 @@ public class FlightListFragment extends Fragment {
 				try {
 					if (response.has("error")) {
 						Toast.makeText(getActivity().getApplicationContext(),
-								response.getJSONObject("error").getString("message"),
+								R.string.get_fligh_error,
 								Toast.LENGTH_SHORT).show();
 						return;
 					}
@@ -116,7 +116,7 @@ public class FlightListFragment extends Fragment {
 						flightList.add(flight);
 						adapter.notifyDataSetChanged();
 					} else {
-						Toast.makeText(getActivity(), "Ya estaba el vuelvo ehh guachiiin!!!", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), R.string.already_added, Toast.LENGTH_SHORT).show();
 					}
 					eraseField(R.id.flight_number_input);
 					eraseField(R.id.airline_input);
@@ -161,14 +161,6 @@ public class FlightListFragment extends Fragment {
 		TextView tv = (TextView) getActivity().findViewById(fieldId);
 		tv.setText("");
 	}
-	
-//	private AddedFlight getMyFlights(String key) {
-//		for(AddedFlight f : flightList) {
-//			if (f.getKey().equals(key))
-//				return f;
-//		}
-//		return null;
-//	}
 	
 	@Override
 	public void onDestroyView() {

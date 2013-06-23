@@ -63,5 +63,12 @@
     <string name="comment_text">Comment</string>
     <string name="comment_row_text">Comment:</string>
     <string name="add_comment">add comment</string>
+    <string name="remove_flight_toast">Flight removed</string>
+    <string name="get_fligh_error">Invalid flight</string>
+    <string name="already_added">Flight already added</string>
+        
+    
+    
+    
 
 </resources>
