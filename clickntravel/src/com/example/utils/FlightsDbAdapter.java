@@ -1,5 +1,7 @@
 package com.example.utils;
 
+import java.util.Set;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -18,7 +20,7 @@ public class FlightsDbAdapter {
 	public static final String KEY_SEARCH = "searchData";
 
 	private static final String LIMIT = "5"; // Limita la cantidad de resultados
-	
+
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
@@ -37,7 +39,7 @@ public class FlightsDbAdapter {
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
 		DatabaseHelper(Context context) {
-			
+
 			super(context, DATABASE_FROM, null, DATABASE_VERSION);
 		}
 
@@ -56,22 +58,22 @@ public class FlightsDbAdapter {
 	}
 
 	public FlightsDbAdapter(Context ctx) {
-		
+
 		this.mCtx = ctx;
 	}
 
 	public FlightsDbAdapter open() throws SQLException {
-		
+
 		mDbHelper = new DatabaseHelper(mCtx);
 		mDb = mDbHelper.getWritableDatabase();
-		
+
 		return this;
 	}
 
 	public void close() {
-		
+
 		if (mDbHelper != null) {
-		
+
 			mDbHelper.close();
 		}
 	}
@@ -88,17 +90,18 @@ public class FlightsDbAdapter {
 	}
 
 	public long createFlights(String to) {
-	
+
 		return createFlights("", "", to, "", "");
 	}
-	
+
 	public long createFlights(String price, String from, String to,
 			String depDate, String retDate) {
 
 		ContentValues initialValues = new ContentValues();
-		
-		String searchValue = price + " " + from + " " + to + " " + depDate + " " + retDate;
-		
+
+		String searchValue = price + " " + from + " " + to + " " + depDate
+				+ " " + retDate;
+
 		initialValues.put(KEY_PRICE, price);
 		initialValues.put(KEY_FROM, from);
 		initialValues.put(KEY_TO, to);
@@ -108,9 +111,25 @@ public class FlightsDbAdapter {
 
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}
-	
-	public Cursor searchFlights(String inputText) throws SQLException {
+
+	public Cursor searchFlights(Set<String> inputsText) throws SQLException {
+
+		String query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
+				+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE
+				+ " FROM " + FTS_VIRTUAL_TABLE;
 		
+		Cursor mCursor = mDb.rawQuery(query, null);
+		
+		if (mCursor != null) {
+
+			mCursor.moveToFirst();
+		}
+
+		return mCursor;
+	}
+
+	public Cursor searchFlights(String inputText) throws SQLException {
+
 		String query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
 				+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE
 				+ " FROM " + FTS_VIRTUAL_TABLE + " WHERE " + KEY_SEARCH
@@ -118,9 +137,9 @@ public class FlightsDbAdapter {
 				+ " LIMIT " + LIMIT + ";";
 		
 		Cursor mCursor = mDb.rawQuery(query, null);
-
-		if (mCursor != null) {
 		
+		if (mCursor != null) {
+
 			mCursor.moveToFirst();
 		}
 

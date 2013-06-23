@@ -41,7 +41,7 @@ import com.example.utils.FlightsDbAdapter;
 import com.example.utils.FragmentKey;
 
 public class MainFragment extends Fragment implements
-		SearchView.OnQueryTextListener, OnCloseListener {
+SearchView.OnQueryTextListener, OnCloseListener {
 
 	private SearchView mSearchView;
 	private TextView mStatusView;
@@ -50,29 +50,28 @@ public class MainFragment extends Fragment implements
 
 	private Map<String, City> citiesMap;
 
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-
-		super.onSaveInstanceState(outState);
-		setUserVisibleHint(true);
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        
+    	super.onSaveInstanceState(outState);
+        setUserVisibleHint(true);
+    }
+	
+	@Override 
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
-
+		
 		ActionBar actionBar = getActivity().getActionBar();
-
-		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME);
+		
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_HOME); 
 		actionBar.setHomeButtonEnabled(false);
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setDisplayShowHomeEnabled(false);
-
-		setHasOptionsMenu(true);
-
-		mDbHelper = new FlightsDbAdapter(this.getActivity());
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        
+        setHasOptionsMenu(true);
+		
+        mDbHelper = new FlightsDbAdapter(this.getActivity());
 		mDbHelper.open();
 
 		mDbHelper.deleteAllFlights();
@@ -80,8 +79,8 @@ public class MainFragment extends Fragment implements
 		createCities();
 
 		return inflater.inflate(R.layout.main_fragment, container, false);
-	}
-
+    }
+	
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
 		inflater.inflate(R.menu.searchview_in_menu, menu);
@@ -98,7 +97,8 @@ public class MainFragment extends Fragment implements
 				+ getString(R.string.search_view_text) + "</font>";
 		mSearchView.setQueryHint(Html.fromHtml(text));
 	}
-
+	
+	
 	private void createCities() {
 
 		citiesMap = new HashMap<String, City>();
@@ -128,12 +128,12 @@ public class MainFragment extends Fragment implements
 			private void addFlight(String name, String id) {
 
 				// Hardcodeado a que sea From BUE TODO
-
+				
 				if (name.contains("Buenos Aires")) {
-
+					
 					return;
 				}
-
+				
 				if (name.contains("Barcelona")) {
 
 					name = "Barcelona, España";
@@ -151,8 +151,7 @@ public class MainFragment extends Fragment implements
 
 		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(),
 				callback);
-		ApiIntent intent = new ApiIntent("GetCities", "Geo", receiver,
-				this.getActivity());
+		ApiIntent intent = new ApiIntent("GetCities", "Geo", receiver, this.getActivity());
 		intent.setParams(new LinkedList<NameValuePair>());
 
 		this.getActivity().startService(intent);
@@ -206,8 +205,8 @@ public class MainFragment extends Fragment implements
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
 			@SuppressWarnings("deprecation")
-			SimpleCursorAdapter Flights = new SimpleCursorAdapter(
-					this.getActivity(), R.layout.flightresult, cursor, from, to);
+			SimpleCursorAdapter Flights = new SimpleCursorAdapter(this.getActivity(),
+					R.layout.flightresult, cursor, from, to);
 			mListView.setAdapter(Flights);
 
 			// Define the on-click listener for the list items
@@ -216,7 +215,7 @@ public class MainFragment extends Fragment implements
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-
+					
 					// Get the cursor, positioned to the corresponding row in
 					// the result set
 					Cursor cursor = (Cursor) mListView
@@ -225,7 +224,7 @@ public class MainFragment extends Fragment implements
 					// Get the city from this row in the database
 					String name = cursor.getString(cursor
 							.getColumnIndexOrThrow("city"));
-
+					
 					City city = citiesMap.get(name);
 
 					Bundle resultSearchBundle = new Bundle();
@@ -233,10 +232,9 @@ public class MainFragment extends Fragment implements
 					resultSearchBundle.putString("cityName", city.getName());
 
 					getActivity();
-
-					FragmentHandler fragmentHandler = new FragmentHandler(
-							getFragmentManager());
-
+					
+					FragmentHandler fragmentHandler = new FragmentHandler(getFragmentManager());
+					
 					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST,
 							resultSearchBundle);
 				}
