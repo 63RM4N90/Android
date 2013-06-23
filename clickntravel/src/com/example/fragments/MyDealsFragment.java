@@ -66,34 +66,21 @@ public class MyDealsFragment extends Fragment {
 
 			// TODO No hay ofertas guardadas
 		}
-
-		Set<String> queries = new HashSet<String>();
 		
 		for (Deal curr : dealsList) {
 
-			Log.d("curr", curr.toString());
-
 			mDbHelper.createFlights(curr.getPrice(), curr.getNameFrom(),
 					curr.getNameTo(), curr.getDepTime(), curr.getArrivalTime());
-
-			queries.add(curr.getNameFrom());
 		}
 
-		showResults(queries);
+		showResults();
 		
 		return view;
 	}
 
-	private void showResults(Set<String> queries) {
+	private void showResults() {
 
-		if (queries == null) {
-
-			return;
-		}
-
-//		Log.d("que onda", query);
-
-		Cursor cursor = mDbHelper.searchFlights(queries);
+		Cursor cursor = mDbHelper.searchFlights();
 
 		if (cursor != null) {
 

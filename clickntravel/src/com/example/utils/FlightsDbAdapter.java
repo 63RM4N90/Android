@@ -112,32 +112,26 @@ public class FlightsDbAdapter {
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}
 
-	public Cursor searchFlights(Set<String> inputsText) throws SQLException {
+	public Cursor searchFlights() throws SQLException {
 
-		String query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
-				+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE
-				+ " FROM " + FTS_VIRTUAL_TABLE;
-		
-		Cursor mCursor = mDb.rawQuery(query, null);
-		
-		if (mCursor != null) {
-
-			mCursor.moveToFirst();
-		}
-
-		return mCursor;
+		return createCursor("");
 	}
 
 	public Cursor searchFlights(String inputText) throws SQLException {
 
-		String query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
-				+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE
-				+ " FROM " + FTS_VIRTUAL_TABLE + " WHERE " + KEY_SEARCH
+		return createCursor(" WHERE " + KEY_SEARCH
 				+ " MATCH '" + inputText + "'" + " ORDER BY " + KEY_SEARCH
-				+ " LIMIT " + LIMIT + ";";
+				+ " LIMIT " + LIMIT + ";");
+	}
+	
+	public Cursor createCursor(String query) {
+
+		query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
+				+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE
+				+ " FROM " + FTS_VIRTUAL_TABLE + query;
 		
 		Cursor mCursor = mDb.rawQuery(query, null);
-		
+
 		if (mCursor != null) {
 
 			mCursor.moveToFirst();
