@@ -21,6 +21,16 @@ public class Deal {
 	private String flightId;
 	private String flightNumber;
 
+	public Deal(String nameFrom, String nameTo, String depTime,
+			String arrivalTime, String price) {
+
+		this.nameFrom = nameFrom;
+		this.nameTo = nameTo;
+		this.depTime = depTime;
+		this.arrivalTime = arrivalTime;
+		this.price = price;
+	}
+
 	public Deal(String idFrom, String nameFrom, String idTo, String nameTo,
 			String price, String airlineId, String flightId,
 			String flightNumber, String depTime, String arrivalTime) {
@@ -44,12 +54,12 @@ public class Deal {
 		this.idTo = idTo;
 		this.nameTo = nameTo;
 		this.price = price;
-//		this.airlineId = getAirline(status.getJSONObject("airline"));
-//		;
-//		this.flightId = status.getInt("flightId");
-//		this.flightNumber = status.getInt("number");
-//		this.depTime = parseDestination(status.getJSONObject("departure"));
-//		this.arrivalTime = parseDestination(status.getJSONObject("arrival"));
+		// this.airlineId = getAirline(status.getJSONObject("airline"));
+		// ;
+		// this.flightId = status.getInt("flightId");
+		// this.flightNumber = status.getInt("number");
+		// this.depTime = parseDestination(status.getJSONObject("departure"));
+		// this.arrivalTime = parseDestination(status.getJSONObject("arrival"));
 	}
 
 	private Destination parseDestination(JSONObject destiny)

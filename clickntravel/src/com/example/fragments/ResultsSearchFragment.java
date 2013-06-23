@@ -48,12 +48,12 @@ public class ResultsSearchFragment extends Fragment {
 	private String nameTo;
 	private String idTo;
 
-	private DealAdapter adapter;
+	// private DealAdapter adapter;
 	private Deal currentDeal;
 
 	private ListView mListView;
 	private FlightsDbAdapter mDbHelper;
-	
+
 	private View view;
 
 	@Override
@@ -79,10 +79,10 @@ public class ResultsSearchFragment extends Fragment {
 					false);
 
 		mListView = (ListView) view.findViewById(R.id.deals_list_view);
-		
-        setHasOptionsMenu(true);
-		
-        mDbHelper = new FlightsDbAdapter(this.getActivity());
+
+		setHasOptionsMenu(true);
+
+		mDbHelper = new FlightsDbAdapter(this.getActivity());
 		mDbHelper.open();
 
 		mDbHelper.deleteAllFlights();
@@ -157,7 +157,7 @@ public class ResultsSearchFragment extends Fragment {
 									indexMinPrice = i;
 								}
 							}
-							
+
 							if (dealsList.isEmpty()) {
 
 								addDeal(indexMinPrice, minPrice, dealArray);
@@ -165,7 +165,7 @@ public class ResultsSearchFragment extends Fragment {
 
 						} catch (JSONException e) {
 						}
-						
+
 						showResults(nameTo + "*");
 					}
 
@@ -199,8 +199,10 @@ public class ResultsSearchFragment extends Fragment {
 
 							dealsList.add(curr);
 
-							mDbHelper.createFlights(curr.getPrice(), curr.getNameFrom(), curr.getNameTo(), curr.getDepTime(), curr.getArrivalTime());
-//							Log.d("deal", curr.toString());
+							mDbHelper.createFlights(curr.getPrice(),
+									curr.getNameFrom(), curr.getNameTo(),
+									curr.getDepTime(), curr.getArrivalTime());
+							// Log.d("deal", curr.toString());
 
 						} catch (JSONException e) {
 						}
@@ -265,34 +267,34 @@ public class ResultsSearchFragment extends Fragment {
 
 		this.getActivity().startService(intent);
 	}
-	
+
 	private void showResults(String query) {
-		
+
 		if (query == null) {
 
 			return;
 		}
 
 		Cursor cursor = mDbHelper.searchFlights(query);
-		
+
 		if (cursor != null) {
-		
+
 			// Specify the columns we want to display in the result
-			
-			String[] from = new String[] {FlightsDbAdapter.KEY_PRICE,
+
+			String[] from = new String[] { FlightsDbAdapter.KEY_PRICE,
 					FlightsDbAdapter.KEY_FROM, FlightsDbAdapter.KEY_TO,
 					FlightsDbAdapter.KEY_DEPDATE, FlightsDbAdapter.KEY_RETDATE };
 
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
 			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
-			R.id.sstate, R.id.szipCode };
-			
+					R.id.sstate, R.id.szipCode };
+
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
 			@SuppressWarnings("deprecation")
-			SimpleCursorAdapter Flights = new SimpleCursorAdapter(this.getActivity(),
-					R.layout.dealresult, cursor, from, to);
+			SimpleCursorAdapter Flights = new SimpleCursorAdapter(
+					this.getActivity(), R.layout.dealresult, cursor, from, to);
 			mListView.setAdapter(Flights);
 
 			// Define the on-click listener for the list items
@@ -301,29 +303,27 @@ public class ResultsSearchFragment extends Fragment {
 				@Override
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					
+
 					// Get the cursor, positioned to the corresponding row in
 					// the result set
 					Cursor cursor = (Cursor) mListView
 							.getItemAtPosition(position);
 
 					// Get the city from this row in the database
-					String name = cursor.getString(cursor
+					String price = cursor.getString(cursor
+							.getColumnIndexOrThrow("customer"));
+					String from = cursor.getString(cursor
+							.getColumnIndexOrThrow("name"));
+					String to = cursor.getString(cursor
 							.getColumnIndexOrThrow("city"));
+					String depDate = cursor.getString(cursor
+							.getColumnIndexOrThrow("state"));
+					String retDate = cursor.getString(cursor
+							.getColumnIndexOrThrow("zipCode"));
 					
+					Deal newDeal = new Deal(from, to, depDate, retDate, price);
 					
-//					Deal deal = citiesMap.get(name);
-//
-//					Bundle resultSearchBundle = new Bundle();
-//					resultSearchBundle.putString("cityId", city.getId());
-//					resultSearchBundle.putString("cityName", city.getName());
-//
-					getActivity();
-					
-					FragmentHandler fragmentHandler = new FragmentHandler(getFragmentManager());
-					
-//					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST,
-//							resultSearchBundle);
+					MyDealsFragment.dealsList.add(newDeal);
 				}
 			});
 		}
