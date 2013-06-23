@@ -174,10 +174,6 @@ public class FlightListFragment extends Fragment {
 		super.onDestroyView();
 	}
 
-	public AddedFlight getCurrentFlight() {
-		return currentFlight;
-	}
-
 
 	public void removeFlight() {
 		flightList.remove(currentFlight);
