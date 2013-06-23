@@ -1,16 +1,27 @@
 package com.example.fragments;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONObject;
+
+import android.app.ActionBar;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.api.ApiIntent;
+import com.example.api.ApiResultReceiver;
+import com.example.api.Callback;
 import com.example.clickntravel.R;
 import com.example.utils.Comment;
 import com.example.utils.CommentAdapter;
@@ -38,62 +49,43 @@ public class CommentListFragment extends Fragment {
 		
 		adapter = new CommentAdapter(getActivity(), commentList);
 		listView.setAdapter(adapter); 
+		loadCommentList();
 		return view;
 	}
 	
-	public void addComment() {
-
-//		String airlineName = getElementString(R.id.airline_input);
-//		if (MyFlightsFragment.airlinesMap == null){
-//			Toast.makeText(getActivity(), getActivity().getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
-//			return;
-//		}
-//		Airline airline = MyFlightsFragment.airlinesMap.get(airlineName);
-//		
-//		if (airline == null) {
-//			Toast.makeText(getActivity(), getActivity().getString(R.string.invalid_airline), Toast.LENGTH_SHORT).show();
-//			return;
-//		}
-//
-//		
-//		Callback callback = new Callback() {
-//			public void handleResponse(JSONObject response) {
-//				try {
-//					if (response.has("error")) {
-//						Toast.makeText(getActivity().getApplicationContext(),
-//								response.getJSONObject("error").getString("message"),
-//								Toast.LENGTH_SHORT).show();
-//						return;
-//					}
-//					JSONObject joStatus = response.getJSONObject("status");
-//					AddedFlight flight = new AddedFlight(joStatus);
-//					if (!flightList.contains(flight)) {
-//						storeOnSharedPreferences(joStatus, flight.getKey());
-//						flightList.add(flight);
-//						adapter.notifyDataSetChanged();
-//					} else {
-//						Toast.makeText(getActivity(), "Ya estaba el vuelvo ehh guachiiin!!!", Toast.LENGTH_SHORT).show();
-//					}
-//					eraseField(R.id.flight_number_input);
-//					eraseField(R.id.airline_input);
-//					
-//				} catch (JSONException e) {		}
-//			}
-//			
-//		};
-//
-//		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(), callback);
-//		ApiIntent intent = new ApiIntent("GetFlightStatus", "Status", receiver, this.getActivity());
-//		LinkedList<NameValuePair> params = new LinkedList<NameValuePair>();
-//		params.add(new BasicNameValuePair("airline_id", airline.getId()));
-//		params.add(new BasicNameValuePair("flight_num", getElementString(R.id.flight_number_input)));
-//		intent.setParams(params);
-//		this.getActivity().startService(intent);
+	@Override
+	public void onStart() {
+		ActionBar actionBar = getActivity().getActionBar();
 		
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+		actionBar.setCustomView(R.layout.see_comments_abs_layout);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+        super.onStart();
 	}
 	
 	private String getElementString(int elementId){
 		return ((TextView)getActivity().findViewById(elementId)).getText().toString();
+	}
+	
+	private void loadCommentList(){
+		
+		Callback callback = new Callback() {
+		public void handleResponse(JSONObject response) {
+			Log.d("LOAD COMMENTS", "comentList??");
+			Log.d("LOAD COMMENTS", response + "");
+		}
+		
+	};
+
+	ApiResultReceiver receiver = new ApiResultReceiver(new Handler(), callback);
+	ApiIntent intent = new ApiIntent("GetAirlineReviews", "Review", receiver, this.getActivity());
+	LinkedList<NameValuePair> params = new LinkedList<NameValuePair>();
+	params.add(new BasicNameValuePair("airline_id", FlightListFragment.currentFlight.getAirline().getId()));
+	params.add(new BasicNameValuePair("flight_num", FlightListFragment.currentFlight.getFlightNumber() + ""));
+	intent.setParams(params);
+	this.getActivity().startService(intent);
+		
 	}
 
 //	private void eraseField(int fieldId) {

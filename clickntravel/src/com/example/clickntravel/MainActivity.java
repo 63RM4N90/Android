@@ -54,8 +54,7 @@ public class MainActivity extends FragmentActivity {
 	            	Alert.refreshAlerts();
             }
         });
-		ColorDrawable actionBarBackground = new ColorDrawable(Color.rgb(12,
-				129, 199));
+		ColorDrawable actionBarBackground = new ColorDrawable(Color.rgb(12,	129, 199));
 		ActionBar actionBar = getActionBar();
         AlertNotification.context = this;
         NotificationIntent intent = new NotificationIntent(this);
@@ -135,8 +134,8 @@ public class MainActivity extends FragmentActivity {
 				fragmentHandler.setFragment(FragmentKey.ADD_COMMENT);
 				return true;
 			case 2:
-				Toast.makeText(this, "v13nd0 c0m3nt4r10z", Toast.LENGTH_SHORT)
-						.show();
+				hideDetailOptions();
+				fragmentHandler.setFragment(FragmentKey.SEE_COMMENTS);
 				return true;
 			case 3:
 				mPrefsFragment = new ConfigurationFragment();

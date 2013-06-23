@@ -146,6 +146,7 @@ public final class R {
         public static final int mydeals_abs_layout=0x7f030012;
         public static final int myflights_abs_layout=0x7f030013;
         public static final int notification_info=0x7f030014;
+        public static final int see_comments_abs_layout=0x7f030015;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
