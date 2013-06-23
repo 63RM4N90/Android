@@ -3,30 +3,35 @@ package com.example.alerts;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.content.Context;
+import android.preference.PreferenceManager;
+import android.util.Log;
+
 import com.example.utils.FlightStatus;
 
 public abstract class Alert {
 
-	public static Map<String, Boolean> activeAlerts;
-	
-	{
-		
-		activeAlerts = new HashMap<String, Boolean>();
-		activeAlerts.put(ArrivalGateAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(ArrivalTerminalAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(ArrivalTimeAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(BaggageGateAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(DepartureGateAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(DepartureTerminalAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(DepartureTimeAlert.class.toString(), Boolean.valueOf(false));
-		activeAlerts.put(StatusAlert.class.toString(), Boolean.valueOf(false));
-		
-	}
+	public static Map<String, Boolean> activeAlerts = new HashMap<String, Boolean>();;
+	public static long frequency;
+	public static Context CONTEXT;
 	
 	public abstract boolean changedStatus(FlightStatus oldStatus, FlightStatus newStatus);
 	
 	public abstract AlertNotification getNotification(FlightStatus newStatus);
 	
 	public abstract String getName();
+	
+	public static void refreshAlerts() {
+		Map<String, Boolean> preferencesMap = (Map<String,Boolean>) PreferenceManager.getDefaultSharedPreferences(CONTEXT).getAll();
+		activeAlerts.put(BaggageGateAlert.class.toString(), preferencesMap.get("luggageDoorChange"));
+		activeAlerts.put(ArrivalGateAlert.class.toString(), preferencesMap.get("doorChange"));
+		activeAlerts.put(DepartureGateAlert.class.toString(), preferencesMap.get("doorChange"));
+		activeAlerts.put(ArrivalTerminalAlert.class.toString(), preferencesMap.get("terminalChange"));
+		activeAlerts.put(DepartureTerminalAlert.class.toString(), preferencesMap.get("terminalChange"));
+		activeAlerts.put(ArrivalTimeAlert.class.toString(), preferencesMap.get("hourChange"));
+		activeAlerts.put(DepartureTimeAlert.class.toString(), preferencesMap.get("hourChange"));
+		activeAlerts.put(StatusAlert.class.toString(), preferencesMap.get("statusChange"));
+		frequency = Long.parseLong(PreferenceManager.getDefaultSharedPreferences(CONTEXT).getString("notificationFrequency", "300")) *60;
+	}
 	
 }

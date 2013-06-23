@@ -49,8 +49,8 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <service android:name="com.example.api.ApiService"/>
-        <service android:name="com.example.notifications.NotificationService"/>
+        <service android:name="com.example.api.ApiService"></service>
+        <service android:name="com.example.notifications.NotificationService"></service>
     </application>
 
 </manifest>
