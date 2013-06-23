@@ -186,15 +186,18 @@ SearchView.OnQueryTextListener, OnCloseListener {
 
 	private void showResults(String query) {
 
+		Log.d("prob", query);
+		
 		if (query == null) {
 
 			return;
 		}
 
-		Cursor cursor = mDbHelper.searchFlights(query.toString());
+		Cursor cursor = mDbHelper.searchFlights(query);
 
 		if (cursor != null) {
 
+			Log.d("cursor", String.valueOf(cursor.getCount()));
 			// Specify the columns we want to display in the result
 			String[] from = new String[] { FlightsDbAdapter.KEY_TO };
 

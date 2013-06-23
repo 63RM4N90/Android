@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class FlightsDbAdapter {
 
@@ -100,6 +101,8 @@ public class FlightsDbAdapter {
 		initialValues.put(KEY_DEPDATE, state);
 		initialValues.put(KEY_RETDATE, zipCode);
 		initialValues.put(KEY_SEARCH, searchValue);
+		
+		Log.d("oetrsua", searchValue);
 
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}
@@ -125,6 +128,7 @@ public class FlightsDbAdapter {
 	public boolean deleteAllFlights() {
 
 		int doneDelete = 0;
+		
 		doneDelete = mDb.delete(FTS_VIRTUAL_TABLE, null, null);
 
 		return doneDelete > 0;
