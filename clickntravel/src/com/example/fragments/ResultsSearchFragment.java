@@ -195,7 +195,7 @@ public class ResultsSearchFragment extends Fragment {
 
 							Deal curr = new Deal(idFrom, nameFrom, idTo,
 									nameTo, price, airlineId, flightId,
-									flightNumber, depTime, arrivalTime);
+									flightNumber, convertDate(depTime), convertDate(arrivalTime));
 
 							dealsList.add(curr);
 
@@ -205,6 +205,23 @@ public class ResultsSearchFragment extends Fragment {
 
 						} catch (JSONException e) {
 						}
+					}
+
+					private String convertDate(String date) {
+						
+						String year = date.substring(0, 4);
+						String day = date.substring(5, 7);
+						String month = date.substring(8, 10);
+						
+						String hour = date.substring(11, 13);
+						String min = date.substring(14, 16);
+						
+						return day + '/' + month + "/" + year + " " + hour + ":" + min;
+					}
+					
+					private String getFloorPrice(String price) {
+						
+						return null;
 					}
 				};
 
@@ -217,8 +234,7 @@ public class ResultsSearchFragment extends Fragment {
 
 				nameValuePair.add(new BasicNameValuePair("from", idFrom));
 				nameValuePair.add(new BasicNameValuePair("to", idTo));
-				nameValuePair
-						.add(new BasicNameValuePair("dep_date", getDate()));
+				nameValuePair.add(new BasicNameValuePair("dep_date", getDate()));
 				nameValuePair.add(new BasicNameValuePair("adults", "1"));
 				nameValuePair.add(new BasicNameValuePair("children", "0"));
 				nameValuePair.add(new BasicNameValuePair("infants", "0"));
