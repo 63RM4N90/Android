@@ -19,8 +19,6 @@ import com.example.alerts.AlertNotification;
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
 import com.example.api.Callback;
-import com.example.clickntravel.MainActivity;
-import com.example.fragments.FlightListFragment;
 import com.example.utils.AddedFlight;
 import com.example.utils.FlightStatus;
 
@@ -35,27 +33,14 @@ public class NotificationService extends IntentService {
 	}
 	
 	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
+	protected void onHandleIntent(Intent arg0) {
 		try { retrieveData(); } 
 		catch(JSONException e){ }
-	    return super.onStartCommand(intent,flags,startId);
-	}
-	
-	@Override
-	protected void onHandleIntent(Intent arg0) {
-		Log.d("service", "entro");
 		while (true) {
-			try {
-				synchronized (this) {
-					wait(Alert.frequency * 1000);
-					for (AddedFlight f : flightList) {
-							Log.d("service", f.getFlightNumber() + "");
-							checkStatus(f);
-							wait(1000);
-					}
-				}
-			} catch (Exception e) { 
-			}
+			try { Thread.sleep(Alert.frequency *1000); }
+			catch(InterruptedException e){ }
+			for (AddedFlight f : flightList)
+					checkStatus(f);
 		}
 	}
 	
@@ -64,6 +49,7 @@ public class NotificationService extends IntentService {
 			
 			public void handleResponse(JSONObject response) {
 				FlightStatus currentFlightStatus = null;
+				Log.d(" ", "QUE ONDA, ENTRAS ACA???");
 				try {
 					currentFlightStatus = new FlightStatus(response.getJSONObject("status"));
 				} catch (JSONException e) {
@@ -77,8 +63,7 @@ public class NotificationService extends IntentService {
 			}
 		};
 		receiver = new ApiResultReceiver(new Handler(), callback);
-		ApiIntent intent = new ApiIntent("GetFlightStatus", "Status",
-				this.receiver, this);
+		ApiIntent intent = new ApiIntent("GetFlightStatus", "Status", receiver, this);
 		intent.setParams(flight.getParams());
 		startService(intent);
 	}

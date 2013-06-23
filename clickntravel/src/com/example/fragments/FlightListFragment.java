@@ -39,7 +39,7 @@ public class FlightListFragment extends Fragment {
 
 	public static List<AddedFlight> flightList = new ArrayList<AddedFlight>();
 	private CustomAdapter adapter;
-	private AddedFlight currentFlight;
+	public static AddedFlight currentFlight;
 	private View view;
 	
 	private final String fileName = "addedFlightsStorage";
@@ -139,17 +139,6 @@ public class FlightListFragment extends Fragment {
 	private String getElementString(int elementId){
 		return ((TextView)getActivity().findViewById(elementId)).getText().toString();
 	}
-	
-
-//	private void removeFavorite() {
-//		flightList.remove(currentFlight);
-//		generateAdapterDataSet();
-//		removeFromMyFlights(fileName, currentFlight.getKey());
-//		removeFromMyFlights(preferencesFileName, currentFlight.getKey());
-//		adapter.notifyDataSetChanged();
-//		ListView lv = (ListView) view.findViewById(R.id.flights_list_view);
-//		lv.invalidateViews();
-//	}
 
 	
 	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
@@ -196,11 +185,21 @@ public class FlightListFragment extends Fragment {
 	public AddedFlight getCurrentFlight() {
 		return currentFlight;
 	}
+
+
+	public void removeFlight() {
+		flightList.remove(currentFlight);
+		removeFromSavedFlights(fileName, currentFlight.getKey());
+		adapter.notifyDataSetChanged();
+		ListView lv = (ListView) view.findViewById(R.id.flights_list_view);
+		lv.invalidateViews();
+		
+	}
 	
-//	public void removeFromMyFlights(String myFileName, String key){
-//		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_WORLD_WRITEABLE);
-//		Editor editor = prefs.edit();
-//		editor.remove(key).commit();
-//	}
+	public void removeFromSavedFlights(String myFileName, String key){
+		SharedPreferences prefs = getActivity().getSharedPreferences(myFileName, Context.MODE_PRIVATE);
+		Editor editor = prefs.edit();
+		editor.remove(key).commit();
+	}
 
 }

@@ -30,13 +30,6 @@ public class ApiService extends IntentService{
 	public static final int STATUS_ILLEGAL_ARGUMENT = -3;
 	public static final int STATUS_OK = 0;
 
-//	@Override
-//	public int onStartCommand(Intent intent, int flags, int startId) {
-//		synchronized (this) {
-//			return super.onStartCommand(intent, flags, startId);
-//		}
-//	}
-
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		ResultReceiver receiver = intent.getParcelableExtra("receiver");

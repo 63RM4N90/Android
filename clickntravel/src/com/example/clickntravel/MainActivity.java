@@ -25,6 +25,7 @@ import com.example.notifications.NotificationIntent;
 import com.example.fragments.ConfigurationFragment;
 import com.example.fragments.FlightInfoFragment;
 import com.example.fragments.MyFlightsFragment;
+import com.example.fragments.FlightListFragment;
 import com.example.handlers.FragmentHandler;
 import com.example.utils.AddedFlight;
 import com.example.utils.FragmentKey;
@@ -126,7 +127,9 @@ public class MainActivity extends FragmentActivity {
 	private boolean menuSelection(MenuItem item) {
 		switch (item.getItemId()) {
 			case 0:
-				Toast.makeText(this, "removido mami", Toast.LENGTH_SHORT).show();
+				((FlightListFragment) fragmentHandler.getFragment(FragmentKey.FLIGHT_LIST)).removeFlight();
+				fragmentHandler.setFragment(FragmentKey.MY_FLIGHTS);
+				Toast.makeText(this, "EHHHH GUACHAAAA!!", Toast.LENGTH_SHORT).show();
 				return true;
 			case 1:
 				Toast.makeText(this, "comentan2", Toast.LENGTH_SHORT).show();

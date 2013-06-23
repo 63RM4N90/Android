@@ -8,18 +8,15 @@ public class Airline {
 
 	private String id;
 	private String name;
-	private String logoUrl;
 	
 	public Airline(String id, String name, String logoUrl){
 		this.id = id;
 		this.name = name;
-		this.logoUrl = logoUrl;
 	}
 	
 	public Airline(JSONObject airline) throws JSONException {
-		this.id = airline.getString("airlineId");
+		this.id = airline.getString("id");
 		this.name = airline.getString("name");
-		//TODO agregar logos de las aerolineas
 	}
 	
 	public String getId() {
@@ -28,10 +25,6 @@ public class Airline {
 	
 	public String getName() {
 		return this.name;
-	}
-	
-	public String getLogoUrl() {
-		return this.logoUrl;
 	}
 	
 }

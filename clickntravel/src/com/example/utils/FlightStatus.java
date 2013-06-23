@@ -24,9 +24,7 @@ public class FlightStatus {
 			this.departure = new Checkpoint(json.getJSONObject("departure"));
 			this.arrival = new Checkpoint(json.getJSONObject("arrival"));
 			this.json = json;
-		} catch (JSONException e) {
-			Log.d("error", "flightstatus");
-		}
+		} catch (JSONException e) { 	}
 		
 	}
 	
