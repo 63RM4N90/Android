@@ -1,5 +1,10 @@
 package com.example.clickntravel;
 
+import java.text.Format;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -20,6 +25,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -120,7 +126,7 @@ public class MainActivity extends FragmentActivity implements
 				}
 
 				citiesMap.put(name, new City(id, name));
-				
+
 				mDbHelper.createFlights("", "", name, "", "");
 			}
 
@@ -151,7 +157,8 @@ public class MainActivity extends FragmentActivity implements
 		mListView = (ListView) findViewById(R.id.list);
 
 		// Setea el color del textito de la search view
-		String text = "<font color = #DDDDDD>" + getString(R.string.search_view_text) + "</font>";
+		String text = "<font color = #DDDDDD>"
+				+ getString(R.string.search_view_text) + "</font>";
 		mSearchView.setQueryHint(Html.fromHtml(text));
 
 		menu.add(GROUP_ID, CONFIG_ID, CONFIG_ID,
@@ -208,7 +215,7 @@ public class MainActivity extends FragmentActivity implements
 
 		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
-	
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
@@ -276,22 +283,26 @@ public class MainActivity extends FragmentActivity implements
 			mListView.setOnItemClickListener(new OnItemClickListener() {
 
 				@Override
-				public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
 
-					// Get the cursor, positioned to the corresponding row in the result set
-					Cursor cursor = (Cursor) mListView.getItemAtPosition(position);
+					// Get the cursor, positioned to the corresponding row in
+					// the result set
+					Cursor cursor = (Cursor) mListView
+							.getItemAtPosition(position);
 
 					// Get the city from this row in the database
 					String name = cursor.getString(cursor
 							.getColumnIndexOrThrow("city"));
 
 					City city = citiesMap.get(name);
-					
+
 					Bundle resultSearchBundle = new Bundle();
 					resultSearchBundle.putString("cityId", city.getId());
 					resultSearchBundle.putString("cityName", city.getName());
-					
-					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST, resultSearchBundle);
+
+					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST,
+							resultSearchBundle);
 				}
 			});
 		}
