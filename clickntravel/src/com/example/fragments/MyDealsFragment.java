@@ -1,15 +1,12 @@
 package com.example.fragments;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import android.app.ActionBar;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +23,7 @@ import com.example.utils.FlightsDbAdapter;
 
 public class MyDealsFragment extends Fragment {
 
-	public static List<Deal> dealsList = new ArrayList<Deal>();
+	public static Set<Deal> dealsList = new HashSet<Deal>();
 
 	private SearchView mSearchView;
 	private ListView mListView;
