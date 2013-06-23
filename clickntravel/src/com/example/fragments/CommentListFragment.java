@@ -36,12 +36,6 @@ public class CommentListFragment extends Fragment {
 		
 		ListView listView = (ListView) view.findViewById(R.id.comment_list_view);
 		
-//		try {
-//			retrieveData();
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-		
 		adapter = new CommentAdapter(getActivity(), commentList);
 		listView.setAdapter(adapter); 
 		return view;
@@ -102,25 +96,6 @@ public class CommentListFragment extends Fragment {
 		return ((TextView)getActivity().findViewById(elementId)).getText().toString();
 	}
 
-	
-//	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
-//		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
-//		Editor editor = prefs.edit();
-//		editor.putString(uniqueKey, favorite.toString()).commit();
-//	}
-//	
-//	@SuppressWarnings("unchecked")
-//	private void retrieveData() throws JSONException {
-//		CommentListFragment.flightList = new ArrayList<AddedFlight>();
-//		SharedPreferences prefs = getActivity().getSharedPreferences(fileName, Context.MODE_PRIVATE);
-//		Map<String, String> map = (Map<String,String>)prefs.getAll();
-//		for (String s: map.values()){
-//			flightList.add(new AddedFlight(new JSONObject(s)));
-//		}
-//		prefs = getActivity().getSharedPreferences(preferencesFileName, Context.MODE_PRIVATE);
-//		map = (Map<String,String>)prefs.getAll();
-//	}
-//	
 //	private void eraseField(int fieldId) {
 //		TextView tv = (TextView) getActivity().findViewById(fieldId);
 //		tv.setText("");
@@ -137,9 +112,5 @@ public class CommentListFragment extends Fragment {
 		}
 		super.onDestroyView();
 	}
-
-//	public AddedFlight getCurrentFlight() {
-//		return currentFlight;
-//	}
 
 }
