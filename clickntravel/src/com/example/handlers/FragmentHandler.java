@@ -2,6 +2,7 @@ package com.example.handlers;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,7 @@ public class FragmentHandler {
 
 	Map<FragmentKey, Fragment> fragmentMap = new HashMap<FragmentKey, Fragment>();
 	FragmentManager fragmentManager;
+	Fragment currentFragment;
 	
 	public FragmentHandler(FragmentManager fManager) {	
 		this.fragmentMap.put(FragmentKey.MAIN, new MainFragment());
@@ -39,6 +41,7 @@ public class FragmentHandler {
 	}
 	
 	public void setFragment(FragmentKey fragmentKey) {		
+		currentFragment = fragmentMap.get(fragmentKey);
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
 		
 		transaction.replace(R.id.container, fragmentMap.get(fragmentKey)).addToBackStack(null).commit();	
@@ -48,7 +51,14 @@ public class FragmentHandler {
 		return fragmentMap.get(fragmentKey);
 	}
 	
-	public void removePreferenceResource() {
-		fragmentMap.get(FragmentKey.BASE).onDestroy();
+	
+	public FragmentKey getCurrentKey(){
+		Set<FragmentKey> keys = fragmentMap.keySet();
+		for(FragmentKey each : keys){
+			if(fragmentMap.get(each).equals(currentFragment)){
+				return each;
+			}
+		}
+		return FragmentKey.NONE;
 	}
 }

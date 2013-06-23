@@ -26,12 +26,12 @@ public class BaseFragment extends Fragment {
         return inflater.inflate(R.layout.configuration_fragment, container, false);
     }
 	
-	@Override
-	public void onStop() {
-		Intent intent = new Intent(getActivity(), MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		startActivity(intent);
-		super.onStop();
-	}
+//	@Override
+//	public void onStop() {
+//		Intent intent = new Intent(getActivity(), MainActivity.class);
+//		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//		startActivity(intent);
+//		super.onStop();
+//	}
 
 }

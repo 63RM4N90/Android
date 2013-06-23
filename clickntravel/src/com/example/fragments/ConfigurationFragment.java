@@ -17,13 +17,4 @@ public class ConfigurationFragment extends PreferenceFragment {
         addPreferencesFromResource(R.xml.settings);
     }
     
-	@Override
-	public void onStop() {
-		Intent intent = new Intent(getActivity(), MainActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		getPreferenceScreen().removeAll();
-		startActivity(intent);
-		super.onStop();
-	}
-    
 }
