@@ -109,7 +109,10 @@ public class ResultsSearchFragment extends Fragment {
 						try {
 
 							JSONArray dealArray = response.getJSONArray("flights");
-
+							
+							String minPrice = null;
+							int indexMinPrice = 0;
+							
 							for (int i = 0; i < dealArray.length(); i++) {
 
 								JSONObject obj = dealArray.getJSONObject(i);
@@ -117,12 +120,15 @@ public class ResultsSearchFragment extends Fragment {
 								
 								String price = obj.getJSONObject("price").getJSONObject("total").optString("total");
 								
-								Log.d("price", price);
-								Log.d("prices", dealPrices.toString());
-								
 								if (!dealPrices.contains(price)) {
+								
+									if (minPrice == null || Double.valueOf(minPrice) > Double.valueOf(price)) {
+										
+										minPrice = price;
+										indexMinPrice = i;
+									}
 									
-									return;
+									break;
 								}
 								
 								String airlineId = segments.optString("airlineId");
@@ -135,12 +141,27 @@ public class ResultsSearchFragment extends Fragment {
 								
 								dealsList.add(curr);
 								
-								Log.d("curr", curr.toString());
-								
 //								dealsMap.put(nameTo, curr);
 							}
 							
-							getFlights();
+							if (dealsList.isEmpty()) {
+
+								JSONObject obj = dealArray.getJSONObject(indexMinPrice);
+								JSONObject segments = obj.getJSONArray("outboundRoutes").getJSONObject(0).getJSONArray("segments").getJSONObject(0);
+								
+								Log.d("minPrice", minPrice);
+								Log.d("otherPrices", dealPrices.toString());
+								
+								String airlineId = segments.optString("airlineId");
+								String flightId = segments.optString("flightId");
+								String flightNumber = segments.optString("flightNumber");
+								
+								nameFrom = segments.getJSONObject("departure").optString("cityName");
+								
+								Deal curr = new Deal(idFrom, nameFrom, idTo, nameTo, minPrice, airlineId, flightId, flightNumber);
+								
+								dealsList.add(curr);
+							}
 
 						} catch (JSONException e) {
 						}
@@ -184,7 +205,7 @@ public class ResultsSearchFragment extends Fragment {
 				
 //				return DateUtil.addDays(myDate, 2).toString();
 				
-				return "2013-06-27";
+				return "2013-06-25";
 			}
 		};
 
