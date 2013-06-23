@@ -20,7 +20,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.text.Html;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -288,14 +287,11 @@ public class MainActivity extends FragmentActivity implements
 
 					City city = citiesMap.get(name);
 					
-					String idCity = city.getId();
-					
 					Bundle resultSearchBundle = new Bundle();
-					resultSearchBundle.putString("cityId", idCity);
+					resultSearchBundle.putString("cityId", city.getId());
+					resultSearchBundle.putString("cityName", city.getName());
 					
 					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST, resultSearchBundle);
-					
-//					Log.d("idcity", idCity);
 				}
 			});
 		}

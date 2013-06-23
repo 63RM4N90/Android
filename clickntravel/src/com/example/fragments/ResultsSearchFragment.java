@@ -1,6 +1,10 @@
 package com.example.fragments;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,11 +28,15 @@ import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
 import com.example.api.Callback;
 import com.example.clickntravel.R;
+import com.example.utils.DateUtil;
 import com.example.utils.Deal;
 
 public class ResultsSearchFragment extends Fragment {
 
-	private Map<String, Deal> dealsMap;
+//	private Map<String, Deal> dealsMap;
+	
+	private List<String> dealPrices = new ArrayList<String>();
+	private List<Deal> dealsList = new ArrayList<Deal>();
 
 	// Esto está hardcodeado a que from sea Buenos Aires TODO
 	private String nameFrom;
@@ -37,45 +45,28 @@ public class ResultsSearchFragment extends Fragment {
 	private String idTo;
 
 	private View view;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		
-		if (view == null) 
-			view = inflater.inflate(R.layout.deal_list_fragment, container, false);
-		
+
+		if (view == null)
+			view = inflater.inflate(R.layout.deal_list_fragment, container,
+					false);
+
 		Bundle arguments = getArguments();
-		this.idTo = arguments.getString("cityId");
 		
+		idTo = arguments.getString("cityId");
+		nameTo = arguments.getString("cityName");
+
 		ListView listView = (ListView) view.findViewById(R.id.deals_list_view);
 
-//		try {
-//			retrieveData();
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-		
-//		ActionBar actionBar = getActivity().getActionBar();
-//
-//		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//		actionBar.setCustomView(R.layout.resultssearch_abs_layout);
-//
-//		actionBar.setDisplayShowTitleEnabled(true);
-//		actionBar.setTitle(R.string.main_button_resultssearch);
-//		actionBar.setDisplayShowHomeEnabled(true);
-//		actionBar.setHomeButtonEnabled(true);
-//
-//		return inflater.inflate(R.layout.results_search_fragment, container, false);
-		
 		createDeals();
-		
+
 		return view;
 	}
 
 	public void createDeals() {
-
-		dealsMap = new HashMap<String, Deal>();
 
 		Callback callback = new Callback() {
 
@@ -87,32 +78,120 @@ public class ResultsSearchFragment extends Fragment {
 
 					for (int i = 0; i < dealArray.length(); i++) {
 
-						String price = dealArray.getJSONObject(i).optString("price");
-						String id = dealArray.getJSONObject(i).optString("cityId");
+						String price = dealArray.getJSONObject(i).optString(
+								"price");
+						String id = dealArray.getJSONObject(i).optString(
+								"cityId");
 
-						addDeal(id, price);
+						getDealPrices(id, price);
 					}
+					
+					getFlights();
 
 				} catch (JSONException e) {
 				}
 			}
 
-			private void addDeal(String id, String price) {
-				
-				if (!id.equals(idTo)) {
-					
-					return;
+			private void getDealPrices(String id, String price) {
+
+				if (id.equals(idTo)) {
+
+					dealPrices.add(price);
 				}
-				
-				dealsMap.put(nameTo, new Deal(idFrom, nameFrom, idTo, nameTo, price));
 			}
 
+			private void getFlights() {
+
+				Callback callback = new Callback() {
+
+					public void handleResponse(JSONObject response) {
+
+						try {
+
+							JSONArray dealArray = response.getJSONArray("flights");
+
+							for (int i = 0; i < dealArray.length(); i++) {
+
+								JSONObject obj = dealArray.getJSONObject(i);
+								JSONObject segments = obj.getJSONArray("outboundRoutes").getJSONObject(0).getJSONArray("segments").getJSONObject(0);
+								
+								String price = obj.getJSONObject("price").getJSONObject("total").optString("total");
+								
+								Log.d("price", price);
+								Log.d("prices", dealPrices.toString());
+								
+								if (!dealPrices.contains(price)) {
+									
+									return;
+								}
+								
+								String airlineId = segments.optString("airlineId");
+								String flightId = segments.optString("flightId");
+								String flightNumber = segments.optString("flightNumber");
+								
+								nameFrom = segments.getJSONObject("departure").optString("cityName");
+								
+								Deal curr = new Deal(idFrom, nameFrom, idTo, nameTo, price, airlineId, flightId, flightNumber);
+								
+								dealsList.add(curr);
+								
+								Log.d("curr", curr.toString());
+								
+//								dealsMap.put(nameTo, curr);
+							}
+							
+							getFlights();
+
+						} catch (JSONException e) {
+						}
+					}
+				};
+
+				ApiResultReceiver receiver = new ApiResultReceiver(new Handler(),
+						callback);
+				ApiIntent intent = new ApiIntent("GetOneWayFlights", "Booking",
+						receiver, getActivity());
+
+				List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
+
+				nameValuePair.add(new BasicNameValuePair("from", idFrom));
+				nameValuePair.add(new BasicNameValuePair("to", idTo));
+				nameValuePair.add(new BasicNameValuePair("dep_date", getDate()));
+				nameValuePair.add(new BasicNameValuePair("adults", "1"));
+				nameValuePair.add(new BasicNameValuePair("children", "0"));
+				nameValuePair.add(new BasicNameValuePair("infants", "0"));
+				
+				intent.setParams(nameValuePair);
+
+				getActivity().startService(intent);
+				
+			}
+
+			private String getDate() {
+				
+//				String sourceDate = new Date().toString();
+//				
+//				SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//				
+//				Date myDate = null;
+//				
+//				try {
+//					myDate = format.parse(sourceDate);
+//				} catch (ParseException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+//				return DateUtil.addDays(myDate, 2).toString();
+				
+				return "2013-06-27";
+			}
 		};
 
 		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(),
 				callback);
-		ApiIntent intent = new ApiIntent("GetFlightDeals", "Booking", receiver,
-				this.getActivity());
+		ApiIntent intent = new ApiIntent("GetFlightDeals2", "Booking",
+				receiver, this.getActivity());
 
 		List<NameValuePair> nameValuePair = new ArrayList<NameValuePair>();
 
@@ -122,23 +201,24 @@ public class ResultsSearchFragment extends Fragment {
 
 		this.getActivity().startService(intent);
 	}
-	
+
 	@Override
 	public void onDestroyView() {
-		
+
 		if (view != null) {
-		
-			((ViewGroup)view.getParent()).removeAllViews();
+
+			((ViewGroup) view.getParent()).removeAllViews();
 		}
-		
-		ListView lv = (ListView) getActivity().findViewById(R.id.deals_list_view);
-		
+
+		ListView lv = (ListView) getActivity().findViewById(
+				R.id.deals_list_view);
+
 		if (lv != null) {
-		
-			((ViewGroup)lv.getParent()).removeView(lv);
+
+			((ViewGroup) lv.getParent()).removeView(lv);
 			lv.removeAllViews();
 		}
-		
+
 		super.onDestroyView();
 	}
 }
