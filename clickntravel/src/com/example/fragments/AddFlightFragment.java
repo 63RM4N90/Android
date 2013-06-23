@@ -47,7 +47,7 @@ public class AddFlightFragment extends Fragment {
 							String name = cityArray.getJSONObject(i).optString("name");
 							String id = cityArray.getJSONObject(i).optString("airlineId");
 							Log.d("airline", name);
-							MyFlightsFragment.airlinesMap.put(name, new Airline(id, name, "que_se_yo"));
+							MyFlightsFragment.airlinesMap.put(name, new Airline(id, name));
 						}
 						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 								getActivity(),

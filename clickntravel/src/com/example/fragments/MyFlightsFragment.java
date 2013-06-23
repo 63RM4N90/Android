@@ -34,13 +34,7 @@ public class MyFlightsFragment extends Fragment{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		if (view == null) {
-//			ActionBar actionBar = getActivity().getActionBar();
 			FragmentTransaction ft;
-
-//			actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
-//			actionBar.setCustomView(R.layout.myflights_abs_layout);
-//	        actionBar.setDisplayShowHomeEnabled(true);
-//	        actionBar.setHomeButtonEnabled(true);
 	        
 			vg = container;
 			view = inflater.inflate(R.layout.my_flights_fragment, container, false);

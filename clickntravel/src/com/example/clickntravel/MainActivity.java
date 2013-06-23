@@ -128,7 +128,7 @@ public class MainActivity extends FragmentActivity {
 				((FlightListFragment) fragmentHandler.getFragment(FragmentKey.FLIGHT_LIST)).removeFlight();
 				this.onBackPressed();
 				hideDetailOptions();
-				Toast.makeText(this, "EHHHH GUACHAAAA!!", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.remove_flight_toast, Toast.LENGTH_SHORT).show();
 				return true;
 			case 1:
 				hideDetailOptions();

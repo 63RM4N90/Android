@@ -160,6 +160,7 @@ public final class R {
         public static final int add_comment=0x7f07003d;
         public static final int add_to_my_flights=0x7f07001c;
         public static final int airline_input=0x7f07001b;
+        public static final int already_added=0x7f070040;
         public static final int app_name=0x7f070002;
         public static final int arrival_airport_gate=0x7f070025;
         public static final int arrival_airport_terminal=0x7f070022;
@@ -184,6 +185,7 @@ public final class R {
         public static final int flight_status=0x7f070020;
         public static final int food_rating_text=0x7f070032;
         public static final int frequency=0x7f070010;
+        public static final int get_fligh_error=0x7f07003f;
         public static final int hello_world=0x7f07000b;
         public static final int hour_change=0x7f070019;
         public static final int invalid_airline=0x7f07002e;
@@ -205,7 +207,8 @@ public final class R {
         public static final int price_quality_relation_rating_text=0x7f070037;
         public static final int punctuality_rating_text=0x7f070034;
         public static final int recommend_switch_text=0x7f070038;
-        public static final int save_config=0x7f07003e;
+        public static final int remove_flight_toast=0x7f07003e;
+        public static final int save_config=0x7f070041;
         public static final int scheduled=0x7f070027;
         public static final int search_hint=0x7f07000a;
         public static final int status_change=0x7f070015;

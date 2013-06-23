@@ -12,6 +12,7 @@ import com.example.fragments.AboutUsFragment;
 import com.example.fragments.AddCommentFragment;
 import com.example.fragments.AddFlightFragment;
 import com.example.fragments.BaseFragment;
+import com.example.fragments.CommentListFragment;
 import com.example.fragments.FlightListFragment;
 import com.example.fragments.MainFragment;
 import com.example.fragments.MyDealsFragment;
@@ -32,7 +33,8 @@ public class FragmentHandler {
 		this.fragmentMap.put(FragmentKey.FLIGHT_LIST, new FlightListFragment());
 		this.fragmentMap.put(FragmentKey.MY_DEALS, new MyDealsFragment());
 		this.fragmentMap.put(FragmentKey.ADD_COMMENT, new AddCommentFragment());
-
+		this.fragmentMap.put(FragmentKey.SEE_COMMENTS, new CommentListFragment());
+		
 		this.fragmentManager = fManager;
 	}
 	
