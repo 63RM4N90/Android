@@ -32,28 +32,31 @@ public final class R {
     }
     public static final class id {
         public static final int aboutus=0x7f0a0010;
-        public static final int action_search=0x7f0a0018;
-        public static final int action_settings=0x7f0a0017;
-        public static final int add_deal_container=0x7f0a0013;
-        public static final int checkBox=0x7f0a0011;
+        public static final int action_search=0x7f0a001b;
+        public static final int action_settings=0x7f0a001a;
+        public static final int add_deal_container=0x7f0a0016;
+        public static final int airline_deal_image_row=0x7f0a0011;
+        public static final int checkBox=0x7f0a0014;
         public static final int city=0x7f0a0007;
         public static final int container=0x7f0a0002;
         public static final int customer=0x7f0a000a;
         public static final int customerLayout=0x7f0a0004;
-        public static final int deal_list_container=0x7f0a0014;
+        public static final int data_row=0x7f0a0012;
+        public static final int deal_list_container=0x7f0a0017;
         public static final int deals_list_view=0x7f0a0003;
         public static final int imageView1=0x7f0a0000;
         public static final int list=0x7f0a000d;
-        public static final int menu_settings=0x7f0a0016;
+        public static final int menu_settings=0x7f0a0019;
         public static final int mydeals=0x7f0a000f;
         public static final int myflights=0x7f0a000e;
         public static final int mytext=0x7f0a0001;
         public static final int name=0x7f0a0006;
-        public static final int notif=0x7f0a0012;
+        public static final int notif=0x7f0a0015;
         public static final int relativeLayout1=0x7f0a0005;
         public static final int scity=0x7f0a000b;
-        public static final int searchView1=0x7f0a0015;
+        public static final int searchView1=0x7f0a0018;
         public static final int state=0x7f0a0008;
+        public static final int status_row=0x7f0a0013;
         public static final int status_text=0x7f0a000c;
         public static final int zipCode=0x7f0a0009;
     }
@@ -68,13 +71,14 @@ public final class R {
         public static final int flightresult=0x7f030007;
         public static final int main_fragment=0x7f030008;
         public static final int my_deals_fragment=0x7f030009;
-        public static final int my_flights_fragment=0x7f03000a;
-        public static final int mydeals_abs_layout=0x7f03000b;
-        public static final int myflights_abs_layout=0x7f03000c;
-        public static final int notification_info=0x7f03000d;
-        public static final int results_search_fragment=0x7f03000e;
-        public static final int resultssearch_abs_layout=0x7f03000f;
-        public static final int search=0x7f030010;
+        public static final int my_deals_row=0x7f03000a;
+        public static final int my_flights_fragment=0x7f03000b;
+        public static final int mydeals_abs_layout=0x7f03000c;
+        public static final int myflights_abs_layout=0x7f03000d;
+        public static final int notification_info=0x7f03000e;
+        public static final int results_search_fragment=0x7f03000f;
+        public static final int resultssearch_abs_layout=0x7f030010;
+        public static final int search=0x7f030011;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;
@@ -89,6 +93,7 @@ public final class R {
         public static final int app_name=0x7f070000;
         public static final int config_freq=0x7f070016;
         public static final int config_freq_summary=0x7f070015;
+        public static final int deal=0x7f070026;
         public static final int door_change=0x7f07001a;
         public static final int frequency=0x7f070012;
         public static final int hello_world=0x7f07000c;

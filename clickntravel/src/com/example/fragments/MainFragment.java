@@ -127,6 +127,13 @@ SearchView.OnQueryTextListener, OnCloseListener {
 
 			private void addFlight(String name, String id) {
 
+				// Hardcodeado a que sea From BUE TODO
+				
+				if (name.contains("Buenos Aires")) {
+					
+					return;
+				}
+				
 				if (name.contains("Barcelona")) {
 
 					name = "Barcelona, España";
@@ -224,10 +231,6 @@ SearchView.OnQueryTextListener, OnCloseListener {
 					resultSearchBundle.putString("cityId", city.getId());
 					resultSearchBundle.putString("cityName", city.getName());
 
-					Log.d("bla", city.getId());
-					
-					Log.d("fragk", FragmentKey.SEARCH_DEALS_LIST.toString());
-					
 					getActivity();
 					
 					FragmentHandler fragmentHandler = new FragmentHandler(getFragmentManager());
