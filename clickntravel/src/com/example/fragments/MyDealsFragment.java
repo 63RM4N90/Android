@@ -62,13 +62,6 @@ public class MyDealsFragment extends Fragment {
 		actionBar.setDisplayShowHomeEnabled(true);
 		actionBar.setHomeButtonEnabled(true);
 
-//		Bundle arguments = getArguments();
-//
-//		idTo = arguments.getString("cityId");
-//		nameTo = arguments.getString("cityName");
-
-//		createDeals();
-
 		if (view == null)
 			view = inflater.inflate(R.layout.deal_list_fragment, container,
 					false);
@@ -77,19 +70,23 @@ public class MyDealsFragment extends Fragment {
 
 		setHasOptionsMenu(true);
 
-//		mDbHelper = new FlightsDbAdapter(this.getActivity());
-//		mDbHelper.open();
-//
-//		mDbHelper.deleteAllFlights();
+		mDbHelper = new FlightsDbAdapter(this.getActivity());
+		mDbHelper.open();
+
+		mDbHelper.deleteAllFlights();
 
 		if (dealsList.isEmpty()) {
 			
 			Log.d("isEmpty", "nose");
 		}
 		
-		for (Deal deal: dealsList) {
+		for (Deal curr: dealsList) {
 		
-			Log.d("myDeal", deal.toString());
+			mDbHelper.createFlights(curr.getPrice(),
+					curr.getNameFrom(), curr.getNameTo(),
+					curr.getDepTime(), curr.getArrivalTime());
+			
+			showResults(curr.getNameTo() + "*");
 		}
 		
 		return view;
@@ -274,68 +271,68 @@ public class MyDealsFragment extends Fragment {
 //		this.getActivity().startService(intent);
 //	}
 //
-//	private void showResults(String query) {
-//
-//		if (query == null) {
-//
-//			return;
-//		}
-//
-//		Cursor cursor = mDbHelper.searchFlights(query);
-//
-//		if (cursor != null) {
-//
-//			// Specify the columns we want to display in the result
-//
-//			String[] from = new String[] { FlightsDbAdapter.KEY_PRICE,
-//					FlightsDbAdapter.KEY_FROM, FlightsDbAdapter.KEY_TO,
-//					FlightsDbAdapter.KEY_DEPDATE, FlightsDbAdapter.KEY_RETDATE };
-//
-//			// Specify the Corresponding layout elements where we want the
-//			// columns to go
-//			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
-//					R.id.sstate, R.id.szipCode };
-//
-//			// Create a simple cursor adapter for the definitions and apply them
-//			// to the ListView
-//			@SuppressWarnings("deprecation")
-//			SimpleCursorAdapter Flights = new SimpleCursorAdapter(
-//					this.getActivity(), R.layout.dealresult, cursor, from, to);
-//			mListView.setAdapter(Flights);
-//
-//			// Define the on-click listener for the list items
-//			mListView.setOnItemClickListener(new OnItemClickListener() {
-//
-//				@Override
-//				public void onItemClick(AdapterView<?> parent, View view,
-//						int position, long id) {
-//
-//					// Get the cursor, positioned to the corresponding row in
-//					// the result set
-//					Cursor cursor = (Cursor) mListView
-//							.getItemAtPosition(position);
-//
-//					// Get the city from this row in the database
-//					String name = cursor.getString(cursor
-//							.getColumnIndexOrThrow("city"));
-//
-//					// Deal deal = citiesMap.get(name);
-//					//
-//					// Bundle resultSearchBundle = new Bundle();
-//					// resultSearchBundle.putString("cityId", city.getId());
-//					// resultSearchBundle.putString("cityName", city.getName());
-//					//
-//					getActivity();
-//
-//					FragmentHandler fragmentHandler = new FragmentHandler(
-//							getFragmentManager());
-//
-//					// fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST,
-//					// resultSearchBundle);
-//				}
-//			});
-//		}
-//	}
+	private void showResults(String query) {
+
+		if (query == null) {
+
+			return;
+		}
+
+		Cursor cursor = mDbHelper.searchFlights(query);
+
+		if (cursor != null) {
+
+			// Specify the columns we want to display in the result
+
+			String[] from = new String[] { FlightsDbAdapter.KEY_PRICE,
+					FlightsDbAdapter.KEY_FROM, FlightsDbAdapter.KEY_TO,
+					FlightsDbAdapter.KEY_DEPDATE, FlightsDbAdapter.KEY_RETDATE };
+
+			// Specify the Corresponding layout elements where we want the
+			// columns to go
+			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
+					R.id.sstate, R.id.szipCode };
+
+			// Create a simple cursor adapter for the definitions and apply them
+			// to the ListView
+			@SuppressWarnings("deprecation")
+			SimpleCursorAdapter Flights = new SimpleCursorAdapter(
+					this.getActivity(), R.layout.mydealresult, cursor, from, to);
+			mListView.setAdapter(Flights);
+
+			// Define the on-click listener for the list items
+			mListView.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+
+					// Get the cursor, positioned to the corresponding row in
+					// the result set
+					Cursor cursor = (Cursor) mListView
+							.getItemAtPosition(position);
+
+					// Get the city from this row in the database
+					String name = cursor.getString(cursor
+							.getColumnIndexOrThrow("city"));
+
+					// Deal deal = citiesMap.get(name);
+					//
+					// Bundle resultSearchBundle = new Bundle();
+					// resultSearchBundle.putString("cityId", city.getId());
+					// resultSearchBundle.putString("cityName", city.getName());
+					//
+					getActivity();
+
+					FragmentHandler fragmentHandler = new FragmentHandler(
+							getFragmentManager());
+
+					// fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST,
+					// resultSearchBundle);
+				}
+			});
+		}
+	}
 //
 //	@Override
 //	public void onDestroyView() {
@@ -361,4 +358,24 @@ public class MyDealsFragment extends Fragment {
 //
 //		return currentDeal;
 //	}
+	
+	@Override
+	public void onDestroyView() {
+
+		if (view != null) {
+
+			((ViewGroup) view.getParent()).removeAllViews();
+		}
+
+		ListView lv = (ListView) getActivity().findViewById(
+				R.id.deals_list_view);
+
+		if (lv != null) {
+
+			((ViewGroup) lv.getParent()).removeView(lv);
+			lv.removeAllViews();
+		}
+
+		super.onDestroyView();
+	}
 }
