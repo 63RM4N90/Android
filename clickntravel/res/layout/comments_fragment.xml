@@ -185,8 +185,6 @@
                     android:gravity="left"
                     android:hint="@string/comment_text"
                     android:inputType="textMultiLine" >
-
-                    <requestFocus />
                 </EditText>
 
             </TableRow>

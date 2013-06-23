@@ -78,13 +78,13 @@ public class MainActivity extends FragmentActivity {
 		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
 
-	public void goToNewFavoriteInfoFragment(AddedFlight f) {
+	public void goToNewMyFlightsInfoFragment(AddedFlight f) {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, new FlightInfoFragment(f))
 				.addToBackStack(null).commit();
 	}
 
-	public void goToNewFavoriteInfoFragmentLarge(AddedFlight f) {
+	public void goToNewMyFlightsInfoFragmentLarge(AddedFlight f) {
 		// TODO cambiarle nombre a este metodo y checkear que esto este bien, el container
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, new FlightInfoFragment(f))
