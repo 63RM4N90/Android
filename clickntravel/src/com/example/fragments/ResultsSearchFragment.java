@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -50,6 +51,13 @@ public class ResultsSearchFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		ActionBar actionBar = getActivity().getActionBar();
+		
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+		actionBar.setCustomView(R.layout.resultssearch_abs_layout);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
+		
 		if (view == null)
 			view = inflater.inflate(R.layout.deal_list_fragment, container,
 					false);
