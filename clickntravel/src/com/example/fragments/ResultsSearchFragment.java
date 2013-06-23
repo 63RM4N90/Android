@@ -39,11 +39,6 @@ import com.example.utils.FlightsDbAdapter;
 
 public class ResultsSearchFragment extends Fragment {
 
-//	private final String fileName = "dealsStorage";
-	// private final String preferencesFileName = "favoritesPreferencesStorage";
-
-	// private Map<String, Deal> dealsMap;
-
 	private List<String> dealPrices = new ArrayList<String>();
 	private List<Deal> dealsList = new ArrayList<Deal>();
 
@@ -291,12 +286,6 @@ public class ResultsSearchFragment extends Fragment {
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
 			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
-
-//					String[] from = new String[] { FlightsDbAdapter.KEY_TO };
-		//
-//					// Specify the Corresponding layout elements where we want the
-//					// columns to go
-//					int[] to = new int[] { R.id.scity };
 			R.id.sstate, R.id.szipCode };
 			
 			// Create a simple cursor adapter for the definitions and apply them
@@ -321,6 +310,7 @@ public class ResultsSearchFragment extends Fragment {
 					// Get the city from this row in the database
 					String name = cursor.getString(cursor
 							.getColumnIndexOrThrow("city"));
+					
 					
 //					Deal deal = citiesMap.get(name);
 //

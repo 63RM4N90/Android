@@ -78,12 +78,13 @@ public final class R {
         public static final int my_deals_fragment=0x7f03000a;
         public static final int my_deals_row=0x7f03000b;
         public static final int my_flights_fragment=0x7f03000c;
-        public static final int mydeals_abs_layout=0x7f03000d;
-        public static final int myflights_abs_layout=0x7f03000e;
-        public static final int notification_info=0x7f03000f;
-        public static final int results_search_fragment=0x7f030010;
-        public static final int resultssearch_abs_layout=0x7f030011;
-        public static final int search=0x7f030012;
+        public static final int mydealresult=0x7f03000d;
+        public static final int mydeals_abs_layout=0x7f03000e;
+        public static final int myflights_abs_layout=0x7f03000f;
+        public static final int notification_info=0x7f030010;
+        public static final int results_search_fragment=0x7f030011;
+        public static final int resultssearch_abs_layout=0x7f030012;
+        public static final int search=0x7f030013;
     }
     public static final class menu {
         public static final int activity_main=0x7f090000;

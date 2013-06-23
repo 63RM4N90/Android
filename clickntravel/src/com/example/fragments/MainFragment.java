@@ -144,7 +144,7 @@ SearchView.OnQueryTextListener, OnCloseListener {
 
 				citiesMap.put(name, new City(id, name));
 
-				mDbHelper.createFlights("", "", name, "", "");
+				mDbHelper.createFlights(name);
 			}
 
 		};

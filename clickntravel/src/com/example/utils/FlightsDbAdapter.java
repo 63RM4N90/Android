@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class FlightsDbAdapter {
 
@@ -88,23 +87,28 @@ public class FlightsDbAdapter {
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}
 
-	public long createFlights(String customer, String name, String city,
-			String state, String zipCode) {
+	public long createFlights(String to) {
+	
+		return createFlights("", "", to, "", "");
+	}
+	
+	public long createFlights(String price, String from, String to,
+			String depDate, String retDate) {
 
 		ContentValues initialValues = new ContentValues();
 		
-		String searchValue = customer + " " + name + " " + city + " " + state + " " + zipCode;
+		String searchValue = price + " " + from + " " + to + " " + depDate + " " + retDate;
 		
-		initialValues.put(KEY_PRICE, customer);
-		initialValues.put(KEY_FROM, name);
-		initialValues.put(KEY_TO, city);
-		initialValues.put(KEY_DEPDATE, state);
-		initialValues.put(KEY_RETDATE, zipCode);
+		initialValues.put(KEY_PRICE, price);
+		initialValues.put(KEY_FROM, from);
+		initialValues.put(KEY_TO, to);
+		initialValues.put(KEY_DEPDATE, depDate);
+		initialValues.put(KEY_RETDATE, retDate);
 		initialValues.put(KEY_SEARCH, searchValue);
 
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}
-
+	
 	public Cursor searchFlights(String inputText) throws SQLException {
 		
 		String query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
@@ -126,7 +130,6 @@ public class FlightsDbAdapter {
 	public boolean deleteAllFlights() {
 
 		int doneDelete = 0;
-		
 		doneDelete = mDb.delete(FTS_VIRTUAL_TABLE, null, null);
 
 		return doneDelete > 0;
