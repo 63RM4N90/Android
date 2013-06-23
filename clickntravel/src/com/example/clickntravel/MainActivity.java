@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.alerts.Alert;
 import com.example.alerts.AlertNotification;
 import com.example.notifications.NotificationIntent;
+import com.example.fragments.AddCommentFragment;
 import com.example.fragments.ConfigurationFragment;
 import com.example.fragments.FlightInfoFragment;
 import com.example.fragments.MyFlightsFragment;
@@ -152,7 +153,8 @@ public class MainActivity extends FragmentActivity {
 				fragmentHandler.setFragment(FragmentKey.BASE);
 				return true;
 			case 4:
-				fragmentHandler.setFragment(FragmentKey.ADD_COMMENT);
+				((AddCommentFragment) fragmentHandler.getFragment(FragmentKey.ADD_COMMENT)).addComment();
+				this.onBackPressed();
 				return true;
 			case android.R.id.home:
 				this.onBackPressed();

@@ -209,9 +209,10 @@ public final class R {
         public static final int punctuality_rating_text=0x7f070034;
         public static final int recommend_switch_text=0x7f070038;
         public static final int remove_flight_toast=0x7f07003e;
-        public static final int save_config=0x7f070041;
+        public static final int save_config=0x7f070042;
         public static final int scheduled=0x7f070027;
         public static final int search_hint=0x7f07000a;
+        public static final int see_comments=0x7f070041;
         public static final int status_change=0x7f070015;
         public static final int status_change_summary=0x7f070014;
         public static final int terminal_change=0x7f070016;

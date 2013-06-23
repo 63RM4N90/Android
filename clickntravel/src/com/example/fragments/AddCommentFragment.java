@@ -12,6 +12,7 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,8 @@ public class AddCommentFragment extends Fragment {
 		
 		Callback callback = new Callback() {
 			public void handleResponse(JSONObject response) {
-						Toast.makeText(getActivity(), "BANDA DE AGREGADO", Toast.LENGTH_SHORT).show();
+				Log.d("Q CARAJO", "ADD COMMENT");
+				Log.d("Q CARAJO", response + "");
 			}
 			
 		};
@@ -60,6 +62,8 @@ public class AddCommentFragment extends Fragment {
 		ApiResultReceiver receiver = new ApiResultReceiver(new Handler(), callback);
 		ApiIntent intent = new ApiIntent("ReviewAirline", "Review", receiver, this.getActivity());
 		LinkedList<NameValuePair> params = new LinkedList<NameValuePair>();
+		int aux = getRatingFrom(R.id.kindness_rating) + getRatingFrom(R.id.food_rating) + getRatingFrom(R.id.punctuality_rating) + getRatingFrom(R.id.millage_program_rating) + getRatingFrom(R.id.comfort_rating) + getRatingFrom(R.id.price_quality_relation_rating);
+		aux = aux/6;
 		params.add(new BasicNameValuePair("airlineId", FlightListFragment.currentFlight.getAirline().getId()));
 		params.add(new BasicNameValuePair("flightNumber", FlightListFragment.currentFlight.getFlightNumber() + ""));
 		params.add(new BasicNameValuePair("friendlinessRating", getRatingFrom(R.id.kindness_rating) + ""));
@@ -68,6 +72,7 @@ public class AddCommentFragment extends Fragment {
 		params.add(new BasicNameValuePair("mileageProgramRating", getRatingFrom(R.id.millage_program_rating) + ""));
 		params.add(new BasicNameValuePair("comfortRating", getRatingFrom(R.id.comfort_rating) + ""));
 		params.add(new BasicNameValuePair("qualityPriceRating", getRatingFrom(R.id.price_quality_relation_rating) + ""));
+		params.add(new BasicNameValuePair("overallRating", aux + ""));
 		params.add(new BasicNameValuePair("yesRecommend", getValueFromSwitch(R.id.yes_no_recommend) + ""));
 		params.add(new BasicNameValuePair("comments", getStringFromField(R.id.editText1) + ""));
 		intent.setParams(params);
@@ -85,9 +90,9 @@ public class AddCommentFragment extends Fragment {
 		return Math.round((rb.getRating() * 8 / 5)) + 1;
 	}
 	
-	private boolean getValueFromSwitch(int switchId) {
+	private int getValueFromSwitch(int switchId) {
 		Switch sw = (Switch) getActivity().findViewById(switchId);
-		return sw.isChecked();
+		return (sw.isChecked())? 1:0;
 	}
 	
 }

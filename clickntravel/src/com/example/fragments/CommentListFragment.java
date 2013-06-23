@@ -6,6 +6,8 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
@@ -71,12 +73,17 @@ public class CommentListFragment extends Fragment {
 	private void loadCommentList(){
 		
 		Callback callback = new Callback() {
-		public void handleResponse(JSONObject response) {
-			Log.d("LOAD COMMENTS", "comentList??");
-			Log.d("LOAD COMMENTS", response + "");
-		}
+			public void handleResponse(JSONObject response) {
+				try {
+					JSONArray reviews = response.getJSONArray("reviews");
+					for(int i=0; i < reviews.length(); i++) {
+						commentList.add(new Comment(reviews.getJSONObject(i)));
+						adapter.notifyDataSetChanged();
+					}
+				} catch (JSONException e) { }
+			}
 		
-	};
+		};
 
 	ApiResultReceiver receiver = new ApiResultReceiver(new Handler(), callback);
 	ApiIntent intent = new ApiIntent("GetAirlineReviews", "Review", receiver, this.getActivity());
@@ -87,11 +94,6 @@ public class CommentListFragment extends Fragment {
 	this.getActivity().startService(intent);
 		
 	}
-
-//	private void eraseField(int fieldId) {
-//		TextView tv = (TextView) getActivity().findViewById(fieldId);
-//		tv.setText("");
-//	}
 	
 	@Override
 	public void onDestroyView() {

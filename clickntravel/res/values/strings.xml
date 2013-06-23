@@ -66,7 +66,8 @@
     <string name="remove_flight_toast">Flight removed</string>
     <string name="get_fligh_error">Invalid flight</string>
     <string name="already_added">Flight already added</string>
-        
+    <string name="see_comments">Comments</string>
+    
     
     
     

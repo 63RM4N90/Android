@@ -1,5 +1,8 @@
 package com.example.utils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Comment {
 	String airlineId;
 	int flightNumber;
@@ -26,6 +29,22 @@ public class Comment {
 		this.qualityPriceRating = qualityPriceRating;
 		this.yesRecommend = yesRecommend;
 		this.comments = comments;
+	}
+	
+	public Comment(JSONObject review) {
+		try {
+		this.airlineId = review.getString("airlineId");
+		this.flightNumber = review.getInt("flightNumber");
+		this.overallRating = review.getInt("overallRating");
+		this.friendlinessRating = review.getInt("friendlinessRating");
+		this.foodRating = review.getInt("foodRating");
+		this.punctualityRating = review.getInt("punctualityRating");
+		this.mileageProgramRating = review.getInt("mileageProgramRating");
+		this.comfortRating = review.getInt("comfortRating");
+		this.qualityPriceRating = review.getInt("qualityPriceRating");
+		this.yesRecommend = review.getInt("yesRecommend");
+		this.comments = review.getString("comments");
+		} catch(JSONException e) { }
 	}
 
 	public String getAirlineId() {
