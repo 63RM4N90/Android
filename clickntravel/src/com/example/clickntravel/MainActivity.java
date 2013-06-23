@@ -126,7 +126,8 @@ public class MainActivity extends FragmentActivity {
 		switch (item.getItemId()) {
 			case 0:
 				((FlightListFragment) fragmentHandler.getFragment(FragmentKey.FLIGHT_LIST)).removeFlight();
-				fragmentHandler.setFragment(FragmentKey.MY_FLIGHTS);
+				this.onBackPressed();
+				hideDetailOptions();
 				Toast.makeText(this, "EHHHH GUACHAAAA!!", Toast.LENGTH_SHORT).show();
 				return true;
 			case 1:
