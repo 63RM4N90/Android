@@ -101,8 +101,6 @@ public class FlightsDbAdapter {
 		initialValues.put(KEY_DEPDATE, state);
 		initialValues.put(KEY_RETDATE, zipCode);
 		initialValues.put(KEY_SEARCH, searchValue);
-		
-		Log.d("oetrsua", searchValue);
 
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}

@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
@@ -16,50 +15,37 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ActionBar;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.SearchView.OnCloseListener;
-import android.widget.SearchView.OnQueryTextListener;
+import android.widget.ListView;
+import android.widget.SimpleCursorAdapter;
 
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
 import com.example.api.Callback;
 import com.example.clickntravel.R;
 import com.example.handlers.FragmentHandler;
-import com.example.utils.City;
 import com.example.utils.Deal;
 import com.example.utils.DealAdapter;
 import com.example.utils.FlightsDbAdapter;
-import com.example.utils.FragmentKey;
 
 public class ResultsSearchFragment extends Fragment {
 
-	private final String fileName = "dealsStorage";
+//	private final String fileName = "dealsStorage";
 	// private final String preferencesFileName = "favoritesPreferencesStorage";
 
 	// private Map<String, Deal> dealsMap;
 
 	private List<String> dealPrices = new ArrayList<String>();
-	private static List<Deal> dealsList = new ArrayList<Deal>();
+	private List<Deal> dealsList = new ArrayList<Deal>();
 
 	// Esto está hardcodeado a que from sea Buenos Aires TODO
 	private String nameFrom;
@@ -98,32 +84,6 @@ public class ResultsSearchFragment extends Fragment {
 					false);
 
 		mListView = (ListView) view.findViewById(R.id.deals_list_view);
-		ListView listView = (ListView) view.findViewById(R.id.deals_list_view);
-//		mListView = (ListView) this.getActivity().findViewById(R.id.list);
-		
-//		try {
-//			retrieveData();
-//		} catch (JSONException e) {
-//			e.printStackTrace();
-//		}
-//
-//		adapter = new DealAdapter(getActivity(), dealsList);
-//
-//		listView.setAdapter(adapter); 
-//		listView.setOnItemClickListener(new OnItemClickListener() {
-//
-//			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-////				currentFlight = flightList.get(arg2);
-////				int screenLayout = getActivity().getResources().getConfiguration().screenLayout;
-////				if ((screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE){
-////					((MainActivity)getActivity()).goToNewFavoriteInfoFragmentLarge(currentFlight);
-////				} else {
-////					getActivity().getActionBar().selectTab(null);
-////					((MainActivity)getActivity()).goToNewFavoriteInfoFragment(currentFlight);
-////				}
-//			}
-//		});
-//
 		
         setHasOptionsMenu(true);
 		
@@ -131,29 +91,8 @@ public class ResultsSearchFragment extends Fragment {
 		mDbHelper.open();
 
 		mDbHelper.deleteAllFlights();
-//
-//		createCities();
 
-//		return inflater.inflate(R.layout.results_search_fragment, container, false);
-		
 		return view;
-	}
-	
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-//		inflater.inflate(R.menu.searchview_in_menu, menu);
-		MenuItem searchItem = menu.findItem(R.id.action_search);
-//		mSearchView = (SearchView) searchItem.getActionView();
-//		mSearchView.setIconifiedByDefault(false); // Pone la lupita a la derecha
-//													// si se comenta
-//		mSearchView.setOnQueryTextListener((OnQueryTextListener) this);
-//		mSearchView.setOnCloseListener((OnCloseListener) this);
-//		mListView = (ListView) this.getActivity().findViewById(R.id.list);
-
-		// Setea el color del textito de la search view
-		String text = "<font color = #DDDDDD>"
-				+ getString(R.string.search_view_text) + "</font>";
-//		mSearchView.setQueryHint(Html.fromHtml(text));
 	}
 
 	public void createDeals() {
@@ -223,7 +162,7 @@ public class ResultsSearchFragment extends Fragment {
 									indexMinPrice = i;
 								}
 							}
-
+							
 							if (dealsList.isEmpty()) {
 
 								addDeal(indexMinPrice, minPrice, dealArray);
@@ -255,7 +194,6 @@ public class ResultsSearchFragment extends Fragment {
 											"date");
 							String arrivalTime = segments.getJSONObject(
 									"arrival").optString("date");
-							;
 
 							nameFrom = segments.getJSONObject("departure")
 									.optString("cityName");
@@ -267,7 +205,7 @@ public class ResultsSearchFragment extends Fragment {
 							dealsList.add(curr);
 
 							mDbHelper.createFlights(curr.getPrice(), curr.getNameFrom(), curr.getNameTo(), curr.getDepTime(), curr.getArrivalTime());
-							Log.d("deal", curr.toString());
+//							Log.d("deal", curr.toString());
 
 						} catch (JSONException e) {
 						}
@@ -335,8 +273,6 @@ public class ResultsSearchFragment extends Fragment {
 	
 	private void showResults(String query) {
 		
-		Log.d("probando", query);
-		
 		if (query == null) {
 
 			return;
@@ -346,25 +282,23 @@ public class ResultsSearchFragment extends Fragment {
 		
 		if (cursor != null) {
 		
-			Log.d("cursor", String.valueOf(cursor.getCount()));
-			
 			// Specify the columns we want to display in the result
 			
-			String[] from = new String[] { FlightsDbAdapter.KEY_PRICE,
+			String[] from = new String[] {FlightsDbAdapter.KEY_PRICE,
 					FlightsDbAdapter.KEY_FROM, FlightsDbAdapter.KEY_TO,
 					FlightsDbAdapter.KEY_DEPDATE, FlightsDbAdapter.KEY_RETDATE };
 
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
 			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
-					R.id.sstate, R.id.szipCode };
-			
-//			String[] from = new String[] { FlightsDbAdapter.KEY_TO };
-//
-//			// Specify the Corresponding layout elements where we want the
-//			// columns to go
-//			int[] to = new int[] { R.id.scity };
 
+//					String[] from = new String[] { FlightsDbAdapter.KEY_TO };
+		//
+//					// Specify the Corresponding layout elements where we want the
+//					// columns to go
+//					int[] to = new int[] { R.id.scity };
+			R.id.sstate, R.id.szipCode };
+			
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
 			@SuppressWarnings("deprecation")
@@ -372,7 +306,6 @@ public class ResultsSearchFragment extends Fragment {
 					R.layout.dealresult, cursor, from, to);
 			mListView.setAdapter(Flights);
 
-			Log.d("listview", mListView.toString());
 			// Define the on-click listener for the list items
 			mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -405,42 +338,6 @@ public class ResultsSearchFragment extends Fragment {
 			});
 		}
 	}
-	
-	private String getElementString(int elementId) {
-		
-		return ((TextView) getActivity().findViewById(elementId)).getText()
-				.toString();
-	}
-
-	private void storeOnSharedPreferences(JSONObject favorite, String uniqueKey) {
-
-		SharedPreferences prefs = getActivity().getSharedPreferences(fileName,
-				Context.MODE_PRIVATE);
-
-		Editor editor = prefs.edit();
-
-		editor.putString(uniqueKey, favorite.toString()).commit();
-	}
-
-	@SuppressWarnings("unchecked")
-	private void retrieveData() throws JSONException {
-
-		ResultsSearchFragment.dealsList = new ArrayList<Deal>();
-
-		SharedPreferences prefs = getActivity().getSharedPreferences(fileName,
-				Context.MODE_PRIVATE);
-
-		Map<String, String> map = (Map<String, String>) prefs.getAll();
-
-		for (String s : map.values()) {
-
-			dealsList.add(new Deal(new JSONObject(s)));
-		}
-
-		// prefs = getActivity().getSharedPreferences(preferencesFileName,
-		// Context.MODE_PRIVATE);
-		// map = (Map<String,String>)prefs.getAll();
-	}
 
 	@Override
 	public void onDestroyView() {
@@ -460,13 +357,6 @@ public class ResultsSearchFragment extends Fragment {
 		}
 
 		super.onDestroyView();
-	}
-
-	private void eraseField(int fieldId) {
-
-		TextView tv = (TextView) getActivity().findViewById(fieldId);
-
-		tv.setText("");
 	}
 
 	public Deal getCurrentFlight() {
