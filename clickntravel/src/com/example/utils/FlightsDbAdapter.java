@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class FlightsDbAdapter {
 
@@ -91,6 +92,8 @@ public class FlightsDbAdapter {
 
 	public long createFlights(String to) {
 
+		Log.d("hola", "hola");
+		Log.d("to", to);
 		return createFlights("", "", to, "", "");
 	}
 

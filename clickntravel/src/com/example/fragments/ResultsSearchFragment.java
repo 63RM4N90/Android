@@ -193,35 +193,43 @@ public class ResultsSearchFragment extends Fragment {
 							nameFrom = segments.getJSONObject("departure")
 									.optString("cityName");
 
-							Deal curr = new Deal(idFrom, nameFrom, idTo,
-									nameTo, price, airlineId, flightId,
-									flightNumber, convertDate(depTime), convertDate(arrivalTime));
+							Deal curr = new Deal(idFrom, getCity(nameFrom), idTo,
+									getCity(nameTo), getFloorPrice(price), airlineId,
+									flightId, flightNumber,
+									convertDate(depTime),
+									convertDate(arrivalTime));
 
 							dealsList.add(curr);
+							
+							Log.d("curr", curr.toString());
 
+							Log.d("hola0", "hola0");
 							mDbHelper.createFlights(curr.getPrice(),
 									curr.getNameFrom(), curr.getNameTo(),
 									curr.getDepTime(), curr.getArrivalTime());
+							Log.d("hola1", "hola1");
+							Log.d("currTo", curr.getNameTo());
 
 						} catch (JSONException e) {
 						}
 					}
 
 					private String convertDate(String date) {
-						
+
 						String year = date.substring(0, 4);
 						String day = date.substring(5, 7);
 						String month = date.substring(8, 10);
-						
+
 						String hour = date.substring(11, 13);
 						String min = date.substring(14, 16);
-						
-						return day + '/' + month + "/" + year + " " + hour + ":" + min;
+
+						return day + '/' + month + "/" + year + " " + hour
+								+ ":" + min;
 					}
-					
+
 					private String getFloorPrice(String price) {
-						
-						return null;
+
+						return "U$S " + price.split("\\.")[0];
 					}
 				};
 
@@ -234,7 +242,8 @@ public class ResultsSearchFragment extends Fragment {
 
 				nameValuePair.add(new BasicNameValuePair("from", idFrom));
 				nameValuePair.add(new BasicNameValuePair("to", idTo));
-				nameValuePair.add(new BasicNameValuePair("dep_date", getDate()));
+				nameValuePair
+						.add(new BasicNameValuePair("dep_date", getDate()));
 				nameValuePair.add(new BasicNameValuePair("adults", "1"));
 				nameValuePair.add(new BasicNameValuePair("children", "0"));
 				nameValuePair.add(new BasicNameValuePair("infants", "0"));
@@ -290,7 +299,7 @@ public class ResultsSearchFragment extends Fragment {
 			return;
 		}
 
-		Cursor cursor = mDbHelper.searchFlights(query);
+		Cursor cursor = mDbHelper.searchFlights(getCity(query));
 
 		if (cursor != null) {
 
@@ -335,9 +344,9 @@ public class ResultsSearchFragment extends Fragment {
 							.getColumnIndexOrThrow("state"));
 					String retDate = cursor.getString(cursor
 							.getColumnIndexOrThrow("zipCode"));
-					
+
 					Deal newDeal = new Deal(from, to, depDate, retDate, price);
-					
+
 					MyDealsFragment.dealsList.add(newDeal);
 				}
 			});
@@ -367,5 +376,10 @@ public class ResultsSearchFragment extends Fragment {
 	public Deal getCurrentFlight() {
 
 		return currentDeal;
+	}
+	
+	private String getCity(String city) {
+
+		return city.split("\\,")[0];
 	}
 }
