@@ -115,55 +115,48 @@ public class ResultsSearchFragment extends Fragment {
 							
 							for (int i = 0; i < dealArray.length(); i++) {
 
-								JSONObject obj = dealArray.getJSONObject(i);
-								JSONObject segments = obj.getJSONArray("outboundRoutes").getJSONObject(0).getJSONArray("segments").getJSONObject(0);
+								String price = dealArray.getJSONObject(i).getJSONObject("price").getJSONObject("total").optString("total");
 								
-								String price = obj.getJSONObject("price").getJSONObject("total").optString("total");
+								if (dealPrices.contains(price)) {
 								
-								if (!dealPrices.contains(price)) {
-								
-									if (minPrice == null || Double.valueOf(minPrice) > Double.valueOf(price)) {
+									addDeal(indexMinPrice, minPrice, dealArray);
+									
+								} else if (minPrice == null || Double.valueOf(minPrice) > Double.valueOf(price)) {
 										
 										minPrice = price;
 										indexMinPrice = i;
-									}
-									
-									break;
 								}
-								
-								String airlineId = segments.optString("airlineId");
-								String flightId = segments.optString("flightId");
-								String flightNumber = segments.optString("flightNumber");
-								
-								nameFrom = segments.getJSONObject("departure").optString("cityName");
-								
-								Deal curr = new Deal(idFrom, nameFrom, idTo, nameTo, price, airlineId, flightId, flightNumber);
-								
-								dealsList.add(curr);
-								
-//								dealsMap.put(nameTo, curr);
 							}
 							
 							if (dealsList.isEmpty()) {
-
-								JSONObject obj = dealArray.getJSONObject(indexMinPrice);
-								JSONObject segments = obj.getJSONArray("outboundRoutes").getJSONObject(0).getJSONArray("segments").getJSONObject(0);
 								
-								Log.d("minPrice", minPrice);
-								Log.d("otherPrices", dealPrices.toString());
-								
-								String airlineId = segments.optString("airlineId");
-								String flightId = segments.optString("flightId");
-								String flightNumber = segments.optString("flightNumber");
-								
-								nameFrom = segments.getJSONObject("departure").optString("cityName");
-								
-								Deal curr = new Deal(idFrom, nameFrom, idTo, nameTo, minPrice, airlineId, flightId, flightNumber);
-								
-								dealsList.add(curr);
+								addDeal(indexMinPrice, minPrice, dealArray);
 							}
 
 						} catch (JSONException e) {
+						}
+					}
+
+					private void addDeal(int index, String price, JSONArray dealArray) {
+						
+						try {
+							
+							JSONObject obj = dealArray.getJSONObject(index);
+							JSONObject segments = obj.getJSONArray("outboundRoutes").getJSONObject(0).getJSONArray("segments").getJSONObject(0);
+							
+							String airlineId = segments.optString("airlineId");
+							String flightId = segments.optString("flightId");
+							String flightNumber = segments.optString("flightNumber");
+							
+							nameFrom = segments.getJSONObject("departure").optString("cityName");
+							
+							Deal curr = new Deal(idFrom, nameFrom, idTo, nameTo, price, airlineId, flightId, flightNumber);
+							
+							dealsList.add(curr);	
+							
+//							Log.d("deal", curr.toString());
+						
+						} catch (JSONException e) {	
 						}
 					}
 				};
