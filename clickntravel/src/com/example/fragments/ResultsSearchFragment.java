@@ -266,7 +266,7 @@ public class ResultsSearchFragment extends Fragment {
 
 							dealsList.add(curr);
 
-							mDbHelper.createFlights("", "", nameTo, "", "");
+							mDbHelper.createFlights(curr.getPrice(), curr.getNameFrom(), curr.getNameTo(), curr.getDepTime(), curr.getArrivalTime());
 							Log.d("deal", curr.toString());
 
 						} catch (JSONException e) {
@@ -333,23 +333,7 @@ public class ResultsSearchFragment extends Fragment {
 		this.getActivity().startService(intent);
 	}
 	
-	public boolean onQueryTextChange(String newText) {
-
-		showResults(newText + "*");
-
-		return false;
-	}
-
-	public boolean onQueryTextSubmit(String query) {
-
-		showResults(query + "*");
-
-		return false;
-	}
-
 	private void showResults(String query) {
-
-		query = "a*";
 		
 		Log.d("probando", query);
 		
@@ -365,17 +349,27 @@ public class ResultsSearchFragment extends Fragment {
 			Log.d("cursor", String.valueOf(cursor.getCount()));
 			
 			// Specify the columns we want to display in the result
-			String[] from = new String[] { FlightsDbAdapter.KEY_TO };
+			
+			String[] from = new String[] { FlightsDbAdapter.KEY_PRICE,
+					FlightsDbAdapter.KEY_FROM, FlightsDbAdapter.KEY_TO,
+					FlightsDbAdapter.KEY_DEPDATE, FlightsDbAdapter.KEY_RETDATE };
 
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
-			int[] to = new int[] { R.id.scity };
+			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
+					R.id.sstate, R.id.szipCode };
+			
+//			String[] from = new String[] { FlightsDbAdapter.KEY_TO };
+//
+//			// Specify the Corresponding layout elements where we want the
+//			// columns to go
+//			int[] to = new int[] { R.id.scity };
 
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
 			@SuppressWarnings("deprecation")
 			SimpleCursorAdapter Flights = new SimpleCursorAdapter(this.getActivity(),
-					R.layout.flightresult, cursor, from, to);
+					R.layout.dealresult, cursor, from, to);
 			mListView.setAdapter(Flights);
 
 			Log.d("listview", mListView.toString());
