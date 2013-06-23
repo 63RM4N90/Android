@@ -23,7 +23,7 @@
         android:textColor="#FFFFFF" />
 
     <ListView
-        android:id="@+id/list"
+        android:id="@+id/dealList"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="#BBBBBB" />

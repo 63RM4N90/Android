@@ -8,6 +8,8 @@ import android.os.Handler;
 import android.os.ResultReceiver;
 import android.util.Log;
 
+import com.example.api.Callback;
+
 public class ApiResultReceiver extends ResultReceiver {
 
 	public Callback callback;

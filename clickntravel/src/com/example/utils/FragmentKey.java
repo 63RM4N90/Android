@@ -1,6 +1,7 @@
 package com.example.utils;
 
 public enum FragmentKey {
+	
 	MAIN,
 	MY_FLIGHTS,
 	CONFIGURATION,
@@ -8,6 +9,9 @@ public enum FragmentKey {
 	MY_DEALS,
 	ADD_FLIGHT,
 	FLIGHT_LIST,
+	ADD_COMMENT,
+	SEE_COMMENTS,
+	NONE,
 	BASE,
-	SEARCH_DEALS_LIST;	
+	SEARCH_DEALS_LIST;
 }

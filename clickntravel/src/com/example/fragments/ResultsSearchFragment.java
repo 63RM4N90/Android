@@ -202,7 +202,6 @@ public class ResultsSearchFragment extends Fragment {
 							mDbHelper.createFlights(curr.getPrice(),
 									curr.getNameFrom(), curr.getNameTo(),
 									curr.getDepTime(), curr.getArrivalTime());
-							// Log.d("deal", curr.toString());
 
 						} catch (JSONException e) {
 						}
