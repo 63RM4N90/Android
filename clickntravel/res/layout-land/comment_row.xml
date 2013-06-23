@@ -137,7 +137,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/comment_row_text" />
             </TableRow>
-
         </TableLayout>
 
         <ImageView
@@ -150,13 +149,16 @@
             android:id="@+id/general_ranking_row_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.58" />
-
+            android:layout_gravity="center"
+            android:layout_weight="0.58"
+            android:gravity="center"
+            android:textColor="#0C81C7"
+            android:textSize="100sp" />
     </LinearLayout>
-    
+
     <TextView
-            android:id="@+id/comment_row_text_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:id="@+id/comment_row_text_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
