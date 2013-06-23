@@ -23,6 +23,7 @@
                     android:id="@+id/food_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/food_rating_text" />
 
                 <TextView
@@ -39,6 +40,7 @@
                     android:id="@+id/kindness_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/kindness_rating_text" />
 
                 <TextView
@@ -55,6 +57,7 @@
                     android:id="@+id/punctuallity_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/punctuality_rating_text" />
 
                 <TextView
@@ -71,6 +74,7 @@
                     android:id="@+id/millage_program_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/millage_program_rating_text" />
 
                 <TextView
@@ -87,6 +91,7 @@
                     android:id="@+id/comfort_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/comfort_rating_text" />
 
                 <TextView
@@ -103,6 +108,7 @@
                     android:id="@+id/price_quality_relation_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/price_quality_relation_rating_text" />
 
                 <TextView
@@ -119,6 +125,7 @@
                     android:id="@+id/recommend_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/recommend_switch_text" />
 
                 <TextView
@@ -135,6 +142,7 @@
                     android:id="@+id/comment_row_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#0C81C7"
                     android:text="@string/comment_row_text" />
             </TableRow>
 
@@ -150,7 +158,11 @@
             android:id="@+id/general_ranking_row_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.58" />
+            android:layout_weight="0.58" 
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="#0C81C7"
+            android:textSize="100dp"/>
 
     </LinearLayout>
     

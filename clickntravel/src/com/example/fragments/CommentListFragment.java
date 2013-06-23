@@ -49,9 +49,10 @@ public class CommentListFragment extends Fragment {
 		
 		ListView listView = (ListView) view.findViewById(R.id.comment_list_view);
 		
+		
+		loadCommentList();
 		adapter = new CommentAdapter(getActivity(), commentList);
 		listView.setAdapter(adapter); 
-		loadCommentList();
 		return view;
 	}
 	

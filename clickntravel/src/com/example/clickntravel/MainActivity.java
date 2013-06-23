@@ -13,8 +13,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -60,7 +58,6 @@ public class MainActivity extends FragmentActivity {
         AlertNotification.context = this;
         NotificationIntent intent = new NotificationIntent(this);
         startService(intent);
-
 		setContentView(R.layout.activity_main);
 		this.fragmentHandler = new FragmentHandler(getSupportFragmentManager());
 		this.fragmentHandler.setFragment(FragmentKey.MAIN);

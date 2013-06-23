@@ -55,7 +55,7 @@ public class AddFlightFragment extends Fragment {
 								new ArrayList<String>(MyFlightsFragment.airlinesMap.keySet()));
 
 						AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.airline_input);
-						
+						Log.d("", "textView: " + textView + ", adapter: " + adapter);
 						textView.setAdapter(adapter);
 					} catch (JSONException e) {		}
 				}

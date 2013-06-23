@@ -3,6 +3,8 @@ package com.example.utils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.example.clickntravel.R;
+
 public class Comment {
 	String airlineId;
 	int flightNumber;
@@ -33,17 +35,18 @@ public class Comment {
 	
 	public Comment(JSONObject review) {
 		try {
-		this.airlineId = review.getString("airlineId");
-		this.flightNumber = review.getInt("flightNumber");
-		this.overallRating = review.getInt("overallRating");
-		this.friendlinessRating = review.getInt("friendlinessRating");
-		this.foodRating = review.getInt("foodRating");
-		this.punctualityRating = review.getInt("punctualityRating");
-		this.mileageProgramRating = review.getInt("mileageProgramRating");
-		this.comfortRating = review.getInt("comfortRating");
-		this.qualityPriceRating = review.getInt("qualityPriceRating");
-		this.yesRecommend = review.getInt("yesRecommend");
-		this.comments = review.getString("comments");
+		airlineId = review.getString("airlineId");
+		flightNumber = review.getInt("flightNumber");
+		friendlinessRating = review.getInt("friendlinessRating");
+		foodRating = review.getInt("foodRating");
+		punctualityRating = review.getInt("punctualityRating");
+		mileageProgramRating = review.getInt("mileageProgramRating");
+		comfortRating = review.getInt("comfortRating");
+		qualityPriceRating = review.getInt("qualityPriceRating");
+		yesRecommend = review.getInt("yesRecommend");
+		comments = review.getString("comments");
+		overallRating = friendlinessRating + foodRating + punctualityRating + mileageProgramRating + comfortRating + qualityPriceRating;
+		overallRating /= 6;
 		} catch(JSONException e) { }
 	}
 
@@ -84,7 +87,7 @@ public class Comment {
 	}
 
 	public int getYesRecommend() {
-		return yesRecommend;
+		return (yesRecommend == 1)? R.string.yes : R.string.no;
 	}
 
 	public String getComments() {

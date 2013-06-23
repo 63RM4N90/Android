@@ -59,8 +59,8 @@
     <string name="comfort_rating_text">Comfort:</string>
     <string name="price_quality_relation_rating_text">Relación Precio-Calidad:</string>
     <string name="recommend_switch_text">Recomendado:</string>
-    <string name="no">no</string>
-    <string name="yes">si</string>
+    <string name="no">NO</string>
+    <string name="yes">SI</string>
     <string name="comment_text">Comentar</string>
     <string name="see_comments">Comentarios</string>
     

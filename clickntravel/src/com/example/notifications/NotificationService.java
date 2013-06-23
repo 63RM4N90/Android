@@ -14,7 +14,6 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 
-import com.example.alerts.Alert;
 import com.example.alerts.AlertNotification;
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
@@ -24,7 +23,7 @@ import com.example.utils.FlightStatus;
 
 public class NotificationService extends IntentService {
 
-	private List<AddedFlight> flightList = new ArrayList<AddedFlight>();	
+	private List<AddedFlight> flightList;
 	private ApiResultReceiver receiver;
 	private final String fileName = "addedFlightsStorage";
 	
@@ -34,13 +33,19 @@ public class NotificationService extends IntentService {
 	
 	@Override
 	protected void onHandleIntent(Intent arg0) {
-		try { retrieveData(); } 
-		catch(JSONException e){ }
 		while (true) {
-			try { Thread.sleep(Alert.frequency *1000); }
+			try { Thread.sleep(/*Alert.frequency*/ 7 *1000); }
 			catch(InterruptedException e){ }
-			for (AddedFlight f : flightList)
+			try { retrieveData(); } 
+			catch(JSONException e){ }
+			Log.d("NOTIFICATIONS", "aca arrancan...");
+			for(AddedFlight f : flightList)
+				Log.d("FLIGHTID", f.getFlightNumber() + "");
+			for (AddedFlight f : flightList) {
 					checkStatus(f);
+					try { Thread.sleep(2500); }
+					catch(InterruptedException e){ }
+			}
 		}
 	}
 	
@@ -49,7 +54,7 @@ public class NotificationService extends IntentService {
 			
 			public void handleResponse(JSONObject response) {
 				FlightStatus currentFlightStatus = null;
-				Log.d(" ", "QUE ONDA, ENTRAS ACA???");
+				Log.d("CHECKSTATUS", "QUE ONDA, ENTRAS ACA???");
 				try {
 					currentFlightStatus = new FlightStatus(response.getJSONObject("status"));
 				} catch (JSONException e) {
@@ -72,8 +77,9 @@ public class NotificationService extends IntentService {
 	private void retrieveData() throws JSONException {
 		SharedPreferences prefs = this.getApplicationContext().getSharedPreferences(fileName, Context.MODE_PRIVATE);
 		Map<String, String> map = (Map<String,String>)prefs.getAll();
-		for (String s: map.values()){
-			flightList.add(new AddedFlight(new JSONObject(s)));
-		}
+		ArrayList<AddedFlight> fl = new ArrayList<AddedFlight>();
+		for (String s: map.values())
+			fl.add(new AddedFlight(new JSONObject(s)));
+		flightList = fl;
 	}
 }
