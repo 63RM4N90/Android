@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,18 +69,6 @@ public class MainActivity extends FragmentActivity {
 		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && mPrefsFragment != null) {
-			// mPrefsFragment.getPreferenceScreen().removeAll();
-			// mPrefsFragment = null;
-			Intent intent = new Intent(this, MainActivity.class);
-			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-		}
-		return super.onKeyDown(keyCode, event);
-	}
-
 	public void goToNewFavoriteInfoFragment(AddedFlight f) {
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, new FlightInfoFragment(f))
@@ -87,12 +76,19 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	public void goToNewFavoriteInfoFragmentLarge(AddedFlight f) {
-		// checkear que esto este bien, el container
+		// TODO cambiarle nombre a este metodo y checkear que esto este bien, el container
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, new FlightInfoFragment(f))
 				.addToBackStack(null).commit();
 	}
-
+	
+	@Override
+	public void onBackPressed() {
+		hideDetailOptions();
+		hideSubmitComment();
+		super.onBackPressed();
+	}
+	
 	public void addFlight(View view) {
 		((MyFlightsFragment) fragmentHandler
 				.getFragment(FragmentKey.MY_FLIGHTS)).addFlight(view);
@@ -120,7 +116,8 @@ public class MainActivity extends FragmentActivity {
 				Toast.makeText(this, "removido mami", Toast.LENGTH_SHORT).show();
 				return true;
 			case 1:
-				Toast.makeText(this, "comentan2", Toast.LENGTH_SHORT).show();
+				hideDetailOptions();
+				fragmentHandler.setFragment(FragmentKey.ADD_COMMENT);
 				return true;
 			case 2:
 				Toast.makeText(this, "v13nd0 c0m3nt4r10z", Toast.LENGTH_SHORT)
@@ -136,10 +133,9 @@ public class MainActivity extends FragmentActivity {
 				return true;
 			case 4:
 				fragmentHandler.setFragment(FragmentKey.ADD_COMMENT);
+				return true;
 			case android.R.id.home:
-				Intent intent = new Intent(this, MainActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivity(intent);
+				this.onBackPressed();
 				return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -177,8 +173,18 @@ public class MainActivity extends FragmentActivity {
 		configuration.setVisible(true);
 	}
 	
+	public void hideDetailOptions(){
+		remove.setVisible(false);
+		comment.setVisible(false);
+		seeComments.setVisible(false);
+	}
+	
 	public void showSubmitComment(){
 		submitComment.setVisible(true);
+	}
+	
+	public void hideSubmitComment(){
+		submitComment.setVisible(false);
 	}
 
 }

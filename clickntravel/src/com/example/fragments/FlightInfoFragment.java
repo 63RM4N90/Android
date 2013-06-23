@@ -80,48 +80,6 @@ public class FlightInfoFragment extends Fragment {
 		return view;
 	}
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		createMenu(menu);
-	};
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		return menuSelection(item);
-	};
-
-	private boolean menuSelection(MenuItem item) {
-		switch (item.getItemId()) {
-			case 0:
-				Toast.makeText(getActivity(), "removido mami", Toast.LENGTH_SHORT).show();
-				return true;
-			case 1:
-				Toast.makeText(getActivity(), "comentan2", Toast.LENGTH_SHORT).show();
-				return true;
-			case 2:
-				Toast.makeText(getActivity(), "v13nd0 c0m3nt4r10z", Toast.LENGTH_SHORT).show();
-				return true;
-			default:
-				return true;
-		}
-	}
-
-	private void createMenu(Menu menu) {
-		MenuItem remove = menu.add(0, 0, 0, "remove");
-		MenuItem comment = menu.add(0, 1, 1, "comment");
-		MenuItem seeComments = menu.add(0, 2, 2, "see comments");
-
-		remove.setIcon(R.drawable.remove);
-		comment.setIcon(R.drawable.add_comment);
-		seeComments.setIcon(R.drawable.comments);
-
-		remove.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		comment.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		seeComments.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-	}
-
 	private void setIntoTextView(int textViewId, String string) {
 		TextView textView = (TextView) view.findViewById(textViewId);
 		textView.setText(string);

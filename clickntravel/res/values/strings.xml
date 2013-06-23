@@ -61,4 +61,7 @@
     <string name="no">no</string>
     <string name="yes">yes</string>
     <string name="comment_text">Comment</string>
+    <string name="comment_row_text">Comment:</string>
+    <string name="add_comment">add comment</string>
+
 </resources>

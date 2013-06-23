@@ -70,7 +70,7 @@ public class AddFlightFragment extends Fragment {
 
 		return view;
 	}
-
+	
 	@Override
 	public void onDestroyView() {
 		((ViewGroup) view.getParent()).removeAllViews();

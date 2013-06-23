@@ -2,12 +2,14 @@ package com.example.fragments;
 
 
 
+import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.clickntravel.MainActivity;
 import com.example.clickntravel.R;
 
 public class AddCommentFragment extends Fragment {
@@ -18,8 +20,15 @@ public class AddCommentFragment extends Fragment {
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
-		
+		ActionBar actionBar = getActivity().getActionBar();
 		View view = inflater.inflate(R.layout.comments_fragment, container, false);
+		
+		((MainActivity) getActivity()).showSubmitComment();
+		
+		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
+		actionBar.setCustomView(R.layout.add_comment_abs_layout);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setHomeButtonEnabled(true);
 //		QueryIntent query = new QueryIntent(new RequestReceiver() {
 //
 //			@Override

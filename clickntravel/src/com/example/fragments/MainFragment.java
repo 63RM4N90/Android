@@ -13,9 +13,17 @@ public class MainFragment extends Fragment {
 
 	@Override 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ActionBar actionBar = getActivity().getActionBar();
-		actionBar.setDisplayShowTitleEnabled(false);
-		actionBar.setDisplayShowHomeEnabled(false);
 		return inflater.inflate(R.layout.main_fragment, container, false);
     }
+	
+	@Override
+	public void onStart() {
+		ActionBar actionBar = getActivity().getActionBar();
+		
+		actionBar.setDisplayShowTitleEnabled(false);
+		actionBar.setDisplayShowHomeEnabled(false);
+		actionBar.setCustomView(R.layout.main_abs_layout);
+
+        super.onStart();
+	}
 }
