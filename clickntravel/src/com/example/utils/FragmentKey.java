@@ -10,6 +10,7 @@ public enum FragmentKey {
 	FLIGHT_LIST,
 	ADD_COMMENT,
 	SEE_COMMENTS,
+	NONE,
 	BASE;
 	
 }

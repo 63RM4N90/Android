@@ -97,6 +97,12 @@ public class MainActivity extends FragmentActivity {
 	public void onBackPressed() {
 		hideDetailOptions();
 		hideSubmitComment();
+		if(fragmentHandler.getCurrentKey().equals(FragmentKey.BASE)){
+			Intent intent = new Intent(this, MainActivity.class);
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			return;
+		}
 		super.onBackPressed();
 	}
 	
