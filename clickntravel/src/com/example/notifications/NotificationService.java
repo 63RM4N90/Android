@@ -14,6 +14,7 @@ import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 
+import com.example.alerts.Alert;
 import com.example.alerts.AlertNotification;
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
@@ -34,13 +35,10 @@ public class NotificationService extends IntentService {
 	@Override
 	protected void onHandleIntent(Intent arg0) {
 		while (true) {
-			try { Thread.sleep(/*Alert.frequency*/ 7 *1000); }
+			try { Thread.sleep(Alert.frequency *1000); }
 			catch(InterruptedException e){ }
 			try { retrieveData(); } 
 			catch(JSONException e){ }
-			Log.d("NOTIFICATIONS", "aca arrancan...");
-			for(AddedFlight f : flightList)
-				Log.d("FLIGHTID", f.getFlightNumber() + "");
 			for (AddedFlight f : flightList) {
 					checkStatus(f);
 					try { Thread.sleep(2500); }
@@ -52,9 +50,9 @@ public class NotificationService extends IntentService {
 	private void checkStatus(final AddedFlight flight) {
 		Callback callback = new Callback() {
 			
+			// Por alguna razon no se llama a handleResponse (no funcionan las notificaciones)
 			public void handleResponse(JSONObject response) {
 				FlightStatus currentFlightStatus = null;
-				Log.d("CHECKSTATUS", "QUE ONDA, ENTRAS ACA???");
 				try {
 					currentFlightStatus = new FlightStatus(response.getJSONObject("status"));
 				} catch (JSONException e) {

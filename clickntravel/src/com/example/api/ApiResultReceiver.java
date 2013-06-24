@@ -23,9 +23,7 @@ public class ApiResultReceiver extends ResultReceiver {
 	protected void onReceiveResult(int resultCode, Bundle resultData) {
 		super.onReceiveResult(resultCode, resultData);
 		if (resultCode == ApiService.STATUS_OK) {
-
-			String responseString = (String) resultData
-					.getSerializable("return");
+			String responseString = (String) resultData.getSerializable("return");
 			JSONObject response = new JSONObject();
 			try {
 				response = new JSONObject(responseString);

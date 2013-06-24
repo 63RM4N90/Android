@@ -53,9 +53,8 @@ public class CustomAdapter extends BaseAdapter {
 			holder.statusTxt = (TextView) convertView.findViewById(R.id.status_row);
 
 			convertView.setTag(holder);
-		} else {
+		} else
 			holder = (ViewHolder) convertView.getTag();
-		}
 
 		holder.airlineImg.setImageResource((ih.getImage(addedFlightsList.get(position).getAirline().getName())));
 		holder.citiesTxt.setText(R.string.flight);

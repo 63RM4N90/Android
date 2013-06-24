@@ -28,7 +28,6 @@ public class AddedFlight{
 	private Airline airline;
 	private int flightId;
 	private int flightNumber;
-//	private String status;
 	private List<Alert> alerts;
 	private FlightStatus status;
 
@@ -41,7 +40,7 @@ public class AddedFlight{
 		this.arrival = parseDestination(status.getJSONObject("arrival"));
 		this.airline = getAirline(status.getJSONObject("airline"));
 		this.alerts = parseAlerts(status);
-		
+
 	}
 	
 
@@ -65,10 +64,7 @@ public class AddedFlight{
 	}
 	
 	private Airline getAirline(JSONObject airline) throws JSONException{
-		return new Airline(airline.getString("id"),
-						   airline.getString("name"),
-						   airline.getString("logo")
-				);
+		return new Airline(airline.getString("id"), airline.getString("name"), airline.getString("logo"));
 	}
 	
 	public Destination getDeparture() {

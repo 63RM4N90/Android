@@ -5,7 +5,6 @@ import java.util.Map;
 
 import android.content.Context;
 import android.preference.PreferenceManager;
-import android.util.Log;
 
 import com.example.utils.FlightStatus;
 
@@ -21,6 +20,7 @@ public abstract class Alert {
 	
 	public abstract String getName();
 	
+	@SuppressWarnings("unchecked")
 	public static void refreshAlerts() {
 		Map<String, Boolean> preferencesMap = (Map<String,Boolean>) PreferenceManager.getDefaultSharedPreferences(CONTEXT).getAll();
 		activeAlerts.put(BaggageGateAlert.class.toString(), preferencesMap.get("luggageDoorChange"));

@@ -1,14 +1,11 @@
 package com.example.utils;
 
-import java.util.Set;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 public class FlightsDbAdapter {
 
@@ -40,31 +37,26 @@ public class FlightsDbAdapter {
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
 		DatabaseHelper(Context context) {
-
 			super(context, DATABASE_FROM, null, DATABASE_VERSION);
 		}
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-
 			db.execSQL(DATABASE_CREATE);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
 			db.execSQL("DROP TABLE IF EXISTS " + FTS_VIRTUAL_TABLE);
 			onCreate(db);
 		}
 	}
 
 	public FlightsDbAdapter(Context ctx) {
-
 		this.mCtx = ctx;
 	}
 
 	public FlightsDbAdapter open() throws SQLException {
-
 		mDbHelper = new DatabaseHelper(mCtx);
 		mDb = mDbHelper.getWritableDatabase();
 
@@ -73,17 +65,14 @@ public class FlightsDbAdapter {
 
 	public void close() {
 
-		if (mDbHelper != null) {
-
+		if (mDbHelper != null)
 			mDbHelper.close();
-		}
 	}
 
 	public long createCities(String city) {
 
 		ContentValues initialValues = new ContentValues();
 		String searchValue = city;
-
 		initialValues.put(KEY_TO, city);
 		initialValues.put(KEY_SEARCH, searchValue);
 
@@ -91,7 +80,6 @@ public class FlightsDbAdapter {
 	}
 
 	public long createFlights(String to) {
-
 		return createFlights("", "", to, "", "");
 	}
 
@@ -99,9 +87,7 @@ public class FlightsDbAdapter {
 			String depDate, String retDate) {
 
 		ContentValues initialValues = new ContentValues();
-
-		String searchValue = price + " " + from + " " + to + " " + depDate
-				+ " " + retDate;
+		String searchValue = price + " " + from + " " + to + " " + depDate + " " + retDate;
 
 		initialValues.put(KEY_PRICE, price);
 		initialValues.put(KEY_FROM, from);
@@ -114,12 +100,10 @@ public class FlightsDbAdapter {
 	}
 
 	public Cursor searchFlights() throws SQLException {
-
 		return createCursor("");
 	}
 
 	public Cursor searchFlights(String inputText) throws SQLException {
-
 		return createCursor(" WHERE " + KEY_SEARCH
 				+ " MATCH '" + inputText + "'" + " ORDER BY " + KEY_SEARCH
 				+ " LIMIT " + LIMIT + ";");
@@ -133,10 +117,8 @@ public class FlightsDbAdapter {
 		
 		Cursor mCursor = mDb.rawQuery(query, null);
 
-		if (mCursor != null) {
-
+		if (mCursor != null)
 			mCursor.moveToFirst();
-		}
 
 		return mCursor;
 	}
@@ -145,7 +127,6 @@ public class FlightsDbAdapter {
 
 		int doneDelete = 0;
 		doneDelete = mDb.delete(FTS_VIRTUAL_TABLE, null, null);
-
 		return doneDelete > 0;
 	}
 }

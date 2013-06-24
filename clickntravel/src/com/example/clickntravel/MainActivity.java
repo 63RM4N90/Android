@@ -14,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.alerts.Alert;
@@ -33,8 +32,6 @@ public class MainActivity extends FragmentActivity {
 
 	private ConfigurationFragment mPrefsFragment = null;
 	private FragmentHandler fragmentHandler;
-
-	private TextView mStatusView;
 
 	MenuItem remove;
 	MenuItem submitComment;
@@ -72,12 +69,10 @@ public class MainActivity extends FragmentActivity {
 		startService(intent);
 
 		setContentView(R.layout.activity_main);
-//		mStatusView = (TextView) findViewById(R.id.status_text);
 		this.fragmentHandler = new FragmentHandler(getSupportFragmentManager());
 		this.fragmentHandler.setFragment(FragmentKey.MAIN);
 		actionBar.setBackgroundDrawable(actionBarBackground);
 		actionBar.setIcon(R.drawable.back);
-
 	}
 
 	public void onClickMyFlights(View view) {
@@ -99,8 +94,6 @@ public class MainActivity extends FragmentActivity {
 	}
 
 	public void goToNewFavoriteInfoFragmentLarge(AddedFlight f) {
-		// TODO cambiarle nombre a este metodo y checkear que esto este bien, el
-		// container
 		getSupportFragmentManager().beginTransaction()
 				.replace(R.id.container, new FlightInfoFragment(f))
 				.addToBackStack(null).commit();
@@ -143,8 +136,7 @@ public class MainActivity extends FragmentActivity {
 	private boolean menuSelection(MenuItem item) {
 		switch (item.getItemId()) {
 		case 0:
-			((FlightListFragment) fragmentHandler
-					.getFragment(FragmentKey.FLIGHT_LIST)).removeFlight();
+			((FlightListFragment) fragmentHandler.getFragment(FragmentKey.FLIGHT_LIST)).removeFlight();
 			this.onBackPressed();
 			hideDetailOptions();
 			Toast.makeText(this, R.string.remove_flight_toast,
@@ -161,15 +153,13 @@ public class MainActivity extends FragmentActivity {
 		case 3:
 			mPrefsFragment = new ConfigurationFragment();
 			FragmentManager mFragmentManager = getFragmentManager();
-			FragmentTransaction mFragmentTransaction = mFragmentManager
-					.beginTransaction();
+			FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
 			mFragmentTransaction.replace(android.R.id.content, mPrefsFragment);
 			mFragmentTransaction.addToBackStack(null).commit();
 			fragmentHandler.setFragment(FragmentKey.BASE);
 			return true;
 		case 4:
-			((AddCommentFragment) fragmentHandler
-					.getFragment(FragmentKey.ADD_COMMENT)).addComment();
+			((AddCommentFragment) fragmentHandler.getFragment(FragmentKey.ADD_COMMENT)).addComment();
 			this.onBackPressed();
 			return true;
 		case android.R.id.home:

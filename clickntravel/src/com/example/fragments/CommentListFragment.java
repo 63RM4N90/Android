@@ -14,12 +14,10 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
@@ -30,9 +28,8 @@ import com.example.utils.CommentAdapter;
 
 public class CommentListFragment extends Fragment {
 
-	public static List<Comment> commentList = new ArrayList<Comment>();
+	public static List<Comment> commentList;
 	private CommentAdapter adapter;
-	private Comment comment;
 	private View view;
 		
 	public CommentListFragment() {
@@ -50,7 +47,7 @@ public class CommentListFragment extends Fragment {
 		ListView listView = (ListView) view.findViewById(R.id.comment_list_view);
 		
 		
-		loadCommentList();
+		createCommentList();
 		adapter = new CommentAdapter(getActivity(), commentList);
 		listView.setAdapter(adapter); 
 		return view;
@@ -67,20 +64,17 @@ public class CommentListFragment extends Fragment {
         super.onStart();
 	}
 	
-	private String getElementString(int elementId){
-		return ((TextView)getActivity().findViewById(elementId)).getText().toString();
-	}
-	
-	private void loadCommentList(){
+	private void createCommentList(){
 		
 		Callback callback = new Callback() {
 			public void handleResponse(JSONObject response) {
+				List<Comment> cl= new ArrayList<Comment>();
 				try {
 					JSONArray reviews = response.getJSONArray("reviews");
-					for(int i=0; i < reviews.length(); i++) {
-						commentList.add(new Comment(reviews.getJSONObject(i)));
-						adapter.notifyDataSetChanged();
-					}
+					for(int i=0; i < reviews.length(); i++)
+						cl.add(new Comment(reviews.getJSONObject(i)));
+					commentList = cl;
+					adapter.notifyDataSetChanged();
 				} catch (JSONException e) { }
 			}
 		

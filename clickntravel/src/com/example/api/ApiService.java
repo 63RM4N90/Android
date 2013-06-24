@@ -19,17 +19,17 @@ import android.util.Log;
 
 public class ApiService extends IntentService{
 
-	public ApiService() {
-		super("ApiService");
-	}
-
 	private final String TAG = getClass().getSimpleName();
-
+	
 	public static final int STATUS_CONNECTION_ERROR = -1;
 	public static final int STATUS_ERROR = -2;
 	public static final int STATUS_ILLEGAL_ARGUMENT = -3;
 	public static final int STATUS_OK = 0;
-
+	
+	public ApiService() {
+		super("ApiService");
+	}
+	
 	@Override
 	protected void onHandleIntent(Intent intent) {
 		ResultReceiver receiver = intent.getParcelableExtra("receiver");
@@ -60,7 +60,6 @@ public class ApiService extends IntentService{
 
 	private void callMethod(String url, ResultReceiver receiver, Bundle b) throws ClientProtocolException, IOException, JSONException {
 		final DefaultHttpClient client = new DefaultHttpClient();
-		Log.d("url", url);
 		HttpGet get = new HttpGet(url);
 		final HttpResponse response = client.execute(get);
 		if ( response.getStatusLine().getStatusCode() != 200 ) {

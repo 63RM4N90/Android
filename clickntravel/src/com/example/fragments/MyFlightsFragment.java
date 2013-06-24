@@ -17,7 +17,6 @@ import com.example.utils.Airline;
 import com.example.utils.FragmentKey;
 
 
-
 public class MyFlightsFragment extends Fragment{
 
 	View view;
@@ -29,7 +28,6 @@ public class MyFlightsFragment extends Fragment{
 	public MyFlightsFragment(){
 		/*empty constructor*/
 	}
-	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -69,8 +67,6 @@ public class MyFlightsFragment extends Fragment{
 		((ViewGroup)view.getParent()).removeAllViews();
 		super.onDestroyView();
 	}
-
-	
 	
 	public void addFlight(View view) {
 		((FlightListFragment) listFragment).addFlight();

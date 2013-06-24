@@ -38,9 +38,7 @@ public class FragmentHandler {
 		this.fragmentMap.put(FragmentKey.FLIGHT_LIST, new FlightListFragment());
 		this.fragmentMap.put(FragmentKey.MY_DEALS, new MyDealsFragment());
 		this.fragmentMap.put(FragmentKey.ADD_COMMENT, new AddCommentFragment());
-		this.fragmentMap.put(FragmentKey.SEE_COMMENTS,
-				new CommentListFragment());
-
+		this.fragmentMap.put(FragmentKey.SEE_COMMENTS, new CommentListFragment());
 		this.fragmentManager = fManager;
 	}
 
@@ -56,9 +54,7 @@ public class FragmentHandler {
 
 	private void setFragment(Fragment fragment) {
 		FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-		transaction.replace(R.id.container, fragment).addToBackStack(null)
-				.commit();
+		transaction.replace(R.id.container, fragment).addToBackStack(null).commit();
 	}
 
 	public Fragment getFragment(FragmentKey fragmentKey) {
@@ -67,11 +63,10 @@ public class FragmentHandler {
 
 	public FragmentKey getCurrentKey() {
 		Set<FragmentKey> keys = fragmentMap.keySet();
-		for (FragmentKey each : keys) {
-			if (fragmentMap.get(each).equals(currentFragment)) {
+		for (FragmentKey each : keys)
+			if (fragmentMap.get(each).equals(currentFragment))
 				return each;
-			}
-		}
+		
 		return FragmentKey.NONE;
 	}
 }

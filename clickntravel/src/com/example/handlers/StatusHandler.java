@@ -33,12 +33,10 @@ public class StatusHandler {
 	
 	public int getStatusColor(String status) {
 		return statusColorMap.get(status);
-
 	}
 	
 	public int getStatusBackgroundColor(String status) {
 		return statusBackgroundColorMap.get(status);
-
 	}
 
 	public int getStatus(String status) {

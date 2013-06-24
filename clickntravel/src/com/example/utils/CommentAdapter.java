@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import android.content.Context;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,9 +52,8 @@ public class CommentAdapter extends BaseAdapter {
 			holder.recommend = (TextView) convertView.findViewById(R.id.recommend_row_text_value);
 
 			convertView.setTag(holder);
-		} else {
+		} else
 			holder = (ViewHolder) convertView.getTag();
-		}
 		holder.foodRating.setText(commentList.get(position).getFoodRating() + "/10");
 		holder.kindnessRating.setText(commentList.get(position).getFriendlinessRating() + "/10");
 		holder.punctuallityRating.setText(commentList.get(position).getPunctualityRating() + "/10");
@@ -64,11 +62,11 @@ public class CommentAdapter extends BaseAdapter {
 		holder.priceQualityRating.setText(commentList.get(position).getQualityPriceRating() + "/10");
 		holder.commentRating.setText(commentList.get(position).getComments());
 		
-		if(commentList.get(position).getYesRecommend() == R.string.yes){
+		if(commentList.get(position).getYesRecommend() == R.string.yes)
 			holder.recommend.setTextColor(Color.rgb(0, 140, 0));
-		} else {
+		else
 			holder.recommend.setTextColor(Color.rgb(178, 0, 0));
-		}
+		
 		holder.generalRating.setText(commentList.get(position).getOverallRating() + "");
 		holder.recommend.setText(commentList.get(position).getYesRecommend());
 

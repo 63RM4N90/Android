@@ -43,7 +43,6 @@ public class FlightListFragment extends Fragment {
 	private View view;
 	
 	private final String fileName = "addedFlightsStorage";
-	
 	public FlightListFragment() {
 	}
 	
@@ -120,7 +119,6 @@ public class FlightListFragment extends Fragment {
 					}
 					eraseField(R.id.flight_number_input);
 					eraseField(R.id.airline_input);
-					
 				} catch (JSONException e) {		}
 			}
 			

@@ -7,14 +7,12 @@ import android.app.ActionBar;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 
 import com.example.clickntravel.R;
@@ -24,16 +22,12 @@ import com.example.utils.FlightsDbAdapter;
 public class MyDealsFragment extends Fragment {
 
 	public static Set<Deal> dealsList = new HashSet<Deal>();
-
-	private SearchView mSearchView;
 	private ListView mListView;
 	private FlightsDbAdapter mDbHelper;
-
 	private View view;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
 
@@ -49,26 +43,17 @@ public class MyDealsFragment extends Fragment {
 		actionBar.setHomeButtonEnabled(true);
 
 		if (view == null)
-			view = inflater.inflate(R.layout.my_deal_list_fragment, container,
-					false);
+			view = inflater.inflate(R.layout.my_deal_list_fragment, container, false);
 
 		mListView = (ListView) view.findViewById(R.id.my_deals_list_view);
 
 		mDbHelper = new FlightsDbAdapter(this.getActivity());
 		mDbHelper.open();
-
 		mDbHelper.deleteAllFlights();
 
-		if (dealsList.isEmpty()) {
-
-			// TODO No hay ofertas guardadas
-		}
 		
-		for (Deal curr : dealsList) {
-
-			mDbHelper.createFlights(curr.getPrice(), curr.getNameFrom(),
-					curr.getNameTo(), curr.getDepTime(), curr.getArrivalTime());
-		}
+		for (Deal curr : dealsList)
+			mDbHelper.createFlights(curr.getPrice(), curr.getNameFrom(), curr.getNameTo(), curr.getDepTime(), curr.getArrivalTime());
 
 		showResults();
 		
@@ -76,7 +61,6 @@ public class MyDealsFragment extends Fragment {
 	}
 
 	private void showResults() {
-
 		Cursor cursor = mDbHelper.searchFlights();
 
 		if (cursor != null) {
@@ -88,14 +72,12 @@ public class MyDealsFragment extends Fragment {
 
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
-			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity,
-					R.id.sstate, R.id.szipCode };
+			int[] to = new int[] { R.id.scustomer, R.id.sname, R.id.scity, R.id.sstate, R.id.szipCode };
 
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
 			@SuppressWarnings("deprecation")
-			SimpleCursorAdapter Flights = new SimpleCursorAdapter(
-					this.getActivity(), R.layout.mydealresult, cursor, from, to);
+			SimpleCursorAdapter Flights = new SimpleCursorAdapter(this.getActivity(), R.layout.mydealresult, cursor, from, to);
 			mListView.setAdapter(Flights);
 
 			// Define the on-click listener for the list items
@@ -107,25 +89,16 @@ public class MyDealsFragment extends Fragment {
 
 					// Get the cursor, positioned to the corresponding row in
 					// the result set
-					Cursor cursor = (Cursor) mListView
-							.getItemAtPosition(position);
+					Cursor cursor = (Cursor) mListView.getItemAtPosition(position);
 
 					// Get the city from this row in the database
-					String price = cursor.getString(cursor
-							.getColumnIndexOrThrow("customer"));
-					String from = cursor.getString(cursor
-							.getColumnIndexOrThrow("name"));
-					String to = cursor.getString(cursor
-							.getColumnIndexOrThrow("city"));
-					String depDate = cursor.getString(cursor
-							.getColumnIndexOrThrow("state"));
-					String retDate = cursor.getString(cursor
-							.getColumnIndexOrThrow("zipCode"));
+					String price = cursor.getString(cursor.getColumnIndexOrThrow("customer"));
+					String from = cursor.getString(cursor.getColumnIndexOrThrow("name"));
+					String to = cursor.getString(cursor.getColumnIndexOrThrow("city"));
+					String depDate = cursor.getString(cursor.getColumnIndexOrThrow("state"));
+					String retDate = cursor.getString(cursor.getColumnIndexOrThrow("zipCode"));
 
 					Deal newDeal = new Deal(from, to, depDate, retDate, price);
-
-					Log.d("newDeal", newDeal.toString());
-					
 					dealsList.remove(newDeal);
 				}
 			});
@@ -135,16 +108,12 @@ public class MyDealsFragment extends Fragment {
 	@Override
 	public void onDestroyView() {
 
-		if (view != null) {
-
+		if (view != null) 
 			((ViewGroup) view.getParent()).removeAllViews();
-		}
 
-		ListView lv = (ListView) getActivity().findViewById(
-				R.id.deals_list_view);
+		ListView lv = (ListView) getActivity().findViewById(R.id.deals_list_view);
 
 		if (lv != null) {
-
 			((ViewGroup) lv.getParent()).removeView(lv);
 			lv.removeAllViews();
 		}

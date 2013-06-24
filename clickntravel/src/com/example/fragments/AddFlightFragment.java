@@ -12,7 +12,6 @@ import org.json.JSONObject;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,6 @@ public class AddFlightFragment extends Fragment {
 						for (int i = 0 ; i < cityArray.length() ; i++) {
 							String name = cityArray.getJSONObject(i).optString("name");
 							String id = cityArray.getJSONObject(i).optString("airlineId");
-							Log.d("airline", name);
 							MyFlightsFragment.airlinesMap.put(name, new Airline(id, name));
 						}
 						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -55,7 +53,6 @@ public class AddFlightFragment extends Fragment {
 								new ArrayList<String>(MyFlightsFragment.airlinesMap.keySet()));
 
 						AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.airline_input);
-						Log.d("", "textView: " + textView + ", adapter: " + adapter);
 						textView.setAdapter(adapter);
 					} catch (JSONException e) {		}
 				}
