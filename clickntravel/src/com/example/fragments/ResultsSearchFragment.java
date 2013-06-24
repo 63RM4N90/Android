@@ -32,9 +32,7 @@ import com.example.api.ApiIntent;
 import com.example.api.ApiResultReceiver;
 import com.example.api.Callback;
 import com.example.clickntravel.R;
-import com.example.handlers.FragmentHandler;
 import com.example.utils.Deal;
-import com.example.utils.DealAdapter;
 import com.example.utils.FlightsDbAdapter;
 
 public class ResultsSearchFragment extends Fragment {
@@ -42,13 +40,11 @@ public class ResultsSearchFragment extends Fragment {
 	private List<String> dealPrices = new ArrayList<String>();
 	private List<Deal> dealsList = new ArrayList<Deal>();
 
-	// Esto está hardcodeado a que from sea Buenos Aires TODO
 	private String nameFrom;
 	private String idFrom = "BUE";
 	private String nameTo;
 	private String idTo;
 
-	// private DealAdapter adapter;
 	private Deal currentDeal;
 
 	private ListView mListView;
@@ -147,7 +143,7 @@ public class ResultsSearchFragment extends Fragment {
 
 								if (dealPrices.contains(price)) {
 
-									addDeal(indexMinPrice, minPrice, dealArray);
+									addDeal(dealPrices.indexOf(price), price, dealArray);
 
 								} else if (minPrice == null
 										|| Double.valueOf(minPrice) > Double
@@ -159,7 +155,7 @@ public class ResultsSearchFragment extends Fragment {
 							}
 
 							if (dealsList.isEmpty()) {
-
+								
 								addDeal(indexMinPrice, minPrice, dealArray);
 							}
 
@@ -224,6 +220,7 @@ public class ResultsSearchFragment extends Fragment {
 
 					private String getFloorPrice(String price) {
 
+						Log.d("price", "" + price);
 						return "U$S " + price.split("\\.")[0];
 					}
 				};
