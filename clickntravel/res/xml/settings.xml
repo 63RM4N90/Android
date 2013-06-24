@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+ 
+    <PreferenceCategory android:title="@string/notifications" >
+	        <CheckBoxPreference
+	            android:defaultValue="false"
+	            android:key="statusChange"
+	            android:summary="@string/status_change_summary"
+	            android:title="@string/status_change" />
+	        <CheckBoxPreference
+	            android:defaultValue="false"
+	            android:key="terminalChange"
+	            android:title="@string/terminal_change" />
+	        <CheckBoxPreference
+	            android:defaultValue="false"
+	            android:key="doorChange"
+	            android:title="@string/door_change" />
+	        <CheckBoxPreference
+	            android:defaultValue="false"
+	            android:key="luggageDoorChange"
+	            android:title="@string/luggage_door_change" />
+	        <CheckBoxPreference
+	            android:defaultValue="false"
+	            android:key="hourChange"
+	            android:title="@string/hour_change" />
+    </PreferenceCategory>
+     
+    <PreferenceCategory android:title="@string/frequency" >
+        <ListPreference
+            android:key="notificationFrequency"
+            android:entries="@array/frequency"
+            android:summary="@string/config_freq_summary"
+            android:entryValues="@array/frequencyValues"
+            android:title="@string/config_freq" />
+    </PreferenceCategory>
+ 
+</PreferenceScreen>

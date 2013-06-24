@@ -1,0 +1,52 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="41dp"
+        android:scaleType="center"
+        android:src="@drawable/cntlogohdpi" />
+
+    <Button
+        android:id="@+id/myflights"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
+        android:background="#0C81C7"
+        android:onClick="onClickMyFlights"
+        android:text="@string/main_button_myflights"
+        android:textColor="#DDDDDD" />
+
+    <Button
+        android:id="@+id/mydeals"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/myflights"
+        android:layout_below="@+id/myflights"
+        android:layout_marginTop="30dp"
+        android:background="#0C81C7"
+        android:onClick="onClickMyDeals"
+        android:text="@string/main_button_mydeals"
+        android:textColor="#DDDDDD" />
+
+    <Button
+        android:id="@+id/aboutus"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/mydeals"
+        android:layout_below="@+id/mydeals"
+        android:layout_marginTop="30dp"
+        android:background="#0C81C7"
+        android:onClick="onClickAboutUs"
+        android:text="@string/main_button_aboutus"
+        android:textColor="#DDDDDD" />
+
+</RelativeLayout>

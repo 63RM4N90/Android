@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="app_name">Click n Travel</string>
+    <string name="main_button_configuration">Configuración</string>
+    <string name="main_button_myflights">Mis Vuelos</string>
+    <string name="main_button_mydeals">Mis Ofertas</string>
+    <string name="main_button_aboutus">Nosotros</string>
+    <string name="title_activity_my_flights">Mis Vuelos</string>
+    <string name="title_activity_configuration">Configuración</string>
+    <string name="title_activity_my_deals">Mis ofertas</string>
+    <string name="search_hint">Buscar vuelos</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="my_deals">Mis ofertas!</string>
+    <string name="aboutus_text">Trabajo práctico especial realizado para la materia “Human Computer Interaction”.El diseño y la programación del sitio fueron realizados por los alumnos:</string>
+    <string name="names"> Lori, Tomás (52558)\nRomarion, Germán Rodrigo (51296)\nZanzotti, Gabriel Andrés (52067)\nMamani, Betina Cynthia (52310)</string>
+    <string name="notifications">Notificar cambios de...</string>
+    <string name="frequency">Frecuencia de notificaciones</string>
+    <string name="save_config">Guardar cambios</string>
+    <string name="menu_settings">Configuracion</string>
+    <string name="config_freq_summary">Elegir frecuencia de notificaciones</string>
+    <string name="config_freq">Frecuencia de notificaciones</string>
+    <string name="status_change_summary">(activo, cancelado, aterrizado, programado, desviado)</string>
+    <string name="status_change">Estado</string>
+    <string name="terminal_change">Terminal de partida/arribo</string>
+    <string name="door_change">Puerta de partida/arribo</string>
+    <string name="luggage_door_change">Puerta de equipaje</string>
+    <string name="hour_change">Horario de partida/arribo</string>
+    <string name="flight_number_input">Nro de vuelo</string>
+    <string name="airline_input">Aerolinea</string>
+    <string name="add_to_my_flights">Añadir</string>
+    <string name="flight_number">Nro de vuelo: </string>
+    <string name="departure_city">Partida: </string>
+    <string name="arrival_city">Arribo: </string>
+    <string name="flight_status">Estado: </string>
+    <string name="departure_airport_terminal">Terminal de partida: </string>
+    <string name="arrival_airport_terminal">Terminal de llegada: </string>
+    <string name="departure_airport_gate">Puerta de partida: </string>
+    <string name="departure_scheduled_time">Horario de Partida: </string>
+    <string name="arrival_airport_gate">Puerta de llegada: </string>
+    <string name="arrival_scheduled_time">Horario de llegada: </string>
+    <string name="scheduled">Programado</string>
+    <string name="active">Activo</string>
+    <string name="deviated">Desviado</string>
+    <string name="landed">Aterrizado</string>
+    <string name="cancelled">Cancelado</string>
+    <string name="unknown">Desconocido</string>
+    <string name="no_internet_connection">fallo la coneccion a internet</string>
+    <string name="invalid_airline">Aerolinea invalida</string>
+    <string name="flight">Vuelo: </string>
+    <string name="n_a">Sin Definir</string>
+    <string name="details">Detalle</string>
+    <string name="food_rating_text">Comida:</string>
+    <string name="kindness_rating_text">Amabilidad:</string>
+    <string name="punctuality_rating_text">Puntualidad:</string>
+    <string name="millage_program_rating_text">Programa de millas:</string>
+    <string name="comfort_rating_text">Comfort:</string>
+    <string name="price_quality_relation_rating_text">Relación Precio-Calidad:</string>
+    <string name="recommend_switch_text">Recomendado:</string>
+    <string name="no">NO</string>
+    <string name="yes">SI</string>
+    <string name="comment_text">Comentar</string>
+    <string name="see_comments">Comentarios</string>
+    
+    <string name="main_button_resultssearch">Resultados de ofertas</string>
+    <string name="search_view_text">Buscar ofertas por destino</string>
+    <string name="deal">Oferta: </string>     
+    
+</resources>

@@ -1,24 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">clickntravel</string>
     <string name="action_settings">Settings</string>
-    <string name="main_button_configuration">Configuración</string>
-    <string name="main_button_myflights">Mis Vuelos</string>
-    <string name="main_button_aboutus">Nosotros</string>
-    <string name="title_activity_my_flights">Mis Vuelos</string>
-    <string name="title_activity_configuration">Configuración</string>
-    <string name="search_hint">Buscar vuelos</string>
     <string name="title_activity_searchable">SearchableActivity</string>
+    <string name="app_name">Click n Travel</string>
+    <string name="main_button_configuration">Configuration</string>
+    <string name="main_button_myflights">My Flights</string>
+    <string name="main_button_mydeals">My Deals</string>
+    <string name="main_button_aboutus">About Us</string>
+    <string name="title_activity_my_flights">My Flights</string>
+    <string name="title_activity_configuration">Configuration</string>
+    <string name="title_activity_my_deals">My Deals</string>
+    <string name="search_hint">Search flights</string>
     <string name="hello_world">Hello world!</string>
-    <string name="string_careta">Gabo puto</string>
-    <string name="aboutus_text">Trabajo práctico especial realizado para la materia “Human Computer Interaction”.El diseño y la programación del sitio fueron realizados por los alumnos:</string>
-	<string name="names">Lori, Tomás (52558)
-Romarion, Germán Rodrigo (51296)
-Zanzotti, Gabriel Andrés (52067)
-Betina, Cynthia Mamani (52310)</string>
-	<string name="notifications">Elegir notificaciones</string>
-	<string name="frequency">Frecuencia de notificaciones</string>
-	<string name="save_config">Guardar cambios</string>
-	<string name="menu_settings">Configuracion</string>
+    <string name="my_deals">My Deals!</string>
+    <string name="aboutus_text">Special Project for the Human Computer Interaction course taken in ITBA. The design and programming was done by:</string>
+    <string name="names"> Lori, Tomás (52558)\nRomarion, Germán Rodrigo (51296)\nZanzotti, Gabriel Andrés (52067)\nMamani, Betina Cynthia (52310)</string>
+    <string name="notifications">Notify changes in...</string>
+    <string name="frequency">Notification Frequency</string>
+    <string name="menu_settings">Configuration</string>
+    <string name="config_freq_summary">Choose Notification Frequency</string>
+    <string name="config_freq">Notification Frequency</string>
+    <string name="status_change_summary">(Acive, Cancelled, Landed, Schedulled, Deviated)</string>
+    <string name="status_change">Status</string>
+    <string name="terminal_change">Departure/Arrival terminal</string>
+    <string name="door_change">Departure/Arrival gate</string>
+    <string name="luggage_door_change">Luggage gate</string>
+    <string name="hour_change">Departure/Arrival time</string>
+    <string name="flight_number_input">Flight number</string>
+    <string name="airline_input">Airline</string>
+    <string name="add_to_my_flights">Add</string>
+    <string name="flight_number">Flight Number: </string>
+    <string name="departure_city">Departure: </string>
+    <string name="arrival_city">Arrival: </string>
+    <string name="flight_status">Status: </string>
+    <string name="departure_airport_terminal">Departure Terminal: </string>
+    <string name="arrival_airport_terminal">Arrival Terminal: </string>
+    <string name="departure_airport_gate">Departure gate: </string>
+    <string name="departure_scheduled_time">Departure hour: </string>
+    <string name="arrival_airport_gate">Arrival gate: </string>
+    <string name="arrival_scheduled_time">Arrival hour: </string>
+    <string name="scheduled">Scheduled</string>
+    <string name="active">Active</string>
+    <string name="deviated">Deviated</string>
+    <string name="landed">Landed</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="unknown">Uknown</string>
+    <string name="no_internet_connection">Internet connection failed</string>
+    <string name="invalid_airline">Invalid Airline</string>
+    <string name="flight">Flight: </string>
+    <string name="n_a">Not Announced</string>
+    <string name="details">Details</string>
+    <string name="food_rating_text">Food:</string>
+    <string name="kindness_rating_text">Kindness:</string>
+    <string name="punctuality_rating_text">Punctuality:</string>
+    <string name="millage_program_rating_text">Millage program:</string>
+    <string name="comfort_rating_text">Comfort:</string>
+    <string name="price_quality_relation_rating_text">Price-Quality relation:</string>
+    <string name="recommend_switch_text">Recommend:</string>
+    <string name="no">NO</string>
+    <string name="yes">YES</string>
+    <string name="comment_text">Comment</string>
+    <string name="comment_row_text">Comment:</string>
+    <string name="add_comment">add comment</string>
+    <string name="remove_flight_toast">Flight removed</string>
+    <string name="get_fligh_error">Invalid flight</string>
+    <string name="already_added">Flight already added</string>
+    <string name="see_comments">Comments</string>
+    
+    
+    <string name="main_button_resultssearch">Ofert Results</string>
+    <string name="search_view_text">Search deals by destination</string>
+    <string name="deal">Deal: </string>     
+    
 </resources>
