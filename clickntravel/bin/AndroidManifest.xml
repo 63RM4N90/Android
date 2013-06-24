@@ -5,16 +5,17 @@
     android:versionName="1.0" >
 
     <uses-sdk
+        android:configChanges="orientation"
         android:minSdkVersion="15"
         android:targetSdkVersion="15" />
-    
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    
-    <supports-screens 
-    android:normalScreens="true"
-    android:largeScreens="true"
-    android:anyDensity="true"/>
+
+    <supports-screens
+        android:anyDensity="true"
+        android:largeScreens="true"
+        android:normalScreens="true" />
 
     <application
         android:allowBackup="true"
@@ -49,9 +50,13 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <service android:name="com.example.api.ApiService"></service>
-        <service android:name="com.example.api.PostService"></service>
-        <service android:name="com.example.notifications.NotificationService"></service>
+
+        <service android:name="com.example.api.ApiService" >
+        </service>
+        <service android:name="com.example.api.PostService" >
+        </service>
+        <service android:name="com.example.notifications.NotificationService" >
+        </service>
     </application>
 
 </manifest>

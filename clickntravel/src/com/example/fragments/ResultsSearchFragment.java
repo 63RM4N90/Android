@@ -38,10 +38,12 @@ public class ResultsSearchFragment extends Fragment {
 
 	private List<String> dealPrices = new ArrayList<String>();
 	private List<Deal> dealsList = new ArrayList<Deal>();
+
 	private String nameFrom;
 	private String idFrom = "BUE";
 	private String nameTo;
 	private String idTo;
+
 	private Deal currentDeal;
 
 	private ListView mListView;
@@ -122,13 +124,15 @@ public class ResultsSearchFragment extends Fragment {
 								if (dealPrices.contains(price)) 
 									addDeal(indexMinPrice, minPrice, dealArray);
 								else if (minPrice == null || Double.valueOf(minPrice) > Double.valueOf(price)) {
+
 									minPrice = price;
 									indexMinPrice = i;
 								}
 							}
 
-							if (dealsList.isEmpty()) 
+							if (dealsList.isEmpty()) {
 								addDeal(indexMinPrice, minPrice, dealArray);
+							}
 						} catch (JSONException e) {	}
 						showResults(nameTo + "*");
 					}
