@@ -14,6 +14,7 @@ import com.example.clickntravel.R;
 import com.example.handlers.ImageHandler;
 import com.example.handlers.StatusHandler;
 import com.example.utils.AddedFlight;
+import com.example.utils.MyDate;
 
 public class FlightInfoFragment extends Fragment {
 
@@ -54,9 +55,9 @@ public class FlightInfoFragment extends Fragment {
 		setIntoTextView(R.id.departure_airport_terminal_value, " " + currentFlight.getDeparture().getAirportTerminal(getActivity()));
 		setIntoTextView(R.id.arrival_airport_terminal_value, " " + currentFlight.getArrival().getAirportTerminal(getActivity()));
 		setIntoTextView(R.id.departure_airport_gate_value, " " + currentFlight.getDeparture().getAirportGate(getActivity()));
-		setIntoTextView(R.id.departure_scheduled_time_value, " " + currentFlight.getDeparture().getScheduledTime());
+		setIntoTextView(R.id.departure_scheduled_time_value, " " + MyDate.convertDate(currentFlight.getDeparture().getScheduledTime()));
 		setIntoTextView(R.id.arrival_airport_gate_value, " " + currentFlight.getArrival().getAirportGate(getActivity()));
-		setIntoTextView(R.id.arrival_scheduled_time_value, " " + currentFlight.getArrival().getScheduledTime());
+		setIntoTextView(R.id.arrival_scheduled_time_value, " " + MyDate.convertDate(currentFlight.getArrival().getScheduledTime()));
 		return view;
 	}
 

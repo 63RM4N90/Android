@@ -6,31 +6,36 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.handlers.ImageHandler;
 
 public class FlightsDbAdapter {
 
 	public static final String KEY_ROWID = "rowid";
-	public static final String KEY_PRICE = "customer";
-	public static final String KEY_FROM = "name";
-	public static final String KEY_TO = "city";
-	public static final String KEY_DEPDATE = "state";
-	public static final String KEY_RETDATE = "zipCode";
+	public static final String KEY_PRICE = "price";
+	public static final String KEY_FROM = "fromCity";
+	public static final String KEY_TO = "toCity";
+	public static final String KEY_DEPDATE = "depDate";
+	public static final String KEY_RETDATE = "retDate";
+	public static final String KEY_IMG = "img";
 	public static final String KEY_SEARCH = "searchData";
 
 	private static final String LIMIT = "5"; // Limita la cantidad de resultados
-
+												// de la búsqueda de destinos
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
-	private static final String DATABASE_FROM = "CustomerData";
-	private static final String FTS_VIRTUAL_TABLE = "CustomerInfo";
+	private static final String DATABASE_FROM = "database_from";
+	private static final String FTS_VIRTUAL_TABLE = "info_table";
 	private static final int DATABASE_VERSION = 1;
 
 	// Create a FTS3 Virtual Table for fast searches
 	private static final String DATABASE_CREATE = "CREATE VIRTUAL TABLE "
 			+ FTS_VIRTUAL_TABLE + " USING fts3(" + KEY_PRICE + "," + KEY_FROM
 			+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE + ","
-			+ KEY_SEARCH + "," + " UNIQUE (" + KEY_PRICE + "));";
+			+ KEY_IMG + "," + KEY_SEARCH + "," + " UNIQUE (" + KEY_PRICE
+			+ "));";
 
 	private final Context mCtx;
 
@@ -80,21 +85,50 @@ public class FlightsDbAdapter {
 	}
 
 	public long createFlights(String to) {
-		return createFlights("", "", to, "", "");
+		return createFlights("", "", to, "", "", "");
 	}
 
 	public long createFlights(String price, String from, String to,
-			String depDate, String retDate) {
+			String depDate, String retDate, String airlineId) {
 
 		ContentValues initialValues = new ContentValues();
-		String searchValue = price + " " + from + " " + to + " " + depDate + " " + retDate;
+		String searchValue = price + " " + from + " " + to + " " + depDate
+				+ " " + retDate + " " + airlineId;
+
+		ImageHandler imageHandler = new ImageHandler();
 
 		initialValues.put(KEY_PRICE, price);
 		initialValues.put(KEY_FROM, from);
 		initialValues.put(KEY_TO, to);
 		initialValues.put(KEY_DEPDATE, depDate);
 		initialValues.put(KEY_RETDATE, retDate);
+
+		Log.d("idairline", airlineId);
+
+		if (!airlineId.equals("")) {
+
+			if (airlineId.length() == 2) {
+
+				initialValues.put(KEY_IMG, imageHandler.getImage(airlineId));
+
+			} else {
+
+				initialValues.put(KEY_IMG, airlineId);
+			}
+
+		} else {
+
+			initialValues.put(KEY_IMG, "");
+		}
+
 		initialValues.put(KEY_SEARCH, searchValue);
+
+		if (mDb == null) {
+
+			Log.d("nulll", "fuck");
+
+			open();
+		}
 
 		return mDb.insert(FTS_VIRTUAL_TABLE, null, initialValues);
 	}
@@ -104,17 +138,17 @@ public class FlightsDbAdapter {
 	}
 
 	public Cursor searchFlights(String inputText) throws SQLException {
-		return createCursor(" WHERE " + KEY_SEARCH
-				+ " MATCH '" + inputText + "'" + " ORDER BY " + KEY_SEARCH
-				+ " LIMIT " + LIMIT + ";");
+
+		return createCursor(" WHERE " + KEY_SEARCH + " MATCH '" + inputText
+				+ "'" + " ORDER BY " + KEY_SEARCH + " LIMIT " + LIMIT + ";");
 	}
-	
+
 	public Cursor createCursor(String query) {
 
-		query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM
-				+ "," + KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE
-				+ " FROM " + FTS_VIRTUAL_TABLE + query;
-		
+		query = "SELECT docid as _id," + KEY_PRICE + "," + KEY_FROM + ","
+				+ KEY_TO + "," + KEY_DEPDATE + "," + KEY_RETDATE + ","
+				+ KEY_IMG + " FROM " + FTS_VIRTUAL_TABLE + query;
+
 		Cursor mCursor = mDb.rawQuery(query, null);
 
 		if (mCursor != null)
@@ -129,4 +163,5 @@ public class FlightsDbAdapter {
 		doneDelete = mDb.delete(FTS_VIRTUAL_TABLE, null, null);
 		return doneDelete > 0;
 	}
+
 }

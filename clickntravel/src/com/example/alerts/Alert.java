@@ -10,7 +10,7 @@ import com.example.utils.FlightStatus;
 
 public abstract class Alert {
 
-	public static Map<String, Boolean> activeAlerts = new HashMap<String, Boolean>();;
+	public static Map<Alert, Boolean> activeAlerts = new HashMap<Alert, Boolean>();;
 	public static long frequency;
 	public static Context CONTEXT;
 	
@@ -22,16 +22,18 @@ public abstract class Alert {
 	
 	@SuppressWarnings("unchecked")
 	public static void refreshAlerts() {
-		Map<String, Boolean> preferencesMap = (Map<String,Boolean>) PreferenceManager.getDefaultSharedPreferences(CONTEXT).getAll();
-		activeAlerts.put(BaggageGateAlert.class.toString(), preferencesMap.get("luggageDoorChange"));
-		activeAlerts.put(ArrivalGateAlert.class.toString(), preferencesMap.get("doorChange"));
-		activeAlerts.put(DepartureGateAlert.class.toString(), preferencesMap.get("doorChange"));
-		activeAlerts.put(ArrivalTerminalAlert.class.toString(), preferencesMap.get("terminalChange"));
-		activeAlerts.put(DepartureTerminalAlert.class.toString(), preferencesMap.get("terminalChange"));
-		activeAlerts.put(ArrivalTimeAlert.class.toString(), preferencesMap.get("hourChange"));
-		activeAlerts.put(DepartureTimeAlert.class.toString(), preferencesMap.get("hourChange"));
-		activeAlerts.put(StatusAlert.class.toString(), preferencesMap.get("statusChange"));
+		activeAlerts.put(new BaggageGateAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("lugggageDoorChange", false));
+		activeAlerts.put(new ArrivalGateAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("doorChange", false));
+		activeAlerts.put(new DepartureGateAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("doorChange", false));
+		activeAlerts.put(new ArrivalTerminalAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("terminalChange", false));
+		activeAlerts.put(new DepartureTerminalAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("terminalChange", false));
+		activeAlerts.put(new ArrivalTimeAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("hourChange", false));
+		activeAlerts.put(new DepartureTimeAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("hourChange", false));
+		activeAlerts.put(new StatusAlert(), PreferenceManager.getDefaultSharedPreferences(CONTEXT).getBoolean("statusChange", false));
 		frequency = Long.parseLong(PreferenceManager.getDefaultSharedPreferences(CONTEXT).getString("notificationFrequency", "300")) *60;
 	}
+
+	public abstract boolean equals(Object obj);
 	
+	public abstract int hashCode();
 }

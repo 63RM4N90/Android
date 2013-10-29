@@ -28,46 +28,62 @@ public class AddFlightFragment extends Fragment {
 
 	private View view;
 
-
 	public AddFlightFragment() {
 
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 		if (view == null) {
-			view = inflater.inflate(R.layout.add_flight_fragment, container, false);
+			view = inflater.inflate(R.layout.add_flight_fragment, container,
+					false);
 			MyFlightsFragment.airlinesMap = new HashMap<String, Airline>();
 			Callback callback = new Callback() {
 				public void handleResponse(JSONObject response) {
 					try {
 						JSONArray cityArray = response.getJSONArray("airlines");
-						for (int i = 0 ; i < cityArray.length() ; i++) {
-							String name = cityArray.getJSONObject(i).optString("name");
-							String id = cityArray.getJSONObject(i).optString("airlineId");
-							MyFlightsFragment.airlinesMap.put(name, new Airline(id, name));
+						for (int i = 0; i < cityArray.length(); i++) {
+							String name = cityArray.getJSONObject(i).optString(
+									"name");
+							String id = cityArray.getJSONObject(i).optString(
+									"airlineId");
+							MyFlightsFragment.airlinesMap.put(name,
+									new Airline(id, name));
 						}
 						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 								getActivity(),
 								android.R.layout.simple_dropdown_item_1line,
-								new ArrayList<String>(MyFlightsFragment.airlinesMap.keySet()));
+								new ArrayList<String>(
+										MyFlightsFragment.airlinesMap.keySet()));
 
-						AutoCompleteTextView textView = (AutoCompleteTextView) getActivity().findViewById(R.id.airline_input);
-						textView.setAdapter(adapter);
-					} catch (JSONException e) {		}
+						AutoCompleteTextView textView = (AutoCompleteTextView) getActivity()
+								.findViewById(R.id.airline_input);
+						if (textView != null) { // Se agrega este if para
+												// ocasiones en donde si la
+												// selección de my flights y
+												// detalles de vuelo es muy
+												// rápida, el id no llega a
+												// cargarse...
+							textView.setAdapter(adapter);
+						}
+					} catch (JSONException e) {
+					}
 				}
-				
+
 			};
 
-			ApiResultReceiver receiver = new ApiResultReceiver(new Handler(), callback);
-			ApiIntent intent = new ApiIntent("GetAirlines", "Misc", receiver, this.getActivity());
+			ApiResultReceiver receiver = new ApiResultReceiver(new Handler(),
+					callback);
+			ApiIntent intent = new ApiIntent("GetAirlines", "Misc", receiver,
+					this.getActivity());
 			intent.setParams(new LinkedList<NameValuePair>());
 			this.getActivity().startService(intent);
 		}
 
 		return view;
 	}
-	
+
 	@Override
 	public void onDestroyView() {
 		((ViewGroup) view.getParent()).removeAllViews();

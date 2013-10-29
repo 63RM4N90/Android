@@ -45,7 +45,9 @@ public class MainFragment extends Fragment implements
 	private SearchView mSearchView;
 	private TextView mStatusView;
 	private ListView mListView;
-	private FlightsDbAdapter mDbHelper;
+	private View view;
+
+	public static FlightsDbAdapter mDbHelper;
 	private Map<String, City> citiesMap;
 
 	@Override
@@ -71,13 +73,18 @@ public class MainFragment extends Fragment implements
 		setHasOptionsMenu(true);
 
 		mDbHelper = new FlightsDbAdapter(this.getActivity());
-		mDbHelper.open();
+		
+		mDbHelper = mDbHelper.open();
 
 		mDbHelper.deleteAllFlights();
 
+		view = inflater.inflate(R.layout.main_fragment, container, false);
+		
+		mListView = (ListView) view.findViewById(R.id.dealList);
+		
 		createCities();
-
-		return inflater.inflate(R.layout.main_fragment, container, false);
+		
+		return view;
 	}
 
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -88,7 +95,6 @@ public class MainFragment extends Fragment implements
 		mSearchView.setIconifiedByDefault(false); // Pone la lupita a la derecha si se comenta
 		mSearchView.setOnQueryTextListener((OnQueryTextListener) this);
 		mSearchView.setOnCloseListener((OnCloseListener) this);
-		mListView = (ListView) this.getActivity().findViewById(R.id.dealList);
 		
 		// Setea el color del textito de la search view
 		String text = "<font color = #DDDDDD>" + getString(R.string.search_view_text) + "</font>";
@@ -111,13 +117,20 @@ public class MainFragment extends Fragment implements
 			}
 
 			private void addFlight(String name, String id) {
-				if (name.contains("Buenos Aires"))
+				
+				if (name.contains("Buenos Aires")) {
+					
 					return;
+				}
 
-				if (name.contains("Barcelona"))
+				if (name.contains("Barcelona")) {
+					
 					name = "Barcelona, España";
-				else if (name.contains("Madrid"))
+					
+				} else if (name.contains("Madrid")) {
+					
 					name = "Madrid, Comunidad de Madrid, España";
+				}
 
 				citiesMap.put(name, new City(id, name));
 				mDbHelper.createFlights(name);
@@ -163,11 +176,11 @@ public class MainFragment extends Fragment implements
 
 			// Specify the Corresponding layout elements where we want the
 			// columns to go
-			int[] to = new int[] { R.id.scity };
+			int[] to = new int[] { R.id.to };
 
 			// Create a simple cursor adapter for the definitions and apply them
 			// to the ListView
-			@SuppressWarnings("deprecation")
+			
 			SimpleCursorAdapter Flights = new SimpleCursorAdapter(this.getActivity(), R.layout.flightresult, cursor, from, to);
 			mListView.setAdapter(Flights);
 
@@ -182,15 +195,14 @@ public class MainFragment extends Fragment implements
 					Cursor cursor = (Cursor) mListView.getItemAtPosition(position);
 					
 					// Get the city from this row in the database
-					String name = cursor.getString(cursor.getColumnIndexOrThrow("city"));
+					String name = cursor.getString(cursor.getColumnIndexOrThrow("toCity"));
 
 					City city = citiesMap.get(name);
 
 					Bundle resultSearchBundle = new Bundle();
 					resultSearchBundle.putString("cityId", city.getId());
 					resultSearchBundle.putString("cityName", city.getName());
-
-
+					
 					FragmentHandler fragmentHandler = new FragmentHandler(getFragmentManager());
 
 					fragmentHandler.setFragment(FragmentKey.SEARCH_DEALS_LIST, resultSearchBundle);

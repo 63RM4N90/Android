@@ -12,6 +12,12 @@
         android:scaleType="center"
         android:src="@drawable/cntlogohdpi" />
 
+    <ListView
+        android:id="@+id/dealList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#BBBBBB" />
+
     <Button
         android:id="@+id/myflights"
         android:layout_width="400dp"
@@ -41,8 +47,8 @@
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/mydeals"
-        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:background="#0C81C7"
         android:onClick="onClickAboutUs"
         android:text="@string/main_button_aboutus"

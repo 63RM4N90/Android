@@ -9,17 +9,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 import com.example.alerts.Alert;
 import com.example.alerts.AlertNotification;
-import com.example.alerts.ArrivalGateAlert;
-import com.example.alerts.ArrivalTerminalAlert;
-import com.example.alerts.ArrivalTimeAlert;
-import com.example.alerts.BaggageGateAlert;
-import com.example.alerts.DepartureGateAlert;
-import com.example.alerts.DepartureTerminalAlert;
-import com.example.alerts.DepartureTimeAlert;
-import com.example.alerts.StatusAlert;
-import com.example.utils.FlightStatus;
 
 public class AddedFlight{
 
@@ -28,7 +21,6 @@ public class AddedFlight{
 	private Airline airline;
 	private int flightId;
 	private int flightNumber;
-	private List<Alert> alerts;
 	private FlightStatus status;
 
 	public AddedFlight(JSONObject status) throws JSONException {
@@ -39,8 +31,6 @@ public class AddedFlight{
 		this.departure = parseDestination(status.getJSONObject("departure"));
 		this.arrival = parseDestination(status.getJSONObject("arrival"));
 		this.airline = getAirline(status.getJSONObject("airline"));
-		this.alerts = parseAlerts(status);
-
 	}
 	
 
@@ -113,32 +103,12 @@ public class AddedFlight{
 	
 	public List<AlertNotification> check(FlightStatus newStatus) {
 		List<AlertNotification> notifications = new LinkedList<AlertNotification>();
-		for (Alert a : alerts) {
-			if (Alert.activeAlerts.get(a.getClass().toString()) && a.changedStatus(status, newStatus))
+		Log.d("Alert", (Alert.activeAlerts) + "");
+		for (Alert a : Alert.activeAlerts.keySet()) {
+			if (Alert.activeAlerts.get(a) && a.changedStatus(status, newStatus)) {
 				notifications.add(a.getNotification(newStatus));
+			}
 		}
 		return notifications;
 	}
-	
-	private List<Alert> parseAlerts(JSONObject json) {
-		List<Alert> ret = new LinkedList<Alert>();
-		if (json.optBoolean("Status"))
-			ret.add(new StatusAlert());
-		if (json.optBoolean("DepartureTime"))
-			ret.add(new DepartureTimeAlert());
-		if (json.optBoolean("DepartureTerminal"))
-			ret.add(new DepartureTerminalAlert());
-		if (json.optBoolean("DepartureGate"))
-			ret.add(new DepartureGateAlert());
-		if (json.optBoolean("BaggageGate"))
-			ret.add(new BaggageGateAlert());
-		if (json.optBoolean("ArrivalTime"))
-			ret.add(new ArrivalTimeAlert());
-		if (json.optBoolean("ArrivalTerminal"))
-			ret.add(new ArrivalTerminalAlert());
-		if (json.optBoolean("ArrivalGate"))
-			ret.add(new ArrivalGateAlert());
-		return ret;
-	}
-	
 }

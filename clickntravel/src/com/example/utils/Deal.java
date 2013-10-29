@@ -18,13 +18,14 @@ public class Deal {
 	private String flightNumber;
 	
 	public Deal(String nameFrom, String nameTo, String depTime,
-			String arrivalTime, String price) {
+			String arrivalTime, String price, String airlineId) {
 		
 		this.nameFrom = nameFrom;
 		this.nameTo = nameTo;
 		this.depTime = depTime;
 		this.arrivalTime = arrivalTime;
 		this.price = price;
+		this.airlineId = airlineId;
 	}
 	
 	public Deal(String idFrom, String nameFrom, String idTo, String nameTo,
@@ -48,7 +49,6 @@ public class Deal {
 		final int prime = 31;
 		int result = 1;
 		
-		result = prime * result	+ ((airlineId == null) ? 0 : airlineId.hashCode());
 		result = prime * result	+ ((arrivalTime == null) ? 0 : arrivalTime.hashCode());
 		result = prime * result + ((depTime == null) ? 0 : depTime.hashCode());
 		result = prime * result	+ ((flightId == null) ? 0 : flightId.hashCode());
@@ -72,13 +72,6 @@ public class Deal {
 		if (getClass() != obj.getClass())
 			return false;
 		Deal other = (Deal) obj;
-		
-		if (airlineId == null) {
-			if (other.airlineId != null)
-				return false;
-			
-		} else if (!airlineId.equals(other.airlineId))
-			return false;
 		
 		if (arrivalTime == null) {
 			if (other.arrivalTime != null)
@@ -189,5 +182,5 @@ public class Deal {
 		return idFrom + nameFrom + idTo + nameTo + price + " " + airlineId
 				+ " " + flightId + " " + flightNumber + "" + depTime + ""
 				+ arrivalTime;
-	}
+	} 
 }

@@ -68,7 +68,7 @@ public class ApiService extends IntentService{
 		final String jsonToParse = EntityUtils.toString(response.getEntity());
 
 		b.putSerializable("return", (Serializable) jsonToParse);
-
+		
 		receiver.send(STATUS_OK, b);
 	}
 

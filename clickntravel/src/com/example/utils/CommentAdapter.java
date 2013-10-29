@@ -54,12 +54,12 @@ public class CommentAdapter extends BaseAdapter {
 			convertView.setTag(holder);
 		} else
 			holder = (ViewHolder) convertView.getTag();
-		holder.foodRating.setText(commentList.get(position).getFoodRating() + "/10");
-		holder.kindnessRating.setText(commentList.get(position).getFriendlinessRating() + "/10");
-		holder.punctuallityRating.setText(commentList.get(position).getPunctualityRating() + "/10");
-		holder.millageRating.setText(commentList.get(position).getMileageProgramRating() + "/10");
-		holder.comfortRating.setText(commentList.get(position).getComfortRating() + "/10");
-		holder.priceQualityRating.setText(commentList.get(position).getQualityPriceRating() + "/10");
+		holder.foodRating.setText(commentList.get(position).getFoodRating() + "/9");
+		holder.kindnessRating.setText(commentList.get(position).getFriendlinessRating() + "/9");
+		holder.punctuallityRating.setText(commentList.get(position).getPunctualityRating() + "/9");
+		holder.millageRating.setText(commentList.get(position).getMileageProgramRating() + "/9");
+		holder.comfortRating.setText(commentList.get(position).getComfortRating() + "/9");
+		holder.priceQualityRating.setText(commentList.get(position).getQualityPriceRating() + "/9");
 		holder.commentRating.setText(commentList.get(position).getComments());
 		
 		if(commentList.get(position).getYesRecommend() == R.string.yes)

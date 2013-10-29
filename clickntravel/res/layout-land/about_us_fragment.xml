@@ -6,23 +6,23 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="502dp"
-        android:layout_height="40dp"
+        android:layout_width="280dp"
+        android:layout_height="100dp"
+        android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:text="@string/aboutus_text"
         android:textSize="15sp" />
 
     <LinearLayout
-        android:layout_width="396dp"
-        android:layout_height="190dp"
-        android:layout_weight="0.35"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal" >
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="2dp"
+            android:layout_marginLeft="20dp"
             android:orientation="vertical" >
 
             <ImageView
@@ -37,9 +37,9 @@
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
                 android:scaleType="center"
                 android:src="@drawable/bullet" />
 
@@ -47,9 +47,9 @@
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="11dp"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="11dp"
                 android:scaleType="center"
                 android:src="@drawable/bullet" />
 
@@ -57,13 +57,13 @@
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginTop="12dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
                 android:scaleType="center"
                 android:src="@drawable/bullet" />
         </LinearLayout>
-
+        
         <TextView
             android:layout_width="250dp"
             android:layout_height="wrap_content"

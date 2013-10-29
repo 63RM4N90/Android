@@ -40,22 +40,21 @@ public class CommentListFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		if (view == null) {
+		if (view == null)
 			view = inflater.inflate(R.layout.comment_list_fragment, container, false);
-		}
-		
-		ListView listView = (ListView) view.findViewById(R.id.comment_list_view);
-		
-		
-		createCommentList();
-		adapter = new CommentAdapter(getActivity(), commentList);
-		listView.setAdapter(adapter); 
+
 		return view;
 	}
 	
 	@Override
 	public void onStart() {
 		ActionBar actionBar = getActivity().getActionBar();
+		
+		commentList = new ArrayList<Comment>();
+		refreshCommentList();
+		adapter = new CommentAdapter(getActivity(), commentList);
+		ListView listView = (ListView) view.findViewById(R.id.comment_list_view);
+		listView.setAdapter(adapter); 
 		
 		actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM); 
 		actionBar.setCustomView(R.layout.see_comments_abs_layout);
@@ -64,16 +63,14 @@ public class CommentListFragment extends Fragment {
         super.onStart();
 	}
 	
-	private void createCommentList(){
+	private void refreshCommentList(){
 		
 		Callback callback = new Callback() {
 			public void handleResponse(JSONObject response) {
-				List<Comment> cl= new ArrayList<Comment>();
 				try {
 					JSONArray reviews = response.getJSONArray("reviews");
 					for(int i=0; i < reviews.length(); i++)
-						cl.add(new Comment(reviews.getJSONObject(i)));
-					commentList = cl;
+						commentList.add(new Comment(reviews.getJSONObject(i)));
 					adapter.notifyDataSetChanged();
 				} catch (JSONException e) { }
 			}
@@ -89,7 +86,7 @@ public class CommentListFragment extends Fragment {
 	this.getActivity().startService(intent);
 		
 	}
-	
+
 	@Override
 	public void onDestroyView() {
 		if (view != null)

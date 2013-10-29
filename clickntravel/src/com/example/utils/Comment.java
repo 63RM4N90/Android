@@ -91,6 +91,6 @@ public class Comment {
 	}
 
 	public String getComments() {
-		return comments;
+		return (comments == "null") ? "" : comments;
 	}
 }

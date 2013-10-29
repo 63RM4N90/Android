@@ -25,6 +25,20 @@ public class ImageHandler {
 		imageMap.put("Copa Airlines", R.drawable.cm);
 		imageMap.put("Iberia",R.drawable.ib);
 		imageMap.put("Taca", R.drawable.ta);
+		
+		imageMap.put("AR", R.drawable.ar);
+		imageMap.put("LA",R.drawable.la);
+		imageMap.put("8R", R.drawable.sol);
+		imageMap.put("JJ", R.drawable.jj);
+		imageMap.put("AA",R.drawable.aa);
+		imageMap.put("AF", R.drawable.af);
+		imageMap.put("AM", R.drawable.am);
+		imageMap.put("AV",R.drawable.av);
+		imageMap.put("AZ", R.drawable.az);
+		imageMap.put("BA", R.drawable.ba);
+		imageMap.put("CM", R.drawable.cm);
+		imageMap.put("IB",R.drawable.ib);
+		imageMap.put("TA", R.drawable.ta);
 	}
 	
 	public int getImage(String airline) {

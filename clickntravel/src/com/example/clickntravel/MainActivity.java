@@ -38,6 +38,16 @@ public class MainActivity extends FragmentActivity {
 	MenuItem comment;
 	MenuItem seeComments;
 	MenuItem configuration;
+	
+	public static String NEW_STATE;
+	public static String NEW_DEPARTURE_HOUR;
+	public static String NEW_DEPARTURE_TERMINAL;
+	public static String NEW_DEPARTURE_GATE;
+	public static String NEW_BAGGAGE_GATE;
+	public static String NEW_ARRIVAL_HOUR;
+	public static String NEW_ARRIVAL_TERMINAL;
+	public static String NEW_ARRIVAL_GATE;
+
 
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
@@ -49,6 +59,15 @@ public class MainActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		NEW_STATE = getString(R.string.new_status);
+		NEW_DEPARTURE_HOUR = getString(R.string.new_departure_hour);
+		NEW_DEPARTURE_TERMINAL = getString(R.string.new_departure_terminal);
+		NEW_DEPARTURE_GATE = getString(R.string.new_departure_gate);
+		NEW_BAGGAGE_GATE = getString(R.string.new_baggage_gate);
+		NEW_ARRIVAL_HOUR = getString(R.string.new_arrival_hour);
+		NEW_ARRIVAL_TERMINAL = getString(R.string.new_arrival_terminal);
+		NEW_ARRIVAL_GATE = getString(R.string.new_arrial_gate);
+		
 		Alert.CONTEXT = this;
 		Alert.refreshAlerts();
 		PreferenceManager
@@ -75,15 +94,32 @@ public class MainActivity extends FragmentActivity {
 		actionBar.setIcon(R.drawable.back);
 	}
 
+	public void closeDB() {
+	
+//		if (MainFragment.mDbHelper != null) {
+//			
+//			MainFragment.mDbHelper.close();
+//		}
+	}
+	
 	public void onClickMyFlights(View view) {
+		
+		closeDB();
+		
 		this.fragmentHandler.setFragment(FragmentKey.MY_FLIGHTS);
 	}
 
 	public void onClickAboutUs(View view) {
+		
+		closeDB();
+		
 		this.fragmentHandler.setFragment(FragmentKey.ABOUT_US);
 	}
 
 	public void onClickMyDeals(View view) {
+		
+		closeDB();
+		
 		this.fragmentHandler.setFragment(FragmentKey.MY_DEALS);
 	}
 
@@ -104,9 +140,13 @@ public class MainActivity extends FragmentActivity {
 		hideDetailOptions();
 		hideSubmitComment();
 		if (fragmentHandler.getCurrentKey().equals(FragmentKey.BASE)) {
+			Toast.makeText(this, R.string.saving_changes, Toast.LENGTH_SHORT).show();
 			Intent intent = new Intent(this, MainActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+			return;
+		} else if (fragmentHandler.getCurrentKey().equals(FragmentKey.MAIN)) {
+			finish();
 			return;
 		}
 		super.onBackPressed();
@@ -134,20 +174,19 @@ public class MainActivity extends FragmentActivity {
 	};
 
 	private boolean menuSelection(MenuItem item) {
+		hideDetailOptions();
+		hideSubmitComment();
 		switch (item.getItemId()) {
 		case 0:
 			((FlightListFragment) fragmentHandler.getFragment(FragmentKey.FLIGHT_LIST)).removeFlight();
 			this.onBackPressed();
-			hideDetailOptions();
 			Toast.makeText(this, R.string.remove_flight_toast,
 					Toast.LENGTH_SHORT).show();
 			return true;
 		case 1:
-			hideDetailOptions();
 			fragmentHandler.setFragment(FragmentKey.ADD_COMMENT);
 			return true;
 		case 2:
-			hideDetailOptions();
 			fragmentHandler.setFragment(FragmentKey.SEE_COMMENTS);
 			return true;
 		case 3:
@@ -161,6 +200,7 @@ public class MainActivity extends FragmentActivity {
 		case 4:
 			((AddCommentFragment) fragmentHandler.getFragment(FragmentKey.ADD_COMMENT)).addComment();
 			this.onBackPressed();
+			Toast.makeText(this, R.string.comment_added, Toast.LENGTH_SHORT).show();
 			return true;
 		case android.R.id.home:
 			this.onBackPressed();

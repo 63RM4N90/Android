@@ -1,0 +1,63 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ListView
+        android:id="@+id/dealList"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#BBBBBB" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:scaleType="center"
+            android:src="@drawable/cntlogohdpi" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical" >
+
+            <Button
+                android:id="@+id/myflights"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#0C81C7"
+                android:onClick="onClickMyFlights"
+                android:text="@string/main_button_myflights"
+                android:textColor="#DDDDDD" />
+
+            <Button
+                android:id="@+id/mydeals"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#0C81C7"
+                android:onClick="onClickMyDeals"
+                android:text="@string/main_button_mydeals"
+                android:textColor="#DDDDDD" />
+
+            <Button
+                android:id="@+id/aboutus"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#0C81C7"
+                android:onClick="onClickAboutUs"
+                android:text="@string/main_button_aboutus"
+                android:textColor="#DDDDDD" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -8,6 +8,6 @@
         android:id="@+id/deals_list_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#BBBBBB" />
+        android:background="#CCC" />
 
 </LinearLayout>
